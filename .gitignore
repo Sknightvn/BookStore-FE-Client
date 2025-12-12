@@ -1,0 +1,56 @@
+# Next.js Frontend
+
+# Dependencies
+node_modules/
+
+# Next.js build outputs
+.next/
+out/
+build/
+dist/
+
+# Environment variables
+.env
+.env*.local
+.env.production
+.env.development
+
+# Testing
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vercel
+.vercel
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# PWA
+public/sw.js
+public/workbox-*.js
+public/sw.js.map
+public/workbox-*.js.map
+
+# IDE
+.vscode/
+.idea/
+
+# Cache
+.eslintcache
+.stylelintcache
