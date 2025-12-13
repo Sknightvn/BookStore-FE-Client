@@ -192,8 +192,9 @@
 
 "use client"
 
-import type React from "react"
-import { createContext, useContext, useState, useCallback, useEffect } from "react"
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react"
+import { useAuth } from "./auth-context"
+import { useUserCart, useCreateUserCart, useUpdateUserCart } from "@/hooks/useCart"
 
 export interface CartItem {
   product: {
@@ -260,11 +261,20 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth()
   const [items, setItems] = useState<CartItem[]>([])
   const [deliveryAddresses, setDeliveryAddresses] = useState<DeliveryAddress[]>([])
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null)
   const [appliedPromotion, setAppliedPromotion] = useState<Promotion | null>(null)
   const [isInitialized, setIsInitialized] = useState(false)
+
+  // API hooks
+  const { data: serverCartData, isLoading: isLoadingCart } = useUserCart(
+    user?.id,
+    user?.email
+  )
+  const createCartMutation = useCreateUserCart()
+  const updateCartMutation = useUpdateUserCart()
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -281,12 +291,45 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setIsInitialized(true)
   }, [])
 
-  // Save to localStorage whenever items change
+  // Sync với server cart khi user đăng nhập và có data từ server
+  useEffect(() => {
+    if (user && serverCartData?.success && serverCartData.data && serverCartData.data.length > 0) {
+      // Ưu tiên dữ liệu từ server nếu có
+      setItems(serverCartData.data)
+      localStorage.setItem("cartItems", JSON.stringify(serverCartData.data))
+    }
+  }, [user, serverCartData])
+
+  // Save to localStorage khi items thay đổi
   useEffect(() => {
     if (isInitialized) {
       localStorage.setItem("cartItems", JSON.stringify(items))
     }
   }, [items, isInitialized])
+
+  // Sync với server khi items thay đổi (debounced để tránh quá nhiều requests)
+  useEffect(() => {
+    if (!isInitialized || !user || (!user.id && !user.email)) return
+
+    const syncTimeout = setTimeout(() => {
+      const cartRequest = {
+        userId: user.id,
+        email: user.email,
+        productsCart: items,
+      }
+
+      // Kiểm tra xem cart đã tồn tại trên server chưa
+      if (serverCartData?.success && serverCartData.data && serverCartData.data.length >= 0) {
+        // Update cart nếu đã tồn tại
+        updateCartMutation.mutate(cartRequest)
+      } else if (items.length > 0) {
+        // Tạo cart mới nếu chưa tồn tại và có items
+        createCartMutation.mutate(cartRequest)
+      }
+    }, 1000) // Debounce 1 giây
+
+    return () => clearTimeout(syncTimeout)
+  }, [items, isInitialized, user, serverCartData?.success])
 
   // Save addresses to localStorage
   useEffect(() => {
@@ -310,11 +353,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [appliedPromotion, isInitialized])
 
   const getTotalItems = useCallback(() => {
-    return items.reduce((sum, item) => sum + item.quantity, 0)
+    return items.reduce((sum: number, item: CartItem) => sum + item.quantity, 0)
   }, [items])
 
   const getTotalPrice = useCallback(() => {
-    return items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+    return items.reduce((sum: number, item: CartItem) => sum + item.product.price * item.quantity, 0)
   }, [items])
 
   const getShippingFee = useCallback(() => {
@@ -362,10 +405,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [getTotalPrice, getDiscountAmount, getShippingFee, getTax])
 
   const addToCart = useCallback((product: CartItem["product"], quantity: number) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.product.id === product.id)
+    setItems((prevItems: CartItem[]) => {
+      const existingItem = prevItems.find((item: CartItem) => item.product.id === product.id)
       if (existingItem) {
-        return prevItems.map((item) =>
+        return prevItems.map((item: CartItem) =>
           item.product.id === product.id ? { ...item, quantity: item.quantity + quantity } : item,
         )
       }
@@ -374,7 +417,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const removeFromCart = useCallback((productId: string) => {
-    setItems((prevItems) => prevItems.filter((item) => item.product.id !== productId))
+    setItems((prevItems: CartItem[]) => prevItems.filter((item: CartItem) => item.product.id !== productId))
   }, [])
 
   const updateQuantity = useCallback(
@@ -382,7 +425,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (quantity <= 0) {
         removeFromCart(productId)
       } else {
-        setItems((prevItems) => prevItems.map((item) => (item.product.id === productId ? { ...item, quantity } : item)))
+        setItems((prevItems: CartItem[]) => prevItems.map((item: CartItem) => (item.product.id === productId ? { ...item, quantity } : item)))
       }
     },
     [removeFromCart],
@@ -399,7 +442,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const deleteAddress = useCallback(
     (addressId: string) => {
-      setDeliveryAddresses((prevAddresses) => prevAddresses.filter((addr) => addr.id !== addressId))
+      setDeliveryAddresses((prevAddresses: DeliveryAddress[]) => prevAddresses.filter((addr: DeliveryAddress) => addr.id !== addressId))
       if (selectedAddressId === addressId) {
         setSelectedAddressId(null)
       }
@@ -408,7 +451,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   )
 
   const getSelectedAddress = useCallback(() => {
-    return deliveryAddresses.find((addr) => addr.id === selectedAddressId) || null
+    return deliveryAddresses.find((addr: DeliveryAddress) => addr.id === selectedAddressId) || null
   }, [deliveryAddresses, selectedAddressId])
 
   const applyPromotion = useCallback(
