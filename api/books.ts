@@ -15,6 +15,6 @@ export const getBookById = async (id: string): Promise<BookResponse> => {
 
 // Get top/trending products
 export const getTopProducts = async (): Promise<TopProductsResponse> => {
-    const response = await axiosInstance.get('/books/top')
+    const response = await axiosInstance.get('/statistics/top')
     return response.data
 }
