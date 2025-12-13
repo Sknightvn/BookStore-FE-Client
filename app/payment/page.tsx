@@ -346,10 +346,14 @@ export default function PaymentPage() {
         return
       }
 
-      // ✅ Nếu chọn thanh toán qua VNPay
+      // Thanh toán qua VNPay - tạo đơn trước, sau đó chuyển hướng
       createVNPayOrderMutation.mutate(orderData, {
         onSuccess: (result) => {
           if (result.paymentUrl) {
+            // Xóa giỏ hàng và dữ liệu checkout
+            clearCart()
+            localStorage.removeItem("checkoutData")
+
             // Chuyển hướng sang trang VNPay
             window.location.href = result.paymentUrl
           } else {
