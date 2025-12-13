@@ -346,16 +346,13 @@ export default function PaymentPage() {
         return
       }
 
-      // Thanh toán qua VNPay - tạo đơn trước, sau đó chuyển hướng
       createVNPayOrderMutation.mutate(orderData, {
         onSuccess: (result) => {
           if (result.paymentUrl) {
-            // Xóa giỏ hàng và dữ liệu checkout
-            clearCart()
-            localStorage.removeItem("checkoutData")
+            // clearCart()
+            // localStorage.removeItem("checkoutData")
 
-            // Chuyển hướng sang trang VNPay
-            window.location.href = result.paymentUrl
+            // window.location.href = result.paymentUrl
           } else {
             message.error("Không tạo được link thanh toán VNPay!")
             setIsProcessing(false)
