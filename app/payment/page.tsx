@@ -349,18 +349,17 @@ export default function PaymentPage() {
       createOrderMutation.mutate(orderData, {
         onSuccess: (result) => {
           if (result.paymentUrl) {
-            // clearCart()
-            // localStorage.removeItem("checkoutData")
-
-            // window.location.href = result.paymentUrl
+            clearCart()
+            localStorage.removeItem("checkoutData")
+            window.location.href = result.paymentUrl
           } else {
-            message.error("Không tạo được link thanh toán VNPay!")
+            // message.error("Không tạo được link thanh toán VNPay!")
             setIsProcessing(false)
           }
         },
         onError: (error: any) => {
           console.error("Lỗi thanh toán:", error)
-          message.error("Có lỗi xảy ra khi thanh toán!")
+          // message.error("Có lỗi xảy ra khi thanh toán!")
           setIsProcessing(false)
         },
       })
