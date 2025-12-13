@@ -351,7 +351,7 @@ export default function PaymentPage() {
           if (result.paymentUrl) {
             clearCart()
             localStorage.removeItem("checkoutData")
-            window.location.href = result.paymentUrl
+            window.location.href = result.paymentUrl!
           } else {
             // message.error("Không tạo được link thanh toán VNPay!")
             setIsProcessing(false)
@@ -365,7 +365,7 @@ export default function PaymentPage() {
       })
     } catch (error) {
       console.error("Lỗi thanh toán:", error)
-      message.error("Có lỗi xảy ra khi thanh toán!")
+      // message.error("Có lỗi xảy ra khi thanh toán!")
       setIsProcessing(false)
     }
   }
