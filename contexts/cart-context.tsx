@@ -192,7 +192,7 @@
 
 "use client"
 
-import React, { createContext, useContext, useState, useCallback, useEffect } from "react"
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react"
 import { useAuth } from "./auth-context"
 import { useUserCart, useCreateUserCart, useUpdateUserCart } from "@/hooks/useCart"
 
@@ -267,6 +267,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null)
   const [appliedPromotion, setAppliedPromotion] = useState<Promotion | null>(null)
   const [isInitialized, setIsInitialized] = useState(false)
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
+  const itemsRef = useRef<CartItem[]>([])
+
+  // Cập nhật ref mỗi khi items thay đổi
+  useEffect(() => {
+    itemsRef.current = items
+  }, [items])
 
   // API hooks
   const { data: serverCartData, isLoading: isLoadingCart } = useUserCart(
@@ -276,40 +283,99 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const createCartMutation = useCreateUserCart()
   const updateCartMutation = useUpdateUserCart()
 
-  // Load from localStorage on mount
+  // Helper function để lấy localStorage key cho cart
+  const getCartStorageKey = (userId: string | null) => {
+    return userId ? `cartItems_${userId}` : "cartItems_guest"
+  }
+
+  // Load from localStorage on mount (chỉ cho guest hoặc user hiện tại)
   useEffect(() => {
-    const savedItems = localStorage.getItem("cartItems")
+    const userId = user?.id || null
+    const cartKey = getCartStorageKey(userId)
+
+    const savedItems = localStorage.getItem(cartKey)
     const savedAddresses = localStorage.getItem("deliveryAddresses")
     const savedAddressId = localStorage.getItem("selectedAddressId")
     const savedPromotion = localStorage.getItem("appliedPromotion")
 
-    if (savedItems) setItems(JSON.parse(savedItems))
+    // Chỉ load từ localStorage nếu là guest hoặc chưa có data từ server
+    if (!user && savedItems) {
+      setItems(JSON.parse(savedItems))
+    }
     if (savedAddresses) setDeliveryAddresses(JSON.parse(savedAddresses))
     if (savedAddressId) setSelectedAddressId(savedAddressId)
     if (savedPromotion) setAppliedPromotion(JSON.parse(savedPromotion))
 
+    setCurrentUserId(userId)
     setIsInitialized(true)
   }, [])
 
-  // Sync với server cart khi user đăng nhập và có data từ server
+  // Xử lý khi user thay đổi (đăng nhập user khác hoặc logout)
   useEffect(() => {
-    if (user && serverCartData?.success && serverCartData.data && serverCartData.data.length > 0) {
-      // Ưu tiên dữ liệu từ server nếu có
-      setItems(serverCartData.data)
-      localStorage.setItem("cartItems", JSON.stringify(serverCartData.data))
-    }
-  }, [user, serverCartData])
+    const newUserId = user?.id || null
 
-  // Save to localStorage khi items thay đổi
+    // Nếu user thay đổi, clear cart hiện tại và load cart của user mới
+    if (isInitialized && currentUserId !== newUserId) {
+      const currentItems = itemsRef.current
+
+      // Lưu cart cũ vào localStorage trước khi clear (nếu có)
+      if (currentUserId && currentItems.length > 0) {
+        const oldCartKey = getCartStorageKey(currentUserId)
+        localStorage.setItem(oldCartKey, JSON.stringify(currentItems))
+      } else if (!currentUserId && currentItems.length > 0) {
+        // Lưu cart guest trước khi đăng nhập
+        const guestCartKey = getCartStorageKey(null)
+        localStorage.setItem(guestCartKey, JSON.stringify(currentItems))
+      }
+
+      // Clear cart hiện tại
+      setItems([])
+      setAppliedPromotion(null)
+
+      // Nếu logout, load cart guest từ localStorage
+      if (!newUserId) {
+        const guestCartKey = getCartStorageKey(null)
+        const guestCart = localStorage.getItem(guestCartKey)
+        if (guestCart) {
+          try {
+            setItems(JSON.parse(guestCart))
+          } catch (e) {
+            console.error("Error parsing guest cart:", e)
+          }
+        }
+      }
+
+      setCurrentUserId(newUserId)
+    }
+  }, [user?.id, isInitialized, currentUserId])
+
+  // Load cart từ server khi có data mới (cho user hiện tại)
+  useEffect(() => {
+    if (user && currentUserId === user.id && !isLoadingCart && serverCartData) {
+      if (serverCartData.success && serverCartData.data !== undefined) {
+        // Có data từ server, dùng data từ server
+        setItems(serverCartData.data || [])
+      } else if (serverCartData.success) {
+        // Server trả về success nhưng không có data (cart rỗng)
+        setItems([])
+      }
+    }
+  }, [serverCartData, user, currentUserId, isLoadingCart])
+
+  // Save to localStorage khi items thay đổi (với key riêng cho mỗi user)
   useEffect(() => {
     if (isInitialized) {
-      localStorage.setItem("cartItems", JSON.stringify(items))
+      const userId = user?.id || null
+      const cartKey = getCartStorageKey(userId)
+      localStorage.setItem(cartKey, JSON.stringify(items))
     }
-  }, [items, isInitialized])
+  }, [items, isInitialized, user?.id])
 
   // Sync với server khi items thay đổi (debounced để tránh quá nhiều requests)
+  // Chỉ sync cho user hiện tại
   useEffect(() => {
     if (!isInitialized || !user || (!user.id && !user.email)) return
+    if (currentUserId !== user.id) return // Chỉ sync cho user hiện tại
 
     const syncTimeout = setTimeout(() => {
       const cartRequest = {
@@ -319,17 +385,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
 
       // Kiểm tra xem cart đã tồn tại trên server chưa
-      if (serverCartData?.success && serverCartData.data && serverCartData.data.length >= 0) {
+      if (serverCartData?.success && serverCartData.data !== undefined) {
         // Update cart nếu đã tồn tại
         updateCartMutation.mutate(cartRequest)
       } else if (items.length > 0) {
         // Tạo cart mới nếu chưa tồn tại và có items
         createCartMutation.mutate(cartRequest)
+      } else if (items.length === 0 && serverCartData?.success) {
+        // Nếu cart rỗng nhưng server có cart, update để clear server cart
+        updateCartMutation.mutate(cartRequest)
       }
     }, 1000) // Debounce 1 giây
 
     return () => clearTimeout(syncTimeout)
-  }, [items, isInitialized, user, serverCartData?.success])
+  }, [items, isInitialized, user, currentUserId, serverCartData?.success, createCartMutation, updateCartMutation])
 
   // Save addresses to localStorage
   useEffect(() => {
