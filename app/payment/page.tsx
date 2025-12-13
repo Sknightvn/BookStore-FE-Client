@@ -348,9 +348,9 @@ export default function PaymentPage() {
 
       createVNPayOrderMutation.mutate(orderData, {
         onSuccess: (result) => {
+          clearCart()
+          localStorage.removeItem("checkoutData")
           if (result.paymentUrl) {
-            clearCart()
-            localStorage.removeItem("checkoutData")
             window.location.href = result.paymentUrl!
           } else {
             // message.error("Không tạo được link thanh toán VNPay!")
