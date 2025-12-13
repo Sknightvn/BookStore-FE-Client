@@ -88,16 +88,15 @@ export default function CategoryBanner({ categories, products }: CategoryBannerP
         </div>
 
         {/* Category Slider */}
-        <div className="flex gap-3 mb-12 overflow-x-auto pb-4 scrollbar-hide">
+        <div className="flex gap-3 mb-12 overflow-x-auto pb-4">
           {categories.map((category, index) => (
             <button
               key={category}
               onClick={() => setActiveCategory(index)}
-              className={`px-6 py-3 rounded-full font-semibold transition-all whitespace-nowrap ${
-                activeCategory === index
-                  ? "bg-gradient-to-r from-orange-400 to-pink-400 text-white shadow-lg"
-                  : "bg-white text-gray-700 border-2 border-orange-200 hover:border-orange-400"
-              }`}
+              className={`px-6 py-3 rounded-full font-semibold transition-all whitespace-nowrap ${activeCategory === index
+                ? "bg-gradient-to-r from-orange-400 to-pink-400 text-white shadow-lg"
+                : "bg-white text-gray-700 border-2 border-orange-200 hover:border-orange-400"
+                }`}
             >
               {category}
             </button>
@@ -192,9 +191,8 @@ export default function CategoryBanner({ categories, products }: CategoryBannerP
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-all ${
-                        index === currentImageIndex ? "bg-orange-500 w-6" : "bg-orange-200 hover:bg-orange-300"
-                      }`}
+                      className={`w-2 h-2 rounded-full transition-all ${index === currentImageIndex ? "bg-orange-500 w-6" : "bg-orange-200 hover:bg-orange-300"
+                        }`}
                       aria-label={`Go to product ${index + 1}`}
                     />
                   ))}
