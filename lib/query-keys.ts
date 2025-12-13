@@ -28,4 +28,7 @@ export const queryKeys = {
 
     // Auth
     userProfile: (token?: string) => ['user', 'profile', token] as const,
+
+    // Cart
+    userCart: (userIdOrEmail: string) => ['users', 'cart', userIdOrEmail] as const,
 } as const
