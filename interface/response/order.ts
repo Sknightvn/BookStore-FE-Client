@@ -23,6 +23,7 @@ export interface OrderResponse {
     order?: Order
     data?: Order
     message?: string
+    paymentUrl?: string
 }
 
 export interface VNPayResponse {

@@ -346,7 +346,7 @@ export default function PaymentPage() {
         return
       }
 
-      createVNPayOrderMutation.mutate(orderData, {
+      createOrderMutation.mutate(orderData, {
         onSuccess: (result) => {
           if (result.paymentUrl) {
             // clearCart()
