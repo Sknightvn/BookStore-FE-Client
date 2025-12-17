@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Calendar, User, Clock, Share2, Heart, BookOpen } from "lucide-react"
+import { IconArrowLeft, IconCalendar, IconUserSquareRounded, IconClock, IconShare, IconHeart, IconBook } from "@tabler/icons-react"
 import Link from "next/link"
 
 interface BlogPost {
@@ -247,7 +247,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Không tìm thấy bài viết</h1>
-          <p className="text-gray-600 mb-8">Bài viết bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.</p>
+          <p className="text-indigo-950 mb-8">Bài viết bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.</p>
           <Button onClick={() => router.push("/blog")}>Quay lại blog</Button>
         </div>
       </div>
@@ -258,7 +258,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Back Button */}
       <Button variant="ghost" onClick={() => router.back()} className="mb-6">
-        <ArrowLeft className="w-4 h-4 mr-2" />
+        <IconArrowLeft size={16} className="mr-2" />
         Quay lại
       </Button>
 
@@ -268,31 +268,31 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
             <Badge className="bg-blue-500 hover:bg-blue-600">{post.category}</Badge>
             <span className="flex items-center">
-              <Calendar className="w-4 h-4 mr-1" />
+              <IconCalendar size={16} className="mr-1" />
               {new Date(post.publishDate).toLocaleDateString("vi-VN")}
             </span>
             <span className="flex items-center">
-              <User className="w-4 h-4 mr-1" />
+              <IconUserSquareRounded size={16} className="mr-1" />
               {post.author}
             </span>
             <span className="flex items-center">
-              <Clock className="w-4 h-4 mr-1" />
+              <IconClock size={16} className="mr-1" />
               {post.readTime} phút đọc
             </span>
           </div>
 
           <h1 className="text-4xl font-bold text-gray-900 leading-tight">{post.title}</h1>
 
-          <p className="text-xl text-gray-600 leading-relaxed">{post.excerpt}</p>
+          <p className="text-xl text-indigo-950 leading-relaxed">{post.excerpt}</p>
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4 pt-4">
             <Button variant="outline" size="sm">
-              <Heart className="w-4 h-4 mr-2" />
+              <IconHeart size={16} className="mr-2" />
               Yêu thích
             </Button>
             <Button variant="outline" size="sm">
-              <Share2 className="w-4 h-4 mr-2" />
+              <IconShare size={16} className="mr-2" />
               Chia sẻ
             </Button>
           </div>
@@ -312,7 +312,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
         <div className="flex flex-wrap gap-2 pt-6 border-t">
           <span className="text-sm font-medium text-gray-700">Tags:</span>
           {post.tags.map((tag) => (
-            <Badge key={tag} variant="secondary" className="text-xs">
+            <Badge key={tag} variant="secondary" className="text-sm">
               #{tag}
             </Badge>
           ))}
@@ -323,11 +323,11 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
           <CardContent className="p-6">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                <User className="w-8 h-8 text-blue-600" />
+                <IconUserSquareRounded size={32} className="text-blue-600" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gray-900">{post.author}</h3>
-                <p className="text-gray-600">
+                <p className="text-indigo-950">
                   Chuyên gia trong lĩnh vực {post.category.toLowerCase()}, có nhiều năm kinh nghiệm và đam mê chia sẻ
                   kiến thức.
                 </p>
@@ -340,7 +340,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
         <Card className="mt-8">
           <CardContent className="p-6">
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
-              <BookOpen className="w-5 h-5 mr-2" />
+              <IconBook size={20} className="mr-2" />
               Bài viết liên quan
             </h3>
             <div className="space-y-4">
@@ -348,7 +348,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                 <h4 className="font-medium text-gray-900 hover:text-blue-600">
                   Cách Xây Dựng Thói Quen Đọc Sách Hiệu Quả
                 </h4>
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-indigo-950 mt-1">
                   Hướng dẫn chi tiết để phát triển thói quen đọc sách bền vững...
                 </p>
               </Link>
@@ -356,7 +356,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                 <h4 className="font-medium text-gray-900 hover:text-blue-600">
                   Review: Sapiens - Cuốn Sách Thay Đổi Cách Nhìn Về Lịch Sử
                 </h4>
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-indigo-950 mt-1">
                   Đánh giá chi tiết về cuốn sách Sapiens của Yuval Noah Harari...
                 </p>
               </Link>

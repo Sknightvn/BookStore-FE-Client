@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { CheckCircle, Package, Truck, Copy, ArrowLeft, Home } from "lucide-react"
+import { IconCircleCheck, IconPackage, IconTruck, IconCopy, IconArrowLeft, IconHome } from "@tabler/icons-react"
 import { getOrderByNumber, type Order } from "@/lib/orders-data"
 import { message } from "antd"
 
@@ -62,7 +62,7 @@ export default function OrderSuccessPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Đang tải thông tin đơn hàng...</p>
+          <p className="mt-4 text-indigo-950">Đang tải thông tin đơn hàng...</p>
         </div>
       </div>
     )
@@ -72,9 +72,9 @@ export default function OrderSuccessPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Success Header */}
       <div className="text-center mb-8">
-        <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+        <IconCircleCheck size={64} className="text-green-500 mx-auto mb-4" />
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Đặt hàng thành công!</h1>
-        <p className="text-gray-600">Cảm ơn bạn đã mua sắm tại BookStore</p>
+        <p className="text-indigo-950">Cảm ơn bạn đã mua sắm tại BookStore</p>
       </div>
 
       {/* Order Information */}
@@ -82,7 +82,7 @@ export default function OrderSuccessPage() {
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span className="flex items-center space-x-2">
-              <Package className="w-5 h-5" />
+              <IconPackage size={20} />
               <span>Thông tin đơn hàng</span>
             </span>
             {getStatusBadge(order.status)}
@@ -96,7 +96,7 @@ export default function OrderSuccessPage() {
                 <div className="flex items-center space-x-2">
                   <span className="font-mono text-blue-600">{order.orderNumber}</span>
                   <Button variant="ghost" size="sm" onClick={copyOrderNumber} className="p-1 h-auto">
-                    <Copy className="w-4 h-4" />
+                    <IconCopy size={16} />
                   </Button>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function OrderSuccessPage() {
                   <strong>Nội dung:</strong> {order.orderNumber} - {order.shippingAddress.fullName}
                 </p>
               </div>
-              <p className="text-xs text-blue-700 mt-2">
+              <p className="text-sm text-blue-700 mt-2">
                 * Vui lòng chuyển khoản trong vòng 24h để đơn hàng được xử lý
               </p>
             </div>
@@ -153,16 +153,16 @@ export default function OrderSuccessPage() {
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
-            <Truck className="w-5 h-5" />
+            <IconTruck size={20} />
             <span>Địa chỉ giao hàng</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-1">
             <p className="font-medium">{order.shippingAddress.fullName}</p>
-            <p className="text-gray-600">{order.shippingAddress.phone}</p>
-            <p className="text-gray-600">{order.shippingAddress.email}</p>
-            <p className="text-gray-600">
+            <p className="text-indigo-950">{order.shippingAddress.phone}</p>
+            <p className="text-indigo-950">{order.shippingAddress.email}</p>
+            <p className="text-indigo-950">
               {order.shippingAddress.address}, {order.shippingAddress.ward}, {order.shippingAddress.district},{" "}
               {order.shippingAddress.city}
             </p>
@@ -189,7 +189,7 @@ export default function OrderSuccessPage() {
                 />
                 <div className="flex-1">
                   <h4 className="font-medium text-gray-900">{item.title}</h4>
-                  <p className="text-sm text-gray-600">{item.author}</p>
+                  <p className="text-sm text-indigo-950">{item.author}</p>
                   <p className="text-sm text-gray-500">
                     {item.quantity} × {item.price.toLocaleString("vi-VN")}đ
                   </p>
@@ -229,19 +229,19 @@ export default function OrderSuccessPage() {
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <Button variant="outline" asChild>
           <Link href="/products">
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <IconArrowLeft size={16} className="mr-2" />
             Tiếp tục mua sắm
           </Link>
         </Button>
         <Button asChild>
           <Link href="/order-tracking">
-            <Package className="w-4 h-4 mr-2" />
+            <IconPackage size={16} className="mr-2" />
             Theo dõi đơn hàng
           </Link>
         </Button>
         <Button variant="outline" asChild>
           <Link href="/">
-            <Home className="w-4 h-4 mr-2" />
+            <IconHome size={16} className="mr-2" />
             Về trang chủ
           </Link>
         </Button>
@@ -250,7 +250,7 @@ export default function OrderSuccessPage() {
       {/* Additional Info */}
       <div className="mt-8 p-4 bg-gray-50 rounded-lg">
         <h3 className="font-medium text-gray-900 mb-2">Thông tin quan trọng:</h3>
-        <ul className="text-sm text-gray-600 space-y-1">
+        <ul className="text-sm text-indigo-950 space-y-1">
           <li>• Đơn hàng sẽ được xử lý trong vòng 1-2 ngày làm việc</li>
           <li>• Thời gian giao hàng: 2-5 ngày làm việc tùy theo khu vực</li>
           <li>• Bạn có thể theo dõi trạng thái đơn hàng bằng mã đơn hàng</li>

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Search, Package, Truck, CheckCircle, Clock, XCircle, RotateCcw, Award } from "lucide-react"
+import { IconSearch, IconPackage, IconTruck, IconCircleCheck, IconClock, IconCircleX, IconRotateCcw, IconAward } from "@tabler/icons-react"
 import { message } from "antd"
 import { useSearchParams } from "next/navigation"
 import { useOrderByCode } from "@/hooks/useOrders"
@@ -78,25 +78,25 @@ export default function OrderTrackingPage() {
     switch (status) {
       case "pending":
       case "pending_payment":
-        return <Clock className="w-5 h-5 text-yellow-500" />
+        return <IconClock size={20} className="text-yellow-500" />
       case "confirmed":
-        return <CheckCircle className="w-5 h-5 text-blue-500" />
+        return <IconCircleCheck size={20} className="text-blue-500" />
       case "processing":
-        return <Package className="w-5 h-5 text-purple-500" />
+        return <IconPackage size={20} className="text-purple-500" />
       case "shipping":
-        return <Truck className="w-5 h-5 text-orange-500" />
+        return <IconTruck size={20} className="text-orange-500" />
       case "delivered":
-        return <CheckCircle className="w-5 h-5 text-green-500" />
+        return <IconCircleCheck size={20} className="text-green-500" />
       case "completed":
-        return <Award className="w-5 h-5 text-green-600" />
+        return <IconAward size={20} className="text-green-600" />
       case "refunded":
-        return <RotateCcw className="w-5 h-5 text-blue-600" />
+        return <IconRotateCcw size={20} className="text-blue-600" />
       case "cancelled":
-        return <XCircle className="w-5 h-5 text-red-500" />
+        return <IconCircleX size={20} className="text-red-500" />
       case "yeu_cau_hoan_tra":
-        return <XCircle className="w-5 h-5 text-blue-500" />
+        return <IconCircleX size={20} className="text-blue-500" />
       default:
-        return <Clock className="w-5 h-5 text-gray-500" />
+        return <IconClock size={20} className="text-gray-500" />
     }
   }
 
@@ -138,14 +138,14 @@ export default function OrderTrackingPage() {
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Theo dõi đơn hàng</h1>
-        <p className="text-gray-600">Nhập mã đơn hàng để kiểm tra trạng thái</p>
+        <p className="text-indigo-950">Nhập mã đơn hàng để kiểm tra trạng thái</p>
       </div>
 
       {/* Search Form */}
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
-            <Search className="w-5 h-5" />
+            <IconSearch size={20} />
             <span>Tra cứu đơn hàng</span>
           </CardTitle>
         </CardHeader>
@@ -236,11 +236,11 @@ export default function OrderTrackingPage() {
                           }`}
                       >
                         {step.completed ? (
-                          <CheckCircle className="w-5 h-5" />
+                          <IconCircleCheck size={20} />
                         ) : step.active ? (
                           getStatusIcon(step.key)
                         ) : (
-                          <Clock className="w-5 h-5" />
+                          <IconClock size={20} />
                         )}
                       </div>
                       <div className="flex-1">
@@ -249,7 +249,7 @@ export default function OrderTrackingPage() {
                         >
                           {step.label}
                         </h4>
-                        <p className={`text-sm ${step.completed || step.active ? "text-gray-600" : "text-gray-400"}`}>
+                        <p className={`text-sm ${step.completed || step.active ? "text-indigo-950" : "text-gray-400"}`}>
                           {step.description}
                         </p>
                       </div>
@@ -284,11 +284,11 @@ export default function OrderTrackingPage() {
                           }`}
                       >
                         {step.completed ? (
-                          <CheckCircle className="w-5 h-5" />
+                          <IconCircleCheck size={20} />
                         ) : step.active ? (
                           getStatusIcon(step.key)
                         ) : (
-                          <Clock className="w-5 h-5" />
+                          <IconClock size={20} />
                         )}
                       </div>
                       <div className="flex-1">
@@ -297,7 +297,7 @@ export default function OrderTrackingPage() {
                         >
                           {step.label}
                         </h4>
-                        <p className={`text-sm ${step.completed || step.active ? "text-gray-600" : "text-gray-400"}`}>
+                        <p className={`text-sm ${step.completed || step.active ? "text-indigo-950" : "text-gray-400"}`}>
                           {step.description}
                         </p>
                       </div>
@@ -318,7 +318,7 @@ export default function OrderTrackingPage() {
             <Card className="border-green-200 mb-6">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-3 text-green-600">
-                  <Award className="w-6 h-6" />
+                  <IconAward size={24} />
                   <div>
                     <h3 className="font-medium">Đơn hàng đã hoàn thành</h3>
                     <p className="text-sm text-green-500">
@@ -334,7 +334,7 @@ export default function OrderTrackingPage() {
             <Card className="border-blue-200 mb-6">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-3 text-blue-600">
-                  <RotateCcw className="w-6 h-6" />
+                  <IconRotateCcw size={24} />
                   <div>
                     <h3 className="font-medium">Đơn hàng đã được hoàn trả</h3>
                     <p className="text-sm text-blue-500">
@@ -351,7 +351,7 @@ export default function OrderTrackingPage() {
             <Card className="border-orange-200 mb-6">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-3 text-orange-600">
-                  <RotateCcw className="w-6 h-6" />
+                  <IconRotateCcw size={24} />
                   <div>
                     <h3 className="font-medium">Yêu cầu hoàn trả đã được chấp nhận</h3>
                     <p className="text-sm text-orange-500">
@@ -367,7 +367,7 @@ export default function OrderTrackingPage() {
             <Card className="border-blue-200 mb-6">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-3 text-blue-600">
-                  <Package className="w-6 h-6" />
+                  <IconPackage size={24} />
                   <div>
                     <h3 className="font-medium">Đang kiểm tra hàng trả về</h3>
                     <p className="text-sm text-blue-500">
@@ -383,7 +383,7 @@ export default function OrderTrackingPage() {
             <Card className="border-green-200 mb-6">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-3 text-green-600">
-                  <CheckCircle className="w-6 h-6" />
+                  <IconCircleCheck size={24} />
                   <div>
                     <h3 className="font-medium">Hoàn trả thành công</h3>
                     <p className="text-sm text-green-500">

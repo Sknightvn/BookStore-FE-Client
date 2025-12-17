@@ -5,15 +5,16 @@ import { useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Star } from "lucide-react"
+import { IconMapPinCog, IconStar } from "@tabler/icons-react"
 import { useCart } from "@/contexts/cart-context"
 import { message } from "antd"
 import CategoryBanner from "@/components/category-banner"
 import WeeklyRanking from "@/components/weekly-ranking"
 import ImageCarousel from "@/components/image-carousel"
-import { TruckOutlined, GiftOutlined, PhoneOutlined } from '@ant-design/icons';
+import { TruckOutlined, GiftOutlined, PhoneOutlined, CustomerServiceOutlined } from "@ant-design/icons"
 import { useBooks } from "@/hooks/useBooks"
 import type { Book } from "@/interface/response/book"
+import Image from "next/image"
 
 export default function HomePage() {
   const { addToCart } = useCart()
@@ -49,53 +50,59 @@ export default function HomePage() {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
+
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <ImageCarousel />
         {/* Buttons Section */}
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Ship Toàn Quốc */}
-          <div className="flex items-center border-2 border-gray-300 text-gray-900 py-3 px-4 rounded-lg shadow-sm hover:border-orange-500 transition-all">
-            <div className="flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-700 rounded-full mr-3">
-              <TruckOutlined style={{ fontSize: '24px', color: '#FF5722' }} />
+        <h2 className="text-2xl md:text-3xl font-semibold text-indigo-800 my-6 mt-12">
+          <span className="text-indigo-950 bg-indigo-800 w-2 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
+          <span>Dịch vụ & Hỗ trợ</span>
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            {
+              icon: <TruckOutlined style={{ fontSize: "20px", fontWeight: "light" }} />,
+              title: "Giao hàng",
+              description: "Giao hàng nhanh chóng",
+            },
+            {
+              icon: <GiftOutlined style={{ fontSize: "20px" }} />,
+              title: "Shipping",
+              description: "Free shipping đơn hàng trên 200k",
+            },
+            {
+              icon: <CustomerServiceOutlined style={{ fontSize: "20px" }} />,
+              title: "Hỗ trợ",
+              description: "Hỗ trợ mọi lúc, mọi nơi",
+            },
+            {
+              icon: <PhoneOutlined style={{ fontSize: "20px" }} />,
+              title: "Hotline",
+              description: "Hotline: 0946280159",
+            },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="group relative cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+            >
+              <Image
+                draggable={false}
+                src={`/service-${index + 1}.png`}
+                alt={item.title}
+                width={200}
+                height={200}
+                className="w-full h-auto object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                quality={100}
+              />
+              <p className="text-base text-center font-semibold w-full text-[#E1CAAB] absolute bottom-3 transition-colors duration-300 group-hover:text-white">
+                {item.description}
+              </p>
+              <div className="h-10 w-10 flex justify-center items-center z-10 bg-indigo-950 rounded-full absolute top-4 left-4 text-[#E1CAAB] shadow-md transition-all duration-300 group-hover:translate-y-0.5 group-hover:-translate-x-0.5">
+                {item.icon}
+              </div>
+              <div className="h-12 w-32 bg-[#F7F7F7] rounded-full absolute top-3 left-3 z-0 opacity-90 transition-all duration-300 group-hover:bg-orange-100 group-hover:opacity-100 group-hover:translate-y-0.5 group-hover:-translate-x-0.5" />
             </div>
-            <div className="text-sm">
-              <h5 className="font-semibold">Ship toàn quốc</h5>
-              <p className="text-xs">Giao hàng nhanh chóng</p>
-            </div>
-          </div>
-
-          {/* Miễn Phí Đơn Hàng Trên 200k */}
-          <div className="flex items-center border-2 border-gray-300 text-gray-900 py-3 px-4 rounded-lg shadow-sm hover:border-green-500 transition-all">
-            <div className="flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-700 rounded-full mr-3">
-              <GiftOutlined style={{ fontSize: '24px', color: '#4CAF50' }} /> {/* Ant Design Gift Icon */}
-            </div>
-            <div className="text-sm">
-              <h5 className="font-semibold">Miễn phí đơn trên 200k</h5>
-              <p className="text-xs">Miễn phí phí ship khi đơn hàng trên 200k</p>
-            </div>
-          </div>
-
-          {/* Hỗ Trợ 24/7 */}
-          <div className="flex items-center border-2 border-gray-300 text-gray-900 py-3 px-4 rounded-lg shadow-sm hover:border-purple-500 transition-all">
-            <div className="flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-700 rounded-full mr-3">
-              <TruckOutlined style={{ fontSize: '24px', color: '#9C27B0' }} /> {/* Ant Design Headset Icon */}
-            </div>
-            <div className="text-sm">
-              <h5 className="font-semibold">Hỗ trợ 24/7</h5>
-              <p className="text-xs">Hỗ trợ mọi lúc, mọi nơi</p>
-            </div>
-          </div>
-
-          {/* Số điện thoại */}
-          <div className="flex items-center border-2 border-gray-300 text-gray-900 py-3 px-4 rounded-lg shadow-sm hover:border-yellow-500 transition-all">
-            <div className="flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-700 rounded-full mr-3">
-              <PhoneOutlined style={{ fontSize: '24px', color: '#FF9800' }} /> {/* Ant Design Phone Icon */}
-            </div>
-            <div className="text-sm">
-              <h5 className="font-semibold">0946280159</h5>
-              <p className="text-xs">Liên hệ để được hỗ trợ</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -109,34 +116,50 @@ export default function HomePage() {
         {loading ? (
           <p className="text-center text-gray-500">Đang tải sản phẩm...</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-3 gap-y-4">
             {featuredBooks.map((book) => (
-              <Card key={book._id} className="group hover:shadow-xl transition cursor-pointer">
-                <CardHeader className="p-0">
+              <Card key={book._id} className="group hover:shadow-xl overflow-hidden bg-indigo-950 transition cursor-pointer rounded-xl">
+                <CardHeader className="p-2">
                   <div className="relative">
                     <img
                       src={book.coverImage || "/placeholder.svg"}
                       alt={book.title}
-                      className="w-full h-64 object-cover rounded-t"
+                      className="w-full h-56 object-cover rounded-lg"
                     />
 
                     {book.stock <= 0 && <Badge className="absolute top-2 right-2 bg-gray-500">Hết hàng</Badge>}
                   </div>
                 </CardHeader>
 
-                <CardContent className="space-y-3 p-4">
-                  <h3 className="font-semibold group-hover:text-blue-600">{book.title}</h3>
-                  <p className="text-sm text-gray-600">Tập: {book.volume || "Không có"}</p>
-                  <p className="text-sm text-gray-600">{book.author}</p>
+                <CardContent
+                  style={{
+                    background: "url('/circle-scatter-haikei.svg') no-repeat center center",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                  className="space-y-2 p-2">
+                  <h3 className="font-semibold text-xl text-white hover:text-indigo-500">
+                    <span> {book.title}</span>
+                    <span className="text-sm text-white"> | </span>
+                    <span className="text-sm text-white">Tập: {book.volume || "Không có"}</span>
+                  </h3>
 
-                  <div className="flex items-center gap-1 text-sm text-gray-500">
-                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    <span>4.5</span>
+                  <p className="text-sm text-white">{book.author}</p>
+
+                  <div className="flex items-center gap-1 text-base text-gray-300">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <IconStar
+                        key={index}
+                        size={16}
+                        className="fill-yellow-400 text-yellow-400"
+                      />
+                    ))}
                   </div>
 
-                  <p className="font-bold text-red-600">{book.price.toLocaleString("vi-VN")}đ</p>
+                  <p className="text-2xl font-medium text-red-500">{book.price.toLocaleString("vi-VN")}đ</p>
 
-                  <Button size="sm" className="w-full" onClick={() => handleAddToCart(book)} disabled={book.stock <= 0}>
+                  <Button size="sm" className="w-full" variant="fulled" onClick={() => handleAddToCart(book)} disabled={book.stock <= 0}>
                     {book.stock > 0 ? "Thêm vào giỏ" : "Hết hàng"}
                   </Button>
                 </CardContent>
@@ -163,15 +186,15 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="space-y-2">
               <div className="text-4xl font-bold text-blue-600">10,000+</div>
-              <div className="text-gray-600">Đầu sách</div>
+              <div className="text-indigo-950">Đầu sách</div>
             </div>
             <div className="space-y-2">
               <div className="text-4xl font-bold text-blue-600">50,000+</div>
-              <div className="text-gray-600">Khách hàng hài lòng</div>
+              <div className="text-indigo-950">Khách hàng hài lòng</div>
             </div>
             <div className="space-y-2">
               <div className="text-4xl font-bold text-blue-600">99%</div>
-              <div className="text-gray-600">Đánh giá tích cực</div>
+              <div className="text-indigo-950">Đánh giá tích cực</div>
             </div>
           </div>
         </div>

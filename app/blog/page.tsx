@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search, Calendar, User, ArrowRight, BookOpen, TrendingUp, Star } from "lucide-react"
+import { IconSearch, IconCalendar, IconUserSquareRounded, IconArrowRight, IconBook, IconTrendingUp, IconStar } from "@tabler/icons-react"
 
 interface BlogPost {
   id: string
@@ -123,7 +123,7 @@ export default function BlogPage() {
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Blog BookStore</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-indigo-950 max-w-3xl mx-auto">
           Khám phá thế giới sách qua những bài viết chất lượng về xu hướng đọc, review sách hay và mẹo đọc hiệu quả
         </p>
       </div>
@@ -132,7 +132,7 @@ export default function BlogPage() {
       {featuredPosts.length > 0 && (
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            <Star className="w-6 h-6 mr-2 text-yellow-500" />
+            <IconStar size={24} className="mr-2 text-yellow-500" />
             Bài viết nổi bật
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -149,11 +149,11 @@ export default function BlogPage() {
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
                     <span className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-1" />
+                      <IconCalendar size={16} className="mr-1" />
                       {new Date(post.publishDate).toLocaleDateString("vi-VN")}
                     </span>
                     <span className="flex items-center">
-                      <User className="w-4 h-4 mr-1" />
+                      <IconUserSquareRounded size={16} className="mr-1" />
                       {post.author}
                     </span>
                     <Badge variant="outline">{post.category}</Badge>
@@ -161,7 +161,7 @@ export default function BlogPage() {
                   <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+                  <p className="text-indigo-950 mb-4 line-clamp-3">{post.excerpt}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-500">{post.readTime} phút đọc</span>
                     <Link
@@ -169,7 +169,7 @@ export default function BlogPage() {
                       className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
                     >
                       Đọc tiếp
-                      <ArrowRight className="w-4 h-4 ml-1" />
+                      <IconArrowRight size={16} className="ml-1" />
                     </Link>
                   </div>
                 </CardContent>
@@ -183,7 +183,7 @@ export default function BlogPage() {
       <div className="mb-8">
         <div className="flex flex-col md:flex-row gap-4 mb-6">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <IconSearch size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <Input
               placeholder="Tìm kiếm bài viết..."
               value={searchTerm}
@@ -224,28 +224,28 @@ export default function BlogPage() {
             <CardContent className="p-6 flex-1 flex flex-col">
               <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
                 <span className="flex items-center">
-                  <Calendar className="w-4 h-4 mr-1" />
+                  <IconCalendar size={16} className="mr-1" />
                   {new Date(post.publishDate).toLocaleDateString("vi-VN")}
                 </span>
                 <span className="flex items-center">
-                  <User className="w-4 h-4 mr-1" />
+                  <IconUserSquareRounded size={16} className="mr-1" />
                   {post.author}
                 </span>
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
                 {post.title}
               </h3>
-              <p className="text-gray-600 mb-4 line-clamp-3 flex-1">{post.excerpt}</p>
+              <p className="text-indigo-950 mb-4 line-clamp-3 flex-1">{post.excerpt}</p>
               <div className="flex flex-wrap gap-1 mb-4">
                 {post.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary" className="text-xs">
+                  <Badge key={tag} variant="secondary" className="text-sm">
                     #{tag}
                   </Badge>
                 ))}
               </div>
               <div className="flex items-center justify-between mt-auto">
                 <span className="text-sm text-gray-500 flex items-center">
-                  <BookOpen className="w-4 h-4 mr-1" />
+                  <IconBook size={16} className="mr-1" />
                   {post.readTime} phút đọc
                 </span>
                 <Link
@@ -253,7 +253,7 @@ export default function BlogPage() {
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium hover:scale-105 transition-transform duration-200"
                 >
                   Đọc tiếp
-                  <ArrowRight className="w-4 h-4 ml-1" />
+                  <IconArrowRight size={16} className="ml-1" />
                 </Link>
               </div>
             </CardContent>
@@ -263,18 +263,18 @@ export default function BlogPage() {
 
       {filteredPosts.length === 0 && (
         <div className="text-center py-12">
-          <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <IconBook size={64} className="text-gray-400 mx-auto mb-4" />
           <h3 className="text-xl font-medium text-gray-900 mb-2">Không tìm thấy bài viết</h3>
-          <p className="text-gray-600">Thử thay đổi từ khóa tìm kiếm hoặc danh mục</p>
+          <p className="text-indigo-950">Thử thay đổi từ khóa tìm kiếm hoặc danh mục</p>
         </div>
       )}
 
       {/* Newsletter Signup */}
       <Card className="mt-16 bg-gradient-to-r from-blue-50 to-purple-50 border-none">
         <CardContent className="p-8 text-center">
-          <TrendingUp className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+          <IconTrendingUp size={48} className="text-blue-600 mx-auto mb-4" />
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Đăng ký nhận tin tức</h3>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+          <p className="text-indigo-950 mb-6 max-w-2xl mx-auto">
             Nhận thông báo về những bài viết mới nhất, review sách hay và các chương trình khuyến mãi đặc biệt
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">

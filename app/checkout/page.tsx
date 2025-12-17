@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
-import { ArrowLeft, CreditCard, Truck, MapPin, User, Phone, Mail } from "lucide-react"
+import { IconArrowLeft, IconCreditCard, IconTruck, IconMapPin, IconUserSquareRounded, IconPhone, IconMail } from "@tabler/icons-react"
 import { useCart } from "@/contexts/cart-context"
 import { useAuth } from "@/contexts/auth-context"
 import type { ShippingAddress } from "@/lib/orders-data"
@@ -115,12 +115,12 @@ export default function CheckoutPage() {
       {/* Header */}
       <div className="flex items-center mb-8">
         <Button variant="ghost" onClick={() => router.back()} className="mr-4">
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <IconArrowLeft size={16} className="mr-2" />
           Quay lại
         </Button>
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Thanh toán</h1>
-          <p className="text-gray-600 mt-2">Hoàn tất đơn hàng của bạn</p>
+          <p className="text-indigo-950 mt-2">Hoàn tất đơn hàng của bạn</p>
         </div>
       </div>
 
@@ -131,7 +131,7 @@ export default function CheckoutPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <MapPin className="w-5 h-5" />
+                <IconMapPin size={20} />
                 <span>Thông tin giao hàng</span>
               </CardTitle>
             </CardHeader>
@@ -140,7 +140,7 @@ export default function CheckoutPage() {
                 <div className="space-y-2">
                   <Label htmlFor="fullName">Họ và tên *</Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <IconUserSquareRounded size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <Input
                       id="fullName"
                       value={shippingAddress.fullName}
@@ -154,7 +154,7 @@ export default function CheckoutPage() {
                 <div className="space-y-2">
                   <Label htmlFor="phone">Số điện thoại *</Label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <IconPhone size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <Input
                       id="phone"
                       value={shippingAddress.phone}
@@ -170,7 +170,7 @@ export default function CheckoutPage() {
               <div className="space-y-2">
                 <Label htmlFor="email">Email *</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <IconMail size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <Input
                     id="email"
                     type="email"
@@ -244,7 +244,7 @@ export default function CheckoutPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <CreditCard className="w-5 h-5" />
+                <IconCreditCard size={20} />
                 <span>Phương thức thanh toán</span>
               </CardTitle>
             </CardHeader>
@@ -258,7 +258,7 @@ export default function CheckoutPage() {
                     <RadioGroupItem value="cod" id="cod" />
                     <div className="flex-1">
                       <Label htmlFor="cod" className="flex items-center space-x-3 cursor-pointer">
-                        <Truck className="w-5 h-5 text-green-600" />
+                        <IconTruck size={20} className="text-green-600" />
                         <div>
                           <div className="font-medium">Thanh toán khi nhận hàng (COD)</div>
                           <div className="text-sm text-gray-500">Thanh toán bằng tiền mặt khi nhận hàng</div>
@@ -271,7 +271,7 @@ export default function CheckoutPage() {
                     <RadioGroupItem value="bank_transfer" id="bank_transfer" />
                     <div className="flex-1">
                       <Label htmlFor="bank_transfer" className="flex items-center space-x-3 cursor-pointer">
-                        <CreditCard className="w-5 h-5 text-blue-600" />
+                        <IconCreditCard size={20} className="text-blue-600" />
                         <div>
                           <div className="font-medium">Chuyển khoản ngân hàng</div>
                           <div className="text-sm text-gray-500">Chuyển khoản trước khi giao hàng</div>
@@ -299,7 +299,7 @@ export default function CheckoutPage() {
                       <strong>Nội dung:</strong> [Mã đơn hàng] - [Họ tên]
                     </p>
                   </div>
-                  <p className="text-xs text-blue-700 mt-2">
+                  <p className="text-sm text-blue-700 mt-2">
                     * Đơn hàng sẽ được xử lý sau khi chúng tôi xác nhận thanh toán
                   </p>
                 </div>
@@ -326,7 +326,7 @@ export default function CheckoutPage() {
                     />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900 line-clamp-2">{item.product.title}</p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-indigo-950">
                         {item.quantity} × {item.product.price.toLocaleString("vi-VN")}đ
                       </p>
                     </div>
@@ -372,7 +372,7 @@ export default function CheckoutPage() {
                 {isLoading ? "Đang xử lý..." : "Tiến hành thanh toán"}
               </Button>
 
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-sm text-gray-500 text-center">
                 Bằng cách đặt hàng, bạn đồng ý với{" "}
                 <a href="/terms" className="text-blue-600 hover:underline">
                   điều khoản sử dụng

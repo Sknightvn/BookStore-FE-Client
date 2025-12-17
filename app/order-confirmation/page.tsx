@@ -6,7 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { CheckCircle, MapPin, CreditCard, Package } from "lucide-react"
+import { IconCircleCheck, IconMapPin, IconCreditCard, IconPackage } from "@tabler/icons-react"
 import type { Order } from "@/lib/orders-data"
 
 export default function OrderConfirmationPage() {
@@ -39,7 +39,7 @@ export default function OrderConfirmationPage() {
       <div className="max-w-2xl mx-auto px-4 py-8">
         <Card>
           <CardContent className="py-12 text-center">
-            <p className="text-gray-600">Đang tải thông tin...</p>
+            <p className="text-indigo-950">Đang tải thông tin...</p>
           </CardContent>
         </Card>
       </div>
@@ -55,10 +55,10 @@ export default function OrderConfirmationPage() {
       {/* Success Message */}
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4">
-          <CheckCircle className="w-16 h-16 text-green-600" />
+          <IconCircleCheck size={64} className="text-green-600" />
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Đơn hàng đã được tạo thành công!</h1>
-        <p className="text-gray-600">Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi</p>
+        <p className="text-indigo-950">Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi</p>
       </div>
 
       <div className="space-y-6">
@@ -70,18 +70,18 @@ export default function OrderConfirmationPage() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-gray-600">Mã đơn hàng</p>
+                <p className="text-sm text-indigo-950">Mã đơn hàng</p>
                 <p className="font-bold text-lg">{order.id}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Ngày đặt hàng</p>
+                <p className="text-sm text-indigo-950">Ngày đặt hàng</p>
                 <p className="font-bold">{new Date(order.createdAt).toLocaleDateString("vi-VN")}</p>
               </div>
             </div>
 
             <div className="p-3 bg-blue-50 rounded-lg">
               <div className="flex items-center space-x-2">
-                <Package className="w-5 h-5 text-blue-600" />
+                <IconPackage size={20} className="text-blue-600" />
                 <div>
                   <p className="font-medium text-blue-900">Trạng thái đơn hàng</p>
                   <p className="text-sm text-blue-700">
@@ -105,7 +105,7 @@ export default function OrderConfirmationPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <MapPin className="w-5 h-5" />
+              <IconMapPin size={20} />
               <span>Địa chỉ giao hàng</span>
             </CardTitle>
           </CardHeader>
@@ -132,7 +132,7 @@ export default function OrderConfirmationPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <CreditCard className="w-5 h-5" />
+              <IconCreditCard size={20} />
               <span>Phương thức thanh toán</span>
             </CardTitle>
           </CardHeader>
@@ -153,7 +153,7 @@ export default function OrderConfirmationPage() {
               <div key={item.productId} className="flex items-center justify-between text-sm">
                 <div className="flex-1">
                   <p className="font-medium">{item.title}</p>
-                  <p className="text-gray-600">
+                  <p className="text-indigo-950">
                     {item.quantity} × {item.price.toLocaleString("vi-VN")}đ
                   </p>
                 </div>

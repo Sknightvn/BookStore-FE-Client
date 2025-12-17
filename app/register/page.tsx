@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Eye, EyeOff, Mail, Lock, User, ArrowLeft } from "lucide-react"
+import { IconEye, IconEyeOff, IconMail, IconLock, IconUserSquareRounded, IconArrowLeft } from "@tabler/icons-react"
 import { useAuth } from "@/contexts/auth-context"
 import { message } from "antd"
 import { OTPInput } from "./otp-input"
@@ -88,7 +88,7 @@ export default function RegisterPage() {
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-gray-900">Xác thực OTP</h2>
-            <p className="mt-2 text-gray-600">Nhập mã OTP đã được gửi đến email của bạn</p>
+            <p className="mt-2 text-indigo-950">Nhập mã OTP đã được gửi đến email của bạn</p>
           </div>
 
           <Card className="shadow-lg">
@@ -101,7 +101,7 @@ export default function RegisterPage() {
             <CardContent className="space-y-6">
               <div className="space-y-4">
                 <OTPInput length={6} onComplete={handleOtpComplete} />
-                {isVerifyingOtp && <p className="text-center text-sm text-gray-600">Đang xác thực...</p>}
+                {isVerifyingOtp && <p className="text-center text-sm text-indigo-950">Đang xác thực...</p>}
               </div>
 
               <div className="space-y-4">
@@ -112,12 +112,12 @@ export default function RegisterPage() {
                   onClick={handleBackToForm}
                   disabled={isVerifyingOtp}
                 >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  <IconArrowLeft size={16} className="mr-2" />
                   Quay lại
                 </Button>
 
                 <div className="text-center">
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-indigo-950">
                     Không nhận được mã?{" "}
                     <button
                       type="button"
@@ -142,7 +142,7 @@ export default function RegisterPage() {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900">Đăng ký</h2>
-          <p className="mt-2 text-gray-600">Tạo tài khoản mới tại KT.BookStore</p>
+          <p className="mt-2 text-indigo-950">Tạo tài khoản mới tại KT.BookStore</p>
         </div>
 
         <Card className="shadow-lg">
@@ -155,7 +155,7 @@ export default function RegisterPage() {
               <div className="space-y-2">
                 <Label htmlFor="name">Họ và tên</Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <IconUserSquareRounded size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <Input
                     id="name"
                     type="text"
@@ -184,7 +184,7 @@ export default function RegisterPage() {
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <IconMail size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <Input
                     id="email"
                     type="email"
@@ -200,7 +200,7 @@ export default function RegisterPage() {
               <div className="space-y-2">
                 <Label htmlFor="password">Mật khẩu</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <IconLock size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
@@ -213,9 +213,9 @@ export default function RegisterPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-indigo-950 transition-colors duration-200"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? <IconEyeOff size={16} /> : <IconEye size={16} />}
                   </button>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function RegisterPage() {
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Xác nhận mật khẩu</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <IconLock size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <Input
                     id="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
@@ -236,9 +236,9 @@ export default function RegisterPage() {
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-indigo-950 transition-colors duration-200"
                   >
-                    {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showConfirmPassword ? <IconEyeOff size={16} /> : <IconEye size={16} />}
                   </button>
                 </div>
               </div>
@@ -274,7 +274,7 @@ export default function RegisterPage() {
             </form>
 
             <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-indigo-950">
                 Đã có tài khoản?{" "}
                 <Link
                   href="/login"

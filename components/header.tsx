@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { ShoppingCart, User, Search, Menu, X, LogOut } from "lucide-react"
+import { IconShoppingCart, IconUserSquareRounded, IconSearch, IconMenu2, IconX, IconLogout } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { useAuth } from "@/contexts/auth-context"
 
 import { useCart } from "@/contexts/cart-context"
+import Image from "next/image"
 
 
 export default function Header() {
@@ -35,30 +36,26 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">B</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">KT.BookStore</span>
+          <Link href="/" className="flex items-center space-x-2 mr-4">
+            <Image src="/logo.svg" alt="Logo" width={100} height={100} quality={100} draggable={false} className="h-16 w-auto" />
           </Link>
-
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium p-2">
+          <nav className="hidden md:flex items-center space-x-8 w-full justify-center">
+            <Link href="/" className="text-gray-700 hover:text-blue-600 uppercase transition-colors duration-200 p-2">
               Trang chủ
             </Link>
             <Link
               href="/products"
-              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium p-2"
+              className="text-gray-700 hover:text-blue-600 transition-colors uppercase duration-200 p-2"
             >
               Sản phẩm
             </Link>
-            <Link href="/blog" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium p-2">
+            <Link href="/blog" className="text-gray-700 hover:text-blue-600 uppercase transition-colors duration-200 p-2">
               Blog
             </Link>
             <Link
               href="/about"
-              className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium p-2"
+              className="text-gray-700 hover:text-blue-600 uppercase transition-colors duration-200 p-2"
             >
               Giới thiệu
             </Link>
@@ -78,6 +75,21 @@ export default function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center space-x-4">
+          <Button
+              variant="ghost"
+              size="sm"
+              className="relative hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+              asChild
+            >
+              <Link href="/cart">
+                <IconShoppingCart size={20} />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-sm rounded-full w-5 h-5 flex items-center justify-center">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </Link>
+            </Button>
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -86,7 +98,7 @@ export default function Header() {
                     className="flex items-center space-x-2 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
                   >
                     <Avatar className="w-6 h-6">
-                      <AvatarFallback className="text-xs bg-blue-100 text-blue-600">
+                      <AvatarFallback className="text-sm bg-blue-100 text-blue-600">
                         {user.name.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
@@ -95,65 +107,48 @@ export default function Header() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem asChild>
-                    <Link href="/profile" className="flex items-center space-x-2">
-                      <User className="w-4 h-4" />
+                    <Link href="/profile" className="flex items-center">
+                      <IconUserSquareRounded size={20} />
                       <span>Thông tin cá nhân</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/orders" className="flex items-center space-x-2">
-                      <ShoppingCart className="w-4 h-4" />
+                    <Link href="/orders" className="flex items-center">
+                      <IconShoppingCart size={20} />
                       <span>Đơn hàng của tôi</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="flex items-center space-x-2 text-red-600">
-                    <LogOut className="w-4 h-4" />
+                    <IconLogout size={16} />
                     <span>Đăng xuất</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <Button
-                variant="ghost"
+                variant="fulled"
                 size="sm"
-                className="hidden md:flex items-center space-x-2 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                className="hidden md:flex items-center hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 !py-0"
                 asChild
               >
                 <Link href="/login">
-                  <User className="w-4 h-4" />
+                  <IconUserSquareRounded size={20} />
                   <span>Đăng nhập</span>
                 </Link>
               </Button>
             )}
 
-            {/* Updated shopping cart button to use cart context and link to cart page */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="relative hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
-              asChild
-            >
-              <Link href="/cart">
-                <ShoppingCart className="w-5 h-5" />
-                {getTotalItems() > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </Link>
-            </Button>
-
             {/* Mobile menu button */}
             <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? <IconX size={20} /> : <IconMenu2 size={20} />}
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden border-t bg-white">
+          <div className="md:hidden border-t ">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <div className="mb-4">
                 <Input type="text" placeholder="Tìm kiếm sách..." className="w-full" />

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import { Search, Filter, Grid, List } from "lucide-react"
+import { IconSearch, IconFilter, IconLayoutGrid, IconList } from "@tabler/icons-react"
 import ProductCard from "@/components/product-card"
 import { useBooks } from "@/hooks/useBooks"
 import type { Book } from "@/interface/response/book"
@@ -83,7 +83,7 @@ export default function ProductsPage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Danh mục sách</h1>
-        <p className="text-gray-600">Khám phá hàng ngàn đầu sách chất lượng</p>
+        <p className="text-indigo-950">Khám phá hàng ngàn đầu sách chất lượng</p>
       </div>
 
       {/* Filters */}
@@ -91,7 +91,7 @@ export default function ProductsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <IconSearch size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <Input
               placeholder="Tìm kiếm sách, tác giả..."
               value={searchQuery}
@@ -136,7 +136,7 @@ export default function ProductsPage() {
               onClick={() => setViewMode("grid")}
               className="flex-1"
             >
-              <Grid className="w-4 h-4 mr-1" />
+              <IconLayoutGrid size={16} className="mr-1" />
               Lưới
             </Button>
             <Button
@@ -145,7 +145,7 @@ export default function ProductsPage() {
               onClick={() => setViewMode("list")}
               className="flex-1"
             >
-              <List className="w-4 h-4 mr-1" />
+              <IconList size={16} className="mr-1" />
               Danh sách
             </Button>
           </div>
@@ -171,7 +171,7 @@ export default function ProductsPage() {
           )}
           {(searchQuery || selectedCategory !== "Tất cả" || sortBy !== "default") && (
             <Button variant="ghost" size="sm" onClick={handleClearFilters} className="text-red-600 hover:text-red-700">
-              <Filter className="w-4 h-4 mr-1" />
+              <IconFilter size={16} className="mr-1" />
               Xóa bộ lọc
             </Button>
           )}
@@ -180,7 +180,7 @@ export default function ProductsPage() {
 
       {/* Results Info */}
       <div className="flex items-center justify-between mb-6">
-        <p className="text-gray-600">
+        <p className="text-indigo-950">
           Hiển thị {paginatedProducts.length} trong tổng số {filteredProducts.length} sản phẩm
         </p>
       </div>
@@ -190,7 +190,7 @@ export default function ProductsPage() {
         <div
           className={
             viewMode === "grid"
-              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8"
+              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8"
               : "space-y-4 mb-8"
           }
         >

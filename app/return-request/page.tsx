@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Upload, ArrowLeft, CheckCircle } from "lucide-react"
+import { IconUpload, IconArrowLeft, IconCircleCheck } from "@tabler/icons-react"
 import { message } from "antd"
 import { useAuth } from "@/contexts/auth-context"
 import { useOrderByCode } from "@/hooks/useOrders"
@@ -144,7 +144,7 @@ function ReturnRequestContent() {
   if (!order) {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <p className="text-center text-gray-600">Không tìm thấy đơn hàng</p>
+        <p className="text-center text-indigo-950">Không tìm thấy đơn hàng</p>
       </div>
     )
   }
@@ -153,9 +153,9 @@ function ReturnRequestContent() {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center">
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+          <IconCircleCheck size={64} className="text-green-500 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Yêu cầu hoàn trả đã được gửi</h1>
-          <p className="text-gray-600 mb-6">Chúng tôi sẽ xem xét yêu cầu của bạn trong 1-2 ngày làm việc</p>
+          <p className="text-indigo-950 mb-6">Chúng tôi sẽ xem xét yêu cầu của bạn trong 1-2 ngày làm việc</p>
           <Button onClick={() => router.push("/profile")}>Quay lại trang cá nhân</Button>
         </div>
       </div>
@@ -168,13 +168,13 @@ function ReturnRequestContent() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8 flex items-center space-x-2">
         <Button variant="ghost" size="sm" onClick={() => router.push("/profile")}>
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <IconArrowLeft size={16} className="mr-2" />
           Quay lại
         </Button>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Yêu cầu hoàn trả</h1>
-      <p className="text-gray-600 mb-8">Gửi yêu cầu hoàn trả cho đơn hàng của bạn</p>
+      <p className="text-indigo-950 mb-8">Gửi yêu cầu hoàn trả cho đơn hàng của bạn</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1">
@@ -221,7 +221,7 @@ function ReturnRequestContent() {
                     />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">{item.title}</p>
-                      <p className="text-xs text-gray-500">x{item.quantity}</p>
+                      <p className="text-sm text-gray-500">x{item.quantity}</p>
                     </div>
                   </div>
                 ))}
@@ -285,8 +285,8 @@ function ReturnRequestContent() {
                       id="image-upload"
                     />
                     <label htmlFor="image-upload" className="cursor-pointer block">
-                      <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">
+                      <IconUpload size={32} className="text-gray-400 mx-auto mb-2" />
+                      <p className="text-sm text-indigo-950">
                         {formData.image ? (
                           <span className="text-green-600 font-medium">{formData.image.name}</span>
                         ) : (
@@ -295,7 +295,7 @@ function ReturnRequestContent() {
                           </>
                         )}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1">JPG, PNG, GIF. Tối đa 5MB</p>
+                      <p className="text-sm text-gray-500 mt-1">JPG, PNG, GIF. Tối đa 5MB</p>
                     </label>
                   </div>
                 </div>

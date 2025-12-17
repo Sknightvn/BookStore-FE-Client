@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Trash2, Minus, Plus } from "lucide-react"
+import { IconTrash, IconMinus, IconPlus } from "@tabler/icons-react"
 import Image from "next/image"
 import { useCart, type CartItem } from "@/contexts/cart-context"
 import { message } from "antd"
@@ -49,14 +49,14 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
               className="object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">Không có ảnh</div>
+            <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">Không có ảnh</div>
           )}
         </div>
 
         {/* Product Info */}
         <div className="flex-1">
           <h3 className="font-semibold text-gray-900 mb-1 line-clamp-2">{item.product.title}</h3>
-          <p className="text-sm text-gray-600">Tập: {item.product.volume || "Không có"}</p>
+          <p className="text-sm text-indigo-950">Tập: {item.product.volume || "Không có"}</p>
           <p className="text-blue-600 font-bold mb-3">{item.product.price.toLocaleString("vi-VN")}₫</p>
 
           {/* Quantity Controls */}
@@ -67,7 +67,7 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
               onClick={() => handleQuantityChange(item.quantity - 1)}
               className="px-2"
             >
-              <Minus className="w-4 h-4" />
+              <IconMinus size={16} />
             </Button>
             
             {/* Input for quantity */}
@@ -85,7 +85,7 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
               onClick={() => handleQuantityChange(item.quantity + 1)}
               className="px-2"
             >
-              <Plus className="w-4 h-4" />
+              <IconPlus size={16} />
             </Button>
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
             onClick={handleRemove}
             className="text-red-600 hover:text-red-700 hover:bg-red-50"
           >
-            <Trash2 className="w-4 h-4" />
+            <IconTrash size={16} />
           </Button>
         </div>
       </div>

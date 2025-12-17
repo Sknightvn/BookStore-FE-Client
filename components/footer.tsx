@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react"
+import { IconBrandFacebook, IconBrandInstagram, IconMail, IconPhone, IconMapPin } from "@tabler/icons-react"
+import Image from "next/image"
 
 export default function Footer() {
   return (
@@ -8,21 +9,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">B</span>
-              </div>
-              <span className="text-xl font-bold">KT.BookStore</span>
-            </div>
+          <Link href="/" className="flex items-center space-x-2 mr-4">
+            <Image src="/logo.svg" alt="Logo" width={100} height={100} quality={100} draggable={false} className="h-10 w-auto" />
+          </Link>
             <p className="text-gray-300 text-sm leading-relaxed">
               Cửa hàng sách trực tuyến hàng đầu Việt Nam, cung cấp hàng ngàn đầu sách chất lượng với giá cả hợp lý.
             </p>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/baokhanh.luutran.5/" className="text-gray-400 hover:text-blue-400 transition-colors duration-200">
-                <Facebook className="w-5 h-5" />
+                <IconBrandFacebook size={20} />
               </a>
               <a href="https://www.instagram.com/ltrbao.khanhh/" className="text-gray-400 hover:text-blue-400 transition-colors duration-200">
-                <Instagram className="w-5 h-5" />
+                <IconBrandInstagram size={20} />
               </a>
             </div>
           </div>
@@ -98,15 +96,15 @@ export default function Footer() {
             <h3 className="text-lg font-semibold">Thông tin liên hệ</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <MapPin className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <IconMapPin size={16} className="text-blue-400 flex-shrink-0" />
                 <span className="text-gray-300 text-sm">55/30 Đường số 7, Phường 7, Quận Gò Vấp, TP.HCM</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <IconPhone size={16} className="text-blue-400 flex-shrink-0" />
                 <span className="text-gray-300 text-sm">(094) 6280 159</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <IconMail size={16} className="text-blue-400 flex-shrink-0" />
                 <span className="text-gray-300 text-sm">ltranbaokhanh@gmail.com</span>
               </div>
             </div>

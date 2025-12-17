@@ -108,7 +108,7 @@
 //       <div className="max-w-2xl mx-auto px-4 py-8">
 //         <Card>
 //           <CardContent className="py-12 text-center">
-//             <p className="text-gray-600">Đang tải thông tin...</p>
+//             <p className="text-indigo-950">Đang tải thông tin...</p>
 //           </CardContent>
 //         </Card>
 //       </div>
@@ -119,7 +119,7 @@
 //     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 //       <div className="mb-8">
 //         <h1 className="text-3xl font-bold text-gray-900">Xác nhận thanh toán</h1>
-//         <p className="text-gray-600 mt-2">Mã đơn hàng: {orderId}</p>
+//         <p className="text-indigo-950 mt-2">Mã đơn hàng: {orderId}</p>
 //       </div>
 
 //       <div className="space-y-6">
@@ -208,7 +208,7 @@
 //                 <div key={item.product.id} className="flex items-center justify-between text-sm">
 //                   <div className="flex-1">
 //                     <p className="font-medium">{item.product.title}</p>
-//                     <p className="text-gray-600">
+//                     <p className="text-indigo-950">
 //                       {item.quantity} × {item.product.price.toLocaleString("vi-VN")}đ
 //                     </p>
 //                   </div>
@@ -269,7 +269,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { CreditCard, Truck, Clock } from "lucide-react"
+import { IconCreditCard, IconTruck, IconClock } from "@tabler/icons-react"
 import { useCart } from "@/contexts/cart-context"
 import { message } from "antd"
 import { useAuth } from "@/contexts/auth-context"
@@ -375,7 +375,7 @@ export default function PaymentPage() {
       <div className="max-w-2xl mx-auto px-4 py-8">
         <Card>
           <CardContent className="py-12 text-center">
-            <p className="text-gray-600">Đang tải thông tin...</p>
+            <p className="text-indigo-950">Đang tải thông tin...</p>
           </CardContent>
         </Card>
       </div>
@@ -386,7 +386,7 @@ export default function PaymentPage() {
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Xác nhận thanh toán</h1>
-        <p className="text-gray-600 mt-2">Mã đơn hàng: {orderId}</p>
+        <p className="text-indigo-950 mt-2">Mã đơn hàng: {orderId}</p>
       </div>
 
       <div className="space-y-6">
@@ -394,7 +394,7 @@ export default function PaymentPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <CreditCard className="w-5 h-5" />
+              <IconCreditCard size={20} />
               <span>Phương thức thanh toán</span>
             </CardTitle>
           </CardHeader>
@@ -402,7 +402,7 @@ export default function PaymentPage() {
             {checkoutData.paymentMethod === "cod" ? (
               <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                 <div className="flex items-center space-x-3">
-                  <Clock className="w-6 h-6 text-green-600" />
+                  <IconClock size={24} className="text-green-600" />
                   <div>
                     <p className="font-medium text-green-900">Thanh toán khi nhận hàng (COD)</p>
                     <p className="text-sm text-green-700">Bạn sẽ thanh toán bằng tiền mặt khi nhận hàng</p>
@@ -412,7 +412,7 @@ export default function PaymentPage() {
             ) : (
               <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                 <div className="flex items-center space-x-3 mb-3">
-                  <CreditCard className="w-6 h-6 text-blue-600" />
+                  <IconCreditCard size={24} className="text-blue-600" />
                   <p className="font-medium text-blue-900">Thanh toán qua VNPay</p>
                 </div>
                 <div className="text-sm text-blue-800 ml-9">

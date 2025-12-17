@@ -1,6 +1,66 @@
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Swiper custom styles for hero carousel */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1f2937;
+  transform: translateY(-1px) scale(1.03);
+}
+
+.swiper-pagination {
+  bottom: 1.5rem !important;
+}
+
+.swiper-pagination-bullet {
+  width: 16px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.45);
+  opacity: 1;
+  transition: all 0.25s ease;
+  margin: 0 4px !important;
+}
+
+.swiper-pagination-bullet-active {
+  width: 32px;
+  background: #ffffff;
+}
+
+/* Cursor style when hover over Swiper slides */
+.swiper,
+.swiper-slide {
+  cursor: grab;
+}
+
+.swiper:active,
+.swiper-slide:active {
+  cursor: grabbing;
+}
 
 @layer utilities {
   .text-balance {

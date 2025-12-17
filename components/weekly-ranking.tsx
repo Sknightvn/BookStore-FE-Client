@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Star, TrendingUp } from "lucide-react"
+import { IconStar, IconTrendingUp } from "@tabler/icons-react"
 import { useCart } from "@/contexts/cart-context"
 import { message } from "antd"
 import { useTopProducts } from "@/hooks/useBooks"
@@ -96,7 +96,7 @@ export default function WeeklyRanking() {
       </div>
 
       {/* Main Content */}
-      <div className="px-6 pb-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="px-6 pb-6 grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Ranked List */}
         <div className="lg:col-span-2 space-y-3">
           {rankedBooks.length > 0 ? (
@@ -112,7 +112,7 @@ export default function WeeklyRanking() {
                 {/* Ranking Number */}
                 <div className="flex flex-col items-center justify-center min-w-12">
                   <span className="text-xl font-bold text-gray-900">{String(index + 1).padStart(2, "0")}</span>
-                  <TrendingUp className="w-4 h-4 text-green-500" />
+                  <IconTrendingUp size={16} className="text-green-500" />
                 </div>
 
                 {/* Book Cover */}
@@ -127,12 +127,12 @@ export default function WeeklyRanking() {
                 {/* Book Info */}
                 <div className="flex-grow">
                   <h3 className="font-semibold text-gray-900 line-clamp-2">{book.title}</h3>
-                  <p className="text-sm text-gray-600">{book.author || "Không rõ tác giả"}</p>
+                  <p className="text-sm text-indigo-950">{book.author || "Không rõ tác giả"}</p>
                   <p className="text-sm text-blue-600 font-medium">{book.category || "Khác"}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      <span className="text-xs text-gray-600">{book.totalQuantity} bán</span>
+                      <IconStar size={16} className="fill-yellow-400 text-yellow-400" />
+                      <span className="text-sm text-indigo-950">{book.totalQuantity} bán</span>
                     </div>
                   </div>
                 </div>
@@ -157,18 +157,18 @@ export default function WeeklyRanking() {
               <CardContent className="space-y-4 p-4">
                 <div>
                   <h3 className="font-bold text-gray-900 line-clamp-3">{selectedBook.title}</h3>
-                  <p className="text-sm text-gray-600 mt-1">Tác giả: {selectedBook.author || "Không rõ"}</p>
+                  <p className="text-sm text-indigo-950 mt-1">Tác giả: {selectedBook.author || "Không rõ"}</p>
                   <p className="text-sm text-blue-600 font-medium mt-1">Danh mục: {selectedBook.category || "Khác"}</p>
-                  {selectedBook.ISSN && <p className="text-sm text-gray-600">ISBN: {selectedBook.ISSN}</p>}
+                  {selectedBook.ISSN && <p className="text-sm text-indigo-950">ISBN: {selectedBook.ISSN}</p>}
                 </div>
 
                 {/* Sales Statistics */}
                 <div className="bg-blue-50 p-3 rounded-lg space-y-2">
                   <p className="text-sm font-semibold text-gray-900">Thống kê bán hàng</p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-indigo-950">
                     Đã bán: <span className="font-bold text-red-600">{selectedBook.totalQuantity}</span> sản phẩm
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-indigo-950">
                     Doanh thu:{" "}
                     <span className="font-bold text-green-600">
                       {selectedBook.totalRevenue.toLocaleString("vi-VN")}đ

@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
-import { MessageCircle, X, Send, User, Bot } from "lucide-react"
+import { IconMessageCircle, IconX, IconSend, IconUserSquareRounded, IconRobot } from "@tabler/icons-react"
 
 interface ChatMessage {
   id: string
@@ -140,7 +140,7 @@ export default function ChatSupport() {
             className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg transition-all duration-200 transform hover:scale-110"
             size="lg"
           >
-            <MessageCircle className="w-6 h-6" />
+            <IconMessageCircle size={24} />
           </Button>
         )}
       </div>
@@ -157,7 +157,7 @@ export default function ChatSupport() {
                 onClick={() => setIsOpen(false)}
                 className="text-white hover:bg-blue-700"
               >
-                <X className="w-4 h-4" />
+                <IconX size={16} />
               </Button>
             </CardHeader>
 
@@ -179,11 +179,11 @@ export default function ChatSupport() {
                     >
                       <div className="flex items-center space-x-2 mb-1">
                         {msg.sender === "user" ? (
-                          <User className="w-4 h-4" />
+                          <IconUserSquareRounded size={16} />
                         ) : (
-                          <Bot className="w-4 h-4" />
+                          <IconRobot size={16} />
                         )}
-                        <span className="text-xs opacity-75">
+                        <span className="text-sm opacity-75">
                           {msg.timestamp.toLocaleTimeString("vi-VN", {
                             hour: "2-digit",
                             minute: "2-digit",
@@ -201,7 +201,7 @@ export default function ChatSupport() {
                   <div className="flex justify-start">
                     <div className="bg-gray-100 text-gray-900 p-3 rounded-lg">
                       <div className="flex items-center space-x-2">
-                        <Bot className="w-4 h-4" />
+                        <IconRobot size={16} />
                         <div className="flex space-x-1">
                           <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" />
                           <div
@@ -239,7 +239,7 @@ export default function ChatSupport() {
                     className="bg-blue-600 hover:bg-blue-700"
                     size="sm"
                   >
-                    <Send className="w-4 h-4" />
+                    <IconSend size={16} />
                   </Button>
                 </div>
               </div>

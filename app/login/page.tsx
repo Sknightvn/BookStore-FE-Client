@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Eye, EyeOff, Mail, Lock } from "lucide-react"
+import { IconEye, IconEyeOff, IconMail, IconLock } from "@tabler/icons-react"
 import { message } from "antd"
 
 export default function LoginPage() {
@@ -47,7 +47,7 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900">Đăng nhập</h2>
-          <p className="mt-2 text-gray-600">Chào mừng bạn quay trở lại KT.BookStore</p>
+          <p className="mt-2 text-indigo-950">Chào mừng bạn quay trở lại KT.BookStore</p>
         </div>
 
         <Card className="shadow-lg">
@@ -63,7 +63,7 @@ export default function LoginPage() {
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <IconMail size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <Input
                     id="email"
                     type="email"
@@ -80,7 +80,7 @@ export default function LoginPage() {
               <div className="space-y-2">
                 <Label htmlFor="password">Mật khẩu</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <IconLock size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
@@ -93,9 +93,9 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-indigo-950"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? <IconEyeOff size={16} /> : <IconEye size={16} />}
                   </button>
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default function LoginPage() {
 
             {/* Register link */}
             <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-indigo-950">
                 Chưa có tài khoản?{" "}
                 <Link href="/register" className="text-blue-600 hover:text-blue-500 font-medium">
                   Đăng ký ngay

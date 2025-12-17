@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
-import { Mail, ArrowLeft } from "lucide-react"
+import { IconMail, IconArrowLeft } from "@tabler/icons-react"
 import { message } from "antd"
 import { useForgotPassword } from "@/hooks/useAuth"
 
@@ -63,7 +63,7 @@ export default function ForgotPasswordPage() {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900">Quên mật khẩu</h2>
-          <p className="mt-2 text-gray-600">Chúng tôi sẽ giúp bạn đặt lại mật khẩu</p>
+          <p className="mt-2 text-indigo-950">Chúng tôi sẽ giúp bạn đặt lại mật khẩu</p>
         </div>
 
         <Card className="shadow-lg">
@@ -80,7 +80,7 @@ export default function ForgotPasswordPage() {
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <IconMail size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <Input
                       id="email"
                       type="email"
@@ -92,7 +92,7 @@ export default function ForgotPasswordPage() {
                       required
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">Mật khẩu mới sẽ được gửi đến email này</p>
+                  <p className="text-sm text-gray-500 mt-1">Mật khẩu mới sẽ được gửi đến email này</p>
                 </div>
 
                 {/* Submit button */}
@@ -110,11 +110,11 @@ export default function ForgotPasswordPage() {
                   <p className="text-green-800 text-sm">
                     Mật khẩu mới đã được gửi đến <strong>{email}</strong>
                   </p>
-                  <p className="text-green-700 text-xs mt-2">Vui lòng kiểm tra email và đăng nhập với mật khẩu mới</p>
+                  <p className="text-green-700 text-sm mt-2">Vui lòng kiểm tra email và đăng nhập với mật khẩu mới</p>
                 </div>
 
                 <div className="pt-4">
-                  <p className="text-xs text-gray-500">Tự động chuyển hướng trong 3 giây...</p>
+                  <p className="text-sm text-gray-500">Tự động chuyển hướng trong 3 giây...</p>
                 </div>
               </div>
             )}
@@ -128,7 +128,7 @@ export default function ForgotPasswordPage() {
                   onClick={handleBackToLogin}
                   className="text-blue-600 hover:text-blue-500"
                 >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  <IconArrowLeft size={16} className="mr-2" />
                   Quay lại đăng nhập
                 </Button>
               </div>
@@ -141,7 +141,7 @@ export default function ForgotPasswordPage() {
                   onClick={handleBackToLogin}
                   className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-200"
                 >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  <IconArrowLeft size={16} className="mr-2" />
                   Quay lại đăng nhập
                 </Button>
               </div>

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { User, Package, Clock, CheckCircle, RotateCcw, Award, Eye, Lock, X } from "lucide-react"
+import { IconUserSquareRounded, IconPackage, IconClock, IconCircleCheck, IconRotateCcw, IconAward, IconEye, IconLock, IconX } from "@tabler/icons-react"
 import { useAuth } from "@/contexts/auth-context"
 import { message, Modal } from "antd"
 import { getSocket, joinOrderRoom, leaveOrderRoom } from "@/lib/socket"
@@ -80,19 +80,19 @@ export default function ProfilePage() {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      pending: { text: "Chờ xác nhận", color: "bg-yellow-500", icon: Clock },
-      pending_payment: { text: "Chờ thanh toán", color: "bg-yellow-600", icon: Clock },
-      confirmed: { text: "Đã xác nhận", color: "bg-blue-500", icon: CheckCircle },
-      processing: { text: "Đang xử lý", color: "bg-purple-500", icon: Package },
-      shipping: { text: "Đang giao hàng", color: "bg-orange-500", icon: Package },
-      delivered: { text: "Đã giao hàng", color: "bg-green-500", icon: CheckCircle },
-      completed: { text: "Hoàn thành", color: "bg-green-600", icon: Award },
-      refunded: { text: "Đã hoàn trả", color: "bg-blue-600", icon: RotateCcw },
-      cancelled: { text: "Đã hủy", color: "bg-red-500", icon: Clock },
-      yeu_cau_hoan_tra: { text: "Đã gửi yêu cầu trả hàng", color: "bg-red-500", icon: Clock },
-      paid: { text: "Hoàn hàng", color: "bg-yellow-500", icon: Clock },
-      tuchoi: { text: "Đơn hàng bị huỷ", color: "bg-red-500", icon: X },
-      huydonhang: { text: "Đã huỷ đơn", color: "bg-yellow-400", icon: RotateCcw },
+      pending: { text: "Chờ xác nhận", color: "bg-yellow-500", icon: IconClock },
+      pending_payment: { text: "Chờ thanh toán", color: "bg-yellow-600", icon: IconClock },
+      confirmed: { text: "Đã xác nhận", color: "bg-blue-500", icon: IconCircleCheck },
+      processing: { text: "Đang xử lý", color: "bg-purple-500", icon: IconPackage },
+      shipping: { text: "Đang giao hàng", color: "bg-orange-500", icon: IconPackage },
+      delivered: { text: "Đã giao hàng", color: "bg-green-500", icon: IconCircleCheck },
+      completed: { text: "Hoàn thành", color: "bg-green-600", icon: IconAward },
+      refunded: { text: "Đã hoàn trả", color: "bg-blue-600", icon: IconRotateCcw },
+      cancelled: { text: "Đã hủy", color: "bg-red-500", icon: IconClock },
+      yeu_cau_hoan_tra: { text: "Đã gửi yêu cầu trả hàng", color: "bg-red-500", icon: IconClock },
+      paid: { text: "Hoàn hàng", color: "bg-yellow-500", icon: IconClock },
+      tuchoi: { text: "Đơn hàng bị huỷ", color: "bg-red-500", icon: IconX },
+      huydonhang: { text: "Đã huỷ đơn", color: "bg-yellow-400", icon: IconRotateCcw },
     }
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending
     const IconComponent = config.icon
@@ -223,7 +223,7 @@ export default function ProfilePage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Thông tin cá nhân</h1>
-        <p className="text-gray-600">Quản lý thông tin và đơn hàng của bạn</p>
+        <p className="text-indigo-950">Quản lý thông tin và đơn hàng của bạn</p>
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
@@ -238,12 +238,12 @@ export default function ProfilePage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <User className="w-5 h-5" />
+                <IconUserSquareRounded size={20} />
                 <span>Thông tin tài khoản</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium text-gray-500">Họ và tên</label>
@@ -305,7 +305,7 @@ export default function ProfilePage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <Lock className="w-5 h-5" />
+                <IconLock size={20} />
                 <span>Đổi mật khẩu</span>
               </CardTitle>
             </CardHeader>
@@ -354,15 +354,15 @@ export default function ProfilePage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <Package className="w-5 h-5" />
+                <IconPackage size={20} />
                 <span>Lịch sử đơn hàng</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               {orders.length === 0 ? (
                 <div className="text-center py-8">
-                  <Package className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600">Bạn chưa có đơn hàng nào</p>
+                  <IconPackage size={48} className="text-gray-400 mx-auto mb-4" />
+                  <p className="text-indigo-950">Bạn chưa có đơn hàng nào</p>
                   <Button onClick={() => router.push("/products")} className="mt-4">
                     Mua sắm ngay
                   </Button>
@@ -394,13 +394,13 @@ export default function ProfilePage() {
                             />
                           ))}
                           {order.items.length > 3 && (
-                            <div className="w-10 h-10 bg-gray-200 rounded border-2 border-white flex items-center justify-center text-xs font-medium">
+                            <div className="w-10 h-10 bg-gray-200 rounded border-2 border-white flex items-center justify-center text-sm font-medium">
                               +{order.items.length - 3}
                             </div>
                           )}
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-indigo-950">
                             {order.items.reduce((sum, i) => sum + i.quantity, 0)} sản phẩm •{" "}
                             {order.paymentMethod === "cod" ? "COD" : "Chuyển khoản"}
                           </p>
@@ -422,7 +422,7 @@ export default function ProfilePage() {
                           size="sm"
                           onClick={() => router.push(`/order-tracking?orderNumber=${order.orderCode}`)}
                         >
-                          <Eye className="w-4 h-4 mr-1" />
+                          <IconEye size={16} className="mr-1" />
                           Xem chi tiết
                         </Button>
                         {order.status === "delivered" && (

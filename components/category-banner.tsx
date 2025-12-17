@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { IconCategory2, IconChevronLeft, IconChevronRight, IconFlame } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
@@ -15,6 +15,10 @@ interface Product {
   stock: number
   coverImage: string
   volume?: string
+  ISSN?: string
+  publishYear?: number
+  pages?: number
+  description?: string
 }
 
 interface CategoryBannerProps {
@@ -58,44 +62,68 @@ export default function CategoryBanner({ categories, products }: CategoryBannerP
 
   const currentProduct = categoryProducts[currentImageIndex] || categoryProducts[0]
 
+  // Calculate the range of thumbnails to display (4 images around current)
+  const getThumbnailRange = () => {
+    const totalProducts = categoryProducts.length
+    if (totalProducts <= 4) {
+      return { start: 0, end: totalProducts }
+    }
+
+    // Try to keep current image in the middle
+    let start = Math.max(0, currentImageIndex - 1)
+    let end = Math.min(totalProducts, start + 4)
+
+    // Adjust if we're at the end
+    if (end - start < 4) {
+      start = Math.max(0, end - 4)
+    }
+
+    return { start, end }
+  }
+
+  const { start: thumbnailStart, end: thumbnailEnd } = getThumbnailRange()
+
   return (
-    <section className="bg-gradient-to-br from-blue-400 via-blue-500 to-blue-200 py-16 px-4 rounded-2xl overflow-hidden">
+    <section className="overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Category Navigation */}
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Khám phá danh mục</h2>
-            <p className="text-gray-300">Duyệt qua các bộ sưu tập sách yêu thích</p>
+            <h2 className="text-2xl md:text-3xl font-semibold text-indigo-800 mb-2">
+              <span className="text-indigo-950 bg-indigo-800 w-2 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
+              <span>Khám phá danh mục</span>
+            </h2>
+            <p className="text-indigo-950 text-xl">Duyệt qua các bộ sưu tập sách yêu thích</p>
           </div>
           <div className="hidden md:flex items-center gap-3">
             <Button
               variant="outline"
               size="icon"
               onClick={handlePrevCategory}
-              className="rounded-full border-2 border-orange-300 hover:bg-orange-100 bg-transparent"
+              className="rounded-full border-2 border-indigo-500 hover:bg-indigo-100 bg-transparent"
             >
-              <ChevronLeft className="w-5 h-5 text-white" />
+              <IconChevronLeft size={24} className="text-indigo-500" />
             </Button>
             <Button
               variant="outline"
               size="icon"
               onClick={handleNextCategory}
-              className="rounded-full border-2 border-orange-300 hover:bg-orange-100 bg-transparent"
+              className="rounded-full border-2 border-indigo-500 hover:bg-indigo-100 bg-transparent"
             >
-              <ChevronRight className="w-5 h-5 text-white" />
+              <IconChevronRight size={24} className="text-indigo-500" />
             </Button>
           </div>
         </div>
 
         {/* Category Slider */}
-        <div className="flex gap-3 mb-12 overflow-x-auto pb-4">
+        <div className="flex gap-4 mb-6 flex-wrap pb-4">
           {categories.map((category, index) => (
             <button
               key={category}
               onClick={() => setActiveCategory(index)}
-              className={`px-6 py-3 rounded-full font-semibold transition-all whitespace-nowrap ${activeCategory === index
-                ? "bg-gradient-to-r from-orange-400 to-pink-400 text-white shadow-lg"
-                : "bg-white text-gray-700 border-2 border-orange-200 hover:border-orange-400"
+              className={`px-5 py-1 rounded-full font-semibold transition-all whitespace-nowrap ${activeCategory === index
+                ? "bg-gradient-to-r from-indigo-500 to-blue-400 text-white shadow-lg"
+                : "bg-white text-indigo-800 font-normal border-2 border-indigo-500 hover:border-indigo-400"
                 }`}
             >
               {category}
@@ -105,99 +133,138 @@ export default function CategoryBanner({ categories, products }: CategoryBannerP
 
         {/* Banner with Product Carousel */}
         {currentProduct && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div
+            style={{
+              backgroundImage: `url(/stacked-waves-haikei.svg)`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+            className="grid grid-cols-1 rounded-2xl p-6 md:grid-cols-2 gap-8 items-center">
             {/* Product Image Section */}
             <div className="relative group">
-              <div className="bg-white rounded-2xl overflow-hidden shadow-xl">
+              <div className="bg-white rounded-2xl flex justify-center items-center overflow-hidden shadow-xl">
                 <img
                   src={currentProduct.coverImage || "/placeholder.svg"}
                   alt={currentProduct.title}
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-auto h-80 p-6 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
 
-              {/* Image Navigation */}
+              {/* Thumbnails Preview */}
               {categoryProducts.length > 1 && (
-                <div className="flex items-center justify-between mt-4 px-2">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={handlePrevImage}
-                    className="rounded-full bg-white border-2 border-orange-300 hover:bg-orange-100"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </Button>
-                  <span className="text-sm font-semibold text-gray-600">
-                    {currentImageIndex + 1} / {categoryProducts.length}
-                  </span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={handleNextImage}
-                    className="rounded-full bg-white border-2 border-orange-300 hover:bg-orange-100"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </Button>
+                <div className="mt-4 space-y-3">
+                  <div className="grid grid-cols-4 gap-2">
+                    {categoryProducts.slice(thumbnailStart, thumbnailEnd).map((product, idx) => {
+                      const actualIndex = thumbnailStart + idx
+                      return (
+                        <button
+                          key={product._id}
+                          onClick={() => setCurrentImageIndex(actualIndex)}
+                          className={`relative rounded-lg overflow-hidden transition-all duration-300 ${actualIndex === currentImageIndex
+                            ? "ring-2 ring-indigo-500 shadow-lg scale-105 opacity-100"
+                            : "ring-2 ring-gray-300 hover:ring-indigo-300 opacity-70 hover:opacity-100"
+                            }`}
+                        >
+                          <img
+                            src={product.coverImage || "/placeholder.svg"}
+                            alt={product.title}
+                            className="w-full h-24 object-cover"
+                          />
+                          {actualIndex === currentImageIndex && (
+                            <div className="absolute inset-0 bg-indigo-500 bg-opacity-20"></div>
+                          )}
+                        </button>
+                      )
+                    })}
+                  </div>
+
+                  {/* Image Navigation */}
+                  <div className="flex items-center justify-between">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={handlePrevImage}
+                      className="rounded-full !w-20 h-9 bg-transparent border-2 border-indigo-500 hover:bg-indigo-100"
+                    >
+                      <IconChevronLeft size={16} className="text-indigo-500" />
+                    </Button>
+                    <span className="text-sm font-semibold text-white bg-indigo-500 px-3 py-2 rounded-full">
+                      {currentImageIndex + 1} / {categoryProducts.length}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={handleNextImage}
+                      className="rounded-full !w-20 h-9 bg-transparent border-2 border-indigo-500 hover:bg-indigo-100"
+                    >
+                      <IconChevronRight size={16} className="text-indigo-500" />
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
 
             {/* Product Info Section */}
-            <div className="space-y-6">
+            <div className="space-y-4 rounded-2xl">
               <div>
-                <span className="inline-block px-4 py-2 bg-orange-200 text-orange-700 rounded-full text-sm font-semibold mb-3">
-                  {categories[activeCategory]}
-                </span>
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">{currentProduct.title}</h3>
-                <p className="text-gray-300 text-lg">{currentProduct.author}</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-fit flex items-center gap-2 px-3 py-1 bg-red-500 text-white rounded-full text-sm font-semibold mb-3">
+                    <IconFlame size={18} className="text-white" />
+                    Hot sale
+                  </div>
+                  <div className="w-fit flex items-center gap-2 px-3 py-1 bg-[#E1CAAB] text-indigo-950 rounded-full text-sm font-semibold mb-3">
+                    <IconCategory2 size={18} className="text-indigo-950" />
+                    <span>
+                      {categories[activeCategory]}
+                    </span>
+                  </div>
+                </div>
+                <h3 className="text-3xl md:text-4xl font-medium text-indigo-400 mb-2 leading-tight">
+                  {currentProduct.title}
+                  {currentProduct.volume && ` | Tập: ${currentProduct.volume}`}
+                </h3>
+                <p className="text-[#E1CAAB] text-base font-semibold">Tác giả: {currentProduct.author}</p>
               </div>
 
-              <div className="space-y-2">
-                <p className="text-sm text-gray-500">Tập: {currentProduct.volume || "Không có"}</p>
+              <div className="flex items-baseline gap-4 flex-wrap text-sm">
+                <p className="text-4xl md:text-5xl font-normal text-white mb-4">
+                  {currentProduct.price.toLocaleString("vi-VN")}
+                  <span className="text-3xl ml-1">đ</span>
+                </p>
                 {currentProduct.stock > 0 ? (
-                  <p className="text-sm text-green-600 font-semibold">✓ Còn hàng</p>
+                  <span className="text-green-500 font-semibold text-base">✓ Còn hàng</span>
                 ) : (
-                  <p className="text-sm text-red-600 font-semibold">✗ Hết hàng</p>
+                  <span className="text-red-500 font-semibold text-base">✗ Hết hàng</span>
                 )}
               </div>
 
-              <div className="text-4xl font-bold text-transparent bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text">
-                {currentProduct.price.toLocaleString("vi-VN")}đ
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button
-                  size="lg"
-                  className="flex-1 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-semibold"
-                  asChild
-                >
-                  {/* Update link to product detail page */}
-                  <Link href={`/products/${currentProduct._id}`}>Xem chi tiết</Link>
-                </Button>
+              {/* Description */}
+              {currentProduct.description && (
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                  <p className="text-[#E1CAAB] text-base font-semibold mb-2">Mô tả</p>
+                  <p className="text-white text-sm leading-relaxed line-clamp-3">
+                    {currentProduct.description}
+                  </p>
+                </div>
+              )}
+              <div className="grid grid-cols-2 gap-4 pt-2">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="flex-1 border-2 border-orange-300 text-orange-600 hover:bg-orange-50 font-semibold bg-transparent"
                   asChild
+                  className="border-2 border-indigo-400 text-indigo-400 hover:bg-indigo-400 hover:text-white font-semibold text-base"
                 >
                   <Link href="/products">Khám phá thêm</Link>
                 </Button>
+                <Button
+                  size="lg"
+                  asChild
+                  className="bg-[#6366F1] hover:bg-[#5558e3] text-white font-semibold text-base"
+                >
+                  <Link href={`/products/${currentProduct._id}`}>Xem chi tiết</Link>
+                </Button>
               </div>
-
-              {/* Dots for products */}
-              {categoryProducts.length > 1 && (
-                <div className="flex gap-2 justify-center">
-                  {categoryProducts.slice(0, 5).map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-all ${index === currentImageIndex ? "bg-orange-500 w-6" : "bg-orange-200 hover:bg-orange-300"
-                        }`}
-                      aria-label={`Go to product ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         )}

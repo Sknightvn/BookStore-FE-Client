@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ShoppingCart } from "lucide-react"
+import { IconShoppingCart } from "@tabler/icons-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useCart } from "@/contexts/cart-context"
@@ -73,23 +73,23 @@ const handleAddToCart = () => {
       <CardContent className="flex-grow pb-3">
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-600">Danh mục:</span>
+            <span className="text-indigo-950">Danh mục:</span>
             <span className="font-medium">{product.category?.name || "Khác"}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">Năm xuất bản:</span>
+            <span className="text-indigo-950">Năm xuất bản:</span>
             <span className="font-medium">{product.publishYear}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">Số trang:</span>
+            <span className="text-indigo-950">Số trang:</span>
             <span className="font-medium">{product.pages}</span>
           </div>
            <div className="flex justify-between">
-            <span className="text-gray-600">Tập:</span>
+            <span className="text-indigo-950">Tập:</span>
             <span className="font-medium">{product.volume || "Không có"}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">Kho:</span>
+            <span className="text-indigo-950">Kho:</span>
             <span className={`font-medium ${isOutOfStock ? "text-red-600" : "text-green-600"}`}>
               {isOutOfStock ? "Hết hàng" : `${product.stock} cuốn`}
             </span>
@@ -100,7 +100,7 @@ const handleAddToCart = () => {
       <CardFooter className="flex items-center justify-between pt-3 border-t">
         <div className="text-lg font-bold text-blue-600">{product.price.toLocaleString("vi-VN")}₫</div>
         <Button onClick={handleAddToCart} disabled={isOutOfStock} size="sm" className="gap-2">
-          <ShoppingCart className="w-4 h-4" />
+          <IconShoppingCart size={16} />
           Thêm
         </Button>
       </CardFooter>

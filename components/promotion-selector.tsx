@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { useCart } from "@/contexts/cart-context"
 import { SAMPLE_PROMOTIONS } from "@/data/promotions"
-import { Gift, X, Check, AlertCircle } from "lucide-react"
+import { IconGift, IconX, IconCheck, IconAlertCircle } from "@tabler/icons-react"
 import { message } from "antd"
 
 export default function PromotionSelector() {
@@ -37,7 +37,7 @@ export default function PromotionSelector() {
     <Card className="mb-4">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
-          <Gift className="w-5 h-5 text-amber-500" />
+          <IconGift size={20} className="text-amber-500" />
           <span>Khuyến mãi áp dụng được</span>
         </CardTitle>
       </CardHeader>
@@ -48,13 +48,13 @@ export default function PromotionSelector() {
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center space-x-2 mb-1">
-                  <Check className="w-4 h-4 text-green-600" />
+                  <IconCheck size={16} className="text-green-600" />
                   <span className="font-semibold text-green-700">{appliedPromotion.name}</span>
                   <Badge variant="outline" className="bg-green-100 text-green-700 border-green-300">
                     {appliedPromotion.code}
                   </Badge>
                 </div>
-                <p className="text-sm text-gray-600">{appliedPromotion.description}</p>
+                <p className="text-sm text-indigo-950">{appliedPromotion.description}</p>
                 <p className="text-sm font-semibold text-green-600 mt-2">
                   Tiết kiệm: {getDiscountAmount().toLocaleString("vi-VN")}đ
                 </p>
@@ -65,7 +65,7 @@ export default function PromotionSelector() {
                 onClick={handleRemovePromotion}
                 className="text-red-600 hover:text-red-700 hover:bg-red-50"
               >
-                <X className="w-4 h-4" />
+                <IconX size={16} />
               </Button>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function PromotionSelector() {
                 ? `Xem ${availablePromotions.length} khuyến mãi khác`
                 : "Không có khuyến mãi khác"}
             </span>
-            <span className="text-xs">{showPromotions ? "▲" : "▼"}</span>
+            <span className="text-sm">{showPromotions ? "▲" : "▼"}</span>
           </Button>
 
           {showPromotions && availablePromotions.length > 0 && (
@@ -106,19 +106,19 @@ export default function PromotionSelector() {
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
                         <span className="font-semibold text-gray-900">{promo.name}</span>
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge variant="secondary" className="text-sm">
                           {promo.code}
                         </Badge>
                       </div>
-                      <p className="text-xs text-gray-600">{promo.description}</p>
-                      <p className="text-xs text-amber-600 mt-1">
+                      <p className="text-sm text-indigo-950">{promo.description}</p>
+                      <p className="text-sm text-amber-600 mt-1">
                         {promo.discountType === "percentage"
                           ? `Giảm ${promo.discountValue}%`
                           : `Giảm ${promo.discountValue.toLocaleString("vi-VN")}đ`}
                       </p>
                     </div>
                     {appliedPromotion?.id === promo.id && (
-                      <Check className="w-5 h-5 text-green-600 flex-shrink-0 ml-2" />
+                      <IconCheck size={20} className="text-green-600 flex-shrink-0 ml-2" />
                     )}
                   </div>
                 </div>
@@ -128,24 +128,24 @@ export default function PromotionSelector() {
 
           {!showPromotions && unavailablePromotions.length > 0 && (
             <div className="mt-3 space-y-2">
-              <p className="text-xs text-gray-500 font-medium">Khuyến mãi khác:</p>
+              <p className="text-sm text-gray-500 font-medium">Khuyến mãi khác:</p>
               {unavailablePromotions.map((promo) => (
                 <div key={promo.id} className="p-2 rounded-lg border border-gray-200 bg-gray-50 opacity-60">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
-                        <span className="text-xs font-semibold text-gray-600">{promo.name}</span>
-                        <Badge variant="secondary" className="text-xs">
+                        <span className="text-sm font-semibold text-indigo-950">{promo.name}</span>
+                        <Badge variant="secondary" className="text-sm">
                           {promo.code}
                         </Badge>
                       </div>
-                      <p className="text-xs text-gray-500">{promo.description}</p>
+                      <p className="text-sm text-gray-500">{promo.description}</p>
                     </div>
-                    <AlertCircle className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" />
+                    <IconAlertCircle size={16} className="text-gray-400 flex-shrink-0 ml-2" />
                   </div>
                 </div>
               ))}
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-sm text-gray-500 mt-2">
                 Mua thêm{" "}
                 {(Math.min(...unavailablePromotions.map((p) => p.minOrderValue)) - subtotal).toLocaleString("vi-VN")}đ
                 để mở khóa khuyến mãi
@@ -154,7 +154,7 @@ export default function PromotionSelector() {
           )}
 
           {!showPromotions && availablePromotions.length === 0 && unavailablePromotions.length === 0 && (
-            <p className="text-xs text-gray-500 mt-2">Không có khuyến mãi nào</p>
+            <p className="text-sm text-gray-500 mt-2">Không có khuyến mãi nào</p>
           )}
         </div>
       </CardContent>

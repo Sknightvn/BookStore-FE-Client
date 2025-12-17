@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { ShoppingCart, ArrowLeft, Truck, CreditCard, MapPin, Plus, Trash2, Check, X } from "lucide-react"
+import { IconShoppingCart, IconArrowLeft, IconTruck, IconCreditCard, IconMapPin, IconPlus, IconTrash, IconCheck, IconX } from "@tabler/icons-react"
 import { useCart } from "@/contexts/cart-context"
 import CartItemComponent from "@/components/cart-item"
 import PromotionSelector from "@/components/promotion-selector"
@@ -231,12 +231,12 @@ export default function CartPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center py-12">
-          <ShoppingCart className="w-24 h-24 text-gray-300 mx-auto mb-6" />
+          <IconShoppingCart size={96} className="text-gray-300 mx-auto mb-6" />
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Giỏ hàng trống</h1>
-          <p className="text-gray-600 mb-8">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+          <p className="text-indigo-950 mb-8">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
           <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
             <Link href="/products">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <IconArrowLeft size={16} className="mr-2" />
               Tiếp tục mua sắm
             </Link>
           </Button>
@@ -251,7 +251,7 @@ export default function CartPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Giỏ hàng</h1>
-          <p className="text-gray-600 mt-2">Bạn có {getTotalItems()} sản phẩm trong giỏ hàng</p>
+          <p className="text-indigo-950 mt-2">Bạn có {getTotalItems()} sản phẩm trong giỏ hàng</p>
         </div>
         <Button variant="outline" onClick={handleClearCart} className="text-red-600 hover:text-red-700 bg-transparent">
           Xóa tất cả
@@ -262,12 +262,12 @@ export default function CartPage() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center space-x-2">
-              <MapPin className="w-5 h-5" />
+              <IconMapPin size={20} />
               <span>Địa chỉ nhận hàng</span>
             </CardTitle>
             {!showAddressForm && (
               <Button variant="outline" size="sm" onClick={() => setShowAddressForm(true)}>
-                <Plus className="w-4 h-4 mr-2" />
+                <IconPlus size={16} className="mr-2" />
                 Thêm địa chỉ
               </Button>
             )}
@@ -286,7 +286,7 @@ export default function CartPage() {
                     setAddress({ street: "", ward: "", district: "", city: "" })
                   }}
                 >
-                  <X className="w-4 h-4" />
+                  <IconX size={16} />
                 </Button>
               </div>
               <div className="grid gap-4">
@@ -360,7 +360,7 @@ export default function CartPage() {
 
           {deliveryAddresses.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
-              <MapPin className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+              <IconMapPin size={48} className="mx-auto mb-3 text-gray-300" />
               <p>Chưa có địa chỉ nào. Nhấn "Thêm địa chỉ" để thêm địa chỉ giao hàng.</p>
             </div>
           ) : (
@@ -379,7 +379,7 @@ export default function CartPage() {
                       <div className="flex items-center space-x-2 mb-2">
                         {selectedAddressId === addr.id && (
                           <div className="flex items-center space-x-1 text-blue-600 text-sm font-medium">
-                            <Check className="w-4 h-4" />
+                            <IconCheck size={16} />
                             <span>Địa chỉ đã chọn</span>
                           </div>
                         )}
@@ -397,7 +397,7 @@ export default function CartPage() {
                       }}
                       className="text-red-600 hover:text-red-700 hover:bg-red-50"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <IconTrash size={16} />
                     </Button>
                   </div>
                 </div>
@@ -420,7 +420,7 @@ export default function CartPage() {
           <div className="mt-6">
             <Button variant="outline" asChild>
               <Link href="/products">
-                <ArrowLeft className="w-4 h-4 mr-2" />
+                <IconArrowLeft size={16} className="mr-2" />
                 Tiếp tục mua sắm
               </Link>
             </Button>
@@ -435,7 +435,7 @@ export default function CartPage() {
             <Card className="sticky top-4">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <ShoppingCart className="w-5 h-5" />
+                  <IconShoppingCart size={20} />
                   <span>Tóm tắt đơn hàng</span>
                 </CardTitle>
               </CardHeader>
@@ -456,7 +456,7 @@ export default function CartPage() {
 
                   <div className="flex justify-between text-sm">
                     <span className="flex items-center space-x-1">
-                      <Truck className="w-4 h-4" />
+                      <IconTruck size={16} />
                       <span>Phí vận chuyển</span>
                     </span>
                     <span>{getShippingFee() === 0 ? "Miễn phí" : `${getShippingFee().toLocaleString("vi-VN")}đ`}</span>
@@ -478,7 +478,7 @@ export default function CartPage() {
                 {/* Shipping Info */}
                 <div className="p-3 bg-blue-50 rounded-lg">
                   <div className="flex items-center space-x-2 text-sm text-blue-700">
-                    <Truck className="w-4 h-4" />
+                    <IconTruck size={16} />
                     <span>
                       {getShippingFee() === 0
                         ? "Miễn phí vận chuyển"
@@ -496,21 +496,21 @@ export default function CartPage() {
                   size="lg"
                   disabled={isCheckingStock}
                 >
-                  <CreditCard className="w-4 h-4 mr-2" />
+                  <IconCreditCard size={16} className="mr-2" />
                   {isCheckingStock ? "Đang kiểm tra đơn hàng..." : "Tiến hành thanh toán"}
                 </Button>
 
                 {/* Payment Methods */}
                 <div className="text-center">
-                  <p className="text-xs text-gray-500 mb-2">Chúng tôi chấp nhận</p>
+                  <p className="text-sm text-gray-500 mb-2">Chúng tôi chấp nhận</p>
                   <div className="flex justify-center space-x-2">
-                    <div className="w-8 h-5 bg-blue-600 rounded text-white text-xs flex items-center justify-center">
+                    <div className="w-8 h-5 bg-blue-600 rounded text-white text-sm flex items-center justify-center">
                       VISA
                     </div>
-                    <div className="w-8 h-5 bg-red-600 rounded text-white text-xs flex items-center justify-center">
+                    <div className="w-8 h-5 bg-red-600 rounded text-white text-sm flex items-center justify-center">
                       MC
                     </div>
-                    <div className="w-8 h-5 bg-green-600 rounded text-white text-xs flex items-center justify-center">
+                    <div className="w-8 h-5 bg-green-600 rounded text-white text-sm flex items-center justify-center">
                       ATM
                     </div>
                   </div>
