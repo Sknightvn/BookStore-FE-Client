@@ -13,6 +13,14 @@ import { useAuth } from "@/contexts/auth-context"
 import { message } from "antd"
 import { OTPInput } from "./otp-input"
 import { sendOtpForRegistration, verifyOtpAndRegister } from "@/utils/authApi"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 export default function RegisterPage() {
   const [name, setName] = useState("")

@@ -9,6 +9,14 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 import { IconArrowLeft, IconCreditCard, IconTruck, IconMapPin, IconUserSquareRounded, IconPhone, IconMail } from "@tabler/icons-react"
 import { useCart } from "@/contexts/cart-context"
 import { useAuth } from "@/contexts/auth-context"
@@ -96,7 +104,6 @@ export default function CheckoutPage() {
       }
 
       localStorage.setItem("checkoutData", JSON.stringify(checkoutData))
-
       message.success("Thông tin đã được lưu!")
       router.push("/payment")
     } catch (error) {
@@ -113,14 +120,32 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
-      <div className="flex items-center mb-8">
-        <Button variant="ghost" onClick={() => router.back()} className="mr-4">
-          <IconArrowLeft size={16} className="mr-2" />
-          Quay lại
-        </Button>
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Thanh toán</h1>
-          <p className="text-indigo-950 mt-2">Hoàn tất đơn hàng của bạn</p>
+      <div className="flex flex-col gap-4 mb-8">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Trang chủ</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/cart">Giỏ hàng</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Thanh toán</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <div className="flex items-center">
+          <Button variant="ghost" onClick={() => router.back()} className="mr-4">
+            <IconArrowLeft size={16} className="mr-2" />
+            Quay lại
+          </Button>
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Thanh toán</h1>
+            <p className="text-indigo-950 mt-2">Hoàn tất đơn hàng của bạn</p>
+          </div>
         </div>
       </div>
 

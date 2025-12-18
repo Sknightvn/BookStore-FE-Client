@@ -6,6 +6,14 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 import { IconCircleCheck, IconMapPin, IconCreditCard, IconPackage } from "@tabler/icons-react"
 import type { Order } from "@/lib/orders-data"
 
@@ -52,13 +60,31 @@ export default function OrderConfirmationPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Success Message */}
-      <div className="text-center mb-8">
-        <div className="flex justify-center mb-4">
-          <IconCircleCheck size={64} className="text-green-600" />
+      <div className="mb-8 space-y-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Trang chủ</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/orders">Đơn hàng</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Chi tiết đơn hàng</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        {/* Success Message */}
+        <div className="text-center">
+          <div className="flex justify-center mb-4">
+            <IconCircleCheck size={64} className="text-green-600" />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Đơn hàng đã được tạo thành công!</h1>
+          <p className="text-indigo-950">Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi</p>
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Đơn hàng đã được tạo thành công!</h1>
-        <p className="text-indigo-950">Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi</p>
       </div>
 
       <div className="space-y-6">

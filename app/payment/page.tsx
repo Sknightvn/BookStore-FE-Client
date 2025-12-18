@@ -270,11 +270,20 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { IconCreditCard, IconTruck, IconClock } from "@tabler/icons-react"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 import { useCart } from "@/contexts/cart-context"
 import { message } from "antd"
 import { useAuth } from "@/contexts/auth-context"
 import { CheckoutData } from "@/lib/orders-data"
 import { useCreateOrder, useCreateVNPayOrder } from "@/hooks/useOrders"
+import { useUpdateUserCart } from "@/hooks/useCart"
 
 export default function PaymentPage() {
   const router = useRouter()
@@ -286,6 +295,7 @@ export default function PaymentPage() {
 
   const createOrderMutation = useCreateOrder()
   const createVNPayOrderMutation = useCreateVNPayOrder()
+  const updateCartMutation = useUpdateUserCart()
 
   useEffect(() => {
     const savedCheckoutData = localStorage.getItem("checkoutData")
@@ -327,13 +337,35 @@ export default function PaymentPage() {
         paymentMethod: checkoutData.paymentMethod,
       }
 
+      // Helper function để clear cart hoàn toàn (storage + server)
+      const clearCartCompletely = () => {
+        // Clear cart trong context (sẽ trigger localStorage update)
+        clearCart()
+        
+        // Clear localStorage cart keys
+        const cartKey = user?.id ? `cartItems_${user.id}` : "cartItems_guest"
+        localStorage.removeItem(cartKey)
+        localStorage.removeItem("checkoutData")
+        localStorage.removeItem("selectedDeliveryAddress")
+        
+        // Clear cart trên server nếu user đã đăng nhập
+        if (user?.id || user?.email) {
+          updateCartMutation.mutate({
+            userId: user?.id,
+            email: user?.email,
+            productsCart: [],
+          })
+        }
+        
+        console.log("[Payment] Cart cleared completely - storage & server")
+      }
+
       // Nếu chọn thanh toán COD
       if (checkoutData.paymentMethod === "cod") {
         createOrderMutation.mutate(orderData, {
           onSuccess: () => {
             message.success("Đặt hàng thành công (COD)!")
-            clearCart()
-            localStorage.removeItem("checkoutData")
+            clearCartCompletely()
             router.push(`/order-confirmation?orderId=${orderId}`)
           },
           onError: (error: any) => {
@@ -348,8 +380,7 @@ export default function PaymentPage() {
 
       createVNPayOrderMutation.mutate(orderData, {
         onSuccess: (result) => {
-          clearCart()
-          localStorage.removeItem("checkoutData")
+          clearCartCompletely()
           if (result.paymentUrl) {
             window.location.href = result.paymentUrl!
           } else {
@@ -384,9 +415,31 @@ export default function PaymentPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Xác nhận thanh toán</h1>
-        <p className="text-indigo-950 mt-2">Mã đơn hàng: {orderId}</p>
+      <div className="mb-8 space-y-4">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Trang chủ</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/cart">Giỏ hàng</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/checkout">Thanh toán</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Thanh toán</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Xác nhận thanh toán</h1>
+          <p className="text-indigo-950 mt-2">Mã đơn hàng: {orderId}</p>
+        </div>
       </div>
 
       <div className="space-y-6">
