@@ -271,7 +271,7 @@ export default function CheckoutPage() {
                     <RadioGroupItem value="bank_transfer" id="bank_transfer" />
                     <div className="flex-1">
                       <Label htmlFor="bank_transfer" className="flex items-center space-x-3 cursor-pointer">
-                        <IconCreditCard size={20} className="text-blue-600" />
+                        <IconCreditCard size={20} className="text-indigo-600" />
                         <div>
                           <div className="font-medium">Chuyển khoản ngân hàng</div>
                           <div className="text-sm text-gray-500">Chuyển khoản trước khi giao hàng</div>
@@ -283,9 +283,9 @@ export default function CheckoutPage() {
               </RadioGroup>
 
               {/* {paymentMethod === "bank_transfer" && (
-                <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <h4 className="font-medium text-blue-900 mb-2">Thông tin chuyển khoản:</h4>
-                  <div className="text-sm text-blue-800 space-y-1">
+                <div className="mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+                  <h4 className="font-medium text-indigo-900 mb-2">Thông tin chuyển khoản:</h4>
+                  <div className="text-sm text-indigo-800 space-y-1">
                     <p>
                       <strong>Ngân hàng:</strong> Vietcombank
                     </p>
@@ -299,7 +299,7 @@ export default function CheckoutPage() {
                       <strong>Nội dung:</strong> [Mã đơn hàng] - [Họ tên]
                     </p>
                   </div>
-                  <p className="text-sm text-blue-700 mt-2">
+                  <p className="text-sm text-indigo-700 mt-2">
                     * Đơn hàng sẽ được xử lý sau khi chúng tôi xác nhận thanh toán
                   </p>
                 </div>
@@ -366,7 +366,7 @@ export default function CheckoutPage() {
               <Button
                 onClick={handleProceedToPayment}
                 disabled={isLoading}
-                className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-200"
+                className="w-full bg-indigo-600 hover:bg-indigo-700 transition-all duration-200"
                 size="lg"
               >
                 {isLoading ? "Đang xử lý..." : "Tiến hành thanh toán"}
@@ -374,7 +374,7 @@ export default function CheckoutPage() {
 
               <p className="text-sm text-gray-500 text-center">
                 Bằng cách đặt hàng, bạn đồng ý với{" "}
-                <a href="/terms" className="text-blue-600 hover:underline">
+                <a href="/terms" className="text-indigo-600 hover:underline">
                   điều khoản sử dụng
                 </a>{" "}
                 của chúng tôi

@@ -7,7 +7,7 @@ import { IconBook, IconUserSquareRounded, IconAward, IconHeart, IconTarget, Icon
 import Link from "next/link"
 
 const stats = [
-  { icon: IconBook, label: "Đầu sách", value: "50,000+", color: "text-blue-600" },
+  { icon: IconBook, label: "Đầu sách", value: "50,000+", color: "text-indigo-600" },
   { icon: IconUserSquareRounded, label: "Khách hàng", value: "100,000+", color: "text-green-600" },
   { icon: IconAward, label: "Năm kinh nghiệm", value: "15+", color: "text-purple-600" },
   { icon: IconHeart, label: "Đánh giá 5 sao", value: "98%", color: "text-red-600" },
@@ -139,7 +139,7 @@ export default function AboutPage() {
           {values.map((value, index) => (
             <Card key={index} className="text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
               <CardContent className="p-8">
-                <value.icon className="w-16 h-16 text-blue-600 mx-auto mb-6" />
+                <value.icon className="w-16 h-16 text-indigo-600 mx-auto mb-6" />
                 <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
                 <p className="text-indigo-950">{value.description}</p>
               </CardContent>
@@ -177,7 +177,7 @@ export default function AboutPage() {
                   className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
                 />
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">{member.role}</Badge>
+                <Badge className="mb-4 bg-indigo-100 text-indigo-800 hover:bg-indigo-200">{member.role}</Badge>
                 <p className="text-indigo-950 text-sm">{member.description}</p>
               </CardContent>
             </Card>
@@ -187,12 +187,12 @@ export default function AboutPage() {
 
       {/* Contact Section */}
       <section className="mb-16">
-        <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-none">
+        <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 border-none">
           <CardContent className="p-8">
             <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Liên hệ với chúng tôi</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
-                <IconMapPin size={48} className="text-blue-600 mx-auto mb-4" />
+                <IconMapPin size={48} className="text-indigo-600 mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-gray-900 mb-2">Địa chỉ</h3>
                 <p className="text-indigo-950">
                   55/30 Đường số 7, Phường 7
@@ -229,7 +229,7 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <section className="text-center">
-        <Card className="bg-gradient-to-r from-blue-600 to-purple-600 border-none text-white">
+        <Card className="bg-gradient-to-r from-indigo-600 to-purple-600 border-none text-white">
           <CardContent className="p-12">
             <h2 className="text-3xl font-bold mb-4">Bắt đầu hành trình đọc sách cùng chúng tôi</h2>
             <p className="text-xl mb-8 opacity-90">Khám phá hàng ngàn đầu sách chất lượng với giá tốt nhất</p>
@@ -243,7 +243,7 @@ export default function AboutPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-white border-white hover:bg-white hover:text-blue-600 bg-transparent"
+                className="text-white border-white hover:bg-white hover:text-indigo-600 bg-transparent"
                 asChild
               >
                 <Link href="/register">

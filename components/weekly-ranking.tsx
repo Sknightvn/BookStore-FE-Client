@@ -137,7 +137,7 @@ export default function WeeklyRanking() {
                 <div className="flex-grow">
                   <h3 className="font-semibold text-gray-900 line-clamp-2">{book.title}</h3>
                   <p className="text-sm text-indigo-950">{book.author || "Không rõ tác giả"}</p>
-                  <p className="text-sm text-blue-600 font-medium">{book.category || "Khác"}</p>
+                  <p className="text-sm text-indigo-600 font-medium">{book.category || "Khác"}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <div className="flex items-center gap-1">
                       <IconStar size={16} className="fill-yellow-400 text-yellow-400" />
@@ -167,12 +167,12 @@ export default function WeeklyRanking() {
                 <div>
                   <h3 className="font-bold text-gray-900 line-clamp-3">{selectedBook.title}</h3>
                   <p className="text-sm text-indigo-950 mt-1">Tác giả: {selectedBook.author || "Không rõ"}</p>
-                  <p className="text-sm text-blue-600 font-medium mt-1">Danh mục: {selectedBook.category || "Khác"}</p>
+                  <p className="text-sm text-indigo-600 font-medium mt-1">Danh mục: {selectedBook.category || "Khác"}</p>
                   {selectedBook.ISSN && <p className="text-sm text-indigo-950">ISBN: {selectedBook.ISSN}</p>}
                 </div>
 
                 {/* Sales Statistics */}
-                <div className="bg-blue-50 p-3 rounded-lg space-y-2">
+                <div className="bg-indigo-50 p-3 rounded-lg space-y-2">
                   <p className="text-sm font-semibold text-gray-900">Thống kê bán hàng</p>
                   <p className="text-sm text-indigo-950">
                     Đã bán: <span className="font-bold text-indigo-600">{selectedBook.totalQuantity}</span> sản phẩm

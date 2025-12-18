@@ -98,7 +98,7 @@ export default function ForgotPasswordPage() {
                 {/* Submit button */}
                 <Button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-200 transform hover:scale-105"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105"
                   disabled={forgotPasswordMutation.isPending}
                 >
                   {forgotPasswordMutation.isPending ? "Đang xử lý..." : "Gửi mật khẩu mới"}
@@ -126,7 +126,7 @@ export default function ForgotPasswordPage() {
                   type="button"
                   variant="ghost"
                   onClick={handleBackToLogin}
-                  className="text-blue-600 hover:text-blue-500"
+                  className="text-indigo-600 hover:text-indigo-500"
                 >
                   <IconArrowLeft size={16} className="mr-2" />
                   Quay lại đăng nhập
@@ -139,7 +139,7 @@ export default function ForgotPasswordPage() {
                 <Button
                   type="button"
                   onClick={handleBackToLogin}
-                  className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-200"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 transition-all duration-200"
                 >
                   <IconArrowLeft size={16} className="mr-2" />
                   Quay lại đăng nhập

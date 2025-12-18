@@ -117,15 +117,15 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-blue-600">10,000+</div>
+              <div className="text-4xl font-bold text-indigo-600">10,000+</div>
               <div className="text-indigo-950">Đầu sách</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-blue-600">50,000+</div>
+              <div className="text-4xl font-bold text-indigo-600">50,000+</div>
               <div className="text-indigo-950">Khách hàng hài lòng</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-blue-600">99%</div>
+              <div className="text-4xl font-bold text-indigo-600">99%</div>
               <div className="text-indigo-950">Đánh giá tích cực</div>
             </div>
           </div>

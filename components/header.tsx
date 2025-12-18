@@ -41,21 +41,21 @@ export default function Header() {
           </Link>
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8 w-full justify-center">
-            <Link href="/" className="text-indigo-950 hover:text-blue-600 uppercase transition-colors duration-200 p-2">
+            <Link href="/" className="text-indigo-950 hover:text-indigo-600 uppercase transition-colors duration-200 p-2">
               Trang chủ
             </Link>
             <Link
               href="/products"
-              className="text-indigo-950 hover:text-blue-600 transition-colors uppercase duration-200 p-2"
+              className="text-indigo-950 hover:text-indigo-600 transition-colors uppercase duration-200 p-2"
             >
               Sản phẩm
             </Link>
-            <Link href="/blog" className="text-indigo-950 hover:text-blue-600 uppercase transition-colors duration-200 p-2">
+            <Link href="/blog" className="text-indigo-950 hover:text-indigo-600 uppercase transition-colors duration-200 p-2">
               Blog
             </Link>
             <Link
               href="/about"
-              className="text-indigo-950 hover:text-blue-600 uppercase transition-colors duration-200 p-2"
+              className="text-indigo-950 hover:text-indigo-600 uppercase transition-colors duration-200 p-2"
             >
               Giới thiệu
             </Link>
@@ -67,7 +67,7 @@ export default function Header() {
               <Input
                 type="text"
                 placeholder="Tìm kiếm sách..."
-                className="pl-10 pr-4 py-2 w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                className="pl-10 pr-4 py-2 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             </div> */}
@@ -78,7 +78,7 @@ export default function Header() {
           <Button
               variant="ghost"
               size="sm"
-              className="relative hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+              className="relative hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200"
               asChild
             >
               <Link href="/cart">
@@ -95,10 +95,10 @@ export default function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="flex items-center space-x-2 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                    className="flex items-center space-x-2 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200"
                   >
                     <Avatar className="w-6 h-6">
-                      <AvatarFallback className="text-sm bg-blue-100 text-blue-600">
+                      <AvatarFallback className="text-sm bg-indigo-100 text-indigo-600">
                         {user.name.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
@@ -129,7 +129,7 @@ export default function Header() {
               <Button
                 variant="fulled"
                 size="sm"
-                className="hidden md:flex items-center hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 !py-0"
+                className="hidden md:flex items-center hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200 !py-0"
                 asChild
               >
                 <Link href="/login">
@@ -155,28 +155,28 @@ export default function Header() {
               </div>
               <Link
                 href="/"
-                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Trang chủ
               </Link>
               <Link
                 href="/products"
-                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sản phẩm
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blog
               </Link>
               <Link
                 href="/about"
-                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Giới thiệu
@@ -184,7 +184,7 @@ export default function Header() {
               {/* Added cart link to mobile menu */}
               <Link
                 href="/cart"
-                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Giỏ hàng ({getTotalItems()})
@@ -195,14 +195,14 @@ export default function Header() {
                     <div className="px-3 py-2 text-sm text-gray-500">Xin chào, {user.name}</div>
                     <Link
                       href="/profile"
-                      className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                      className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Thông tin cá nhân
                     </Link>
                     <Link
                       href="/orders"
-                      className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                      className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Đơn hàng của tôi
@@ -218,14 +218,14 @@ export default function Header() {
                   <>
                     <Link
                       href="/login"
-                      className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                      className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Đăng nhập
                     </Link>
                     <Link
                       href="/register"
-                      className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                      className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Đăng ký

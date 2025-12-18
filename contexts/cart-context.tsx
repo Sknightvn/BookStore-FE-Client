@@ -270,22 +270,37 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
   const itemsRef = useRef<CartItem[]>([])
 
-  // Cập nhật ref mỗi khi items thay đổi
   useEffect(() => {
     itemsRef.current = items
   }, [items])
 
-  // API hooks
-  const { data: serverCartData, isLoading: isLoadingCart } = useUserCart(
-    user?.id,
-    user?.email
-  )
+  const { data: serverCartData, isLoading: isLoadingCart } = useUserCart(user?.id, user?.email)
   const createCartMutation = useCreateUserCart()
   const updateCartMutation = useUpdateUserCart()
 
-  // Helper function để lấy localStorage key cho cart
   const getCartStorageKey = (userId: string | null) => {
     return userId ? `cartItems_${userId}` : "cartItems_guest"
+  }
+
+  const mergeCartItems = (baseItems: CartItem[], extraItems: CartItem[]): CartItem[] => {
+    const map = new Map<string, CartItem>()
+
+    const addItems = (list: CartItem[]) => {
+      list.forEach((item) => {
+        const key = item.product.id
+        const existing = map.get(key)
+        if (existing) {
+          map.set(key, { ...existing, quantity: existing.quantity + item.quantity })
+        } else {
+          map.set(key, { ...item })
+        }
+      })
+    }
+
+    addItems(baseItems)
+    addItems(extraItems)
+
+    return Array.from(map.values())
   }
 
   // Load from localStorage on mount (chỉ cho guest hoặc user hiện tại)
@@ -298,9 +313,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const savedAddressId = localStorage.getItem("selectedAddressId")
     const savedPromotion = localStorage.getItem("appliedPromotion")
 
-    // Chỉ load từ localStorage nếu là guest hoặc chưa có data từ server
     if (!user && savedItems) {
-      setItems(JSON.parse(savedItems))
+      try {
+        const parsed = JSON.parse(savedItems)
+        console.log("[Cart] Initial guest cart from storage:", parsed)
+        setItems(parsed)
+      } catch (e) {
+        console.error("[Cart] Error parsing initial guest cart:", e)
+      }
     }
     if (savedAddresses) setDeliveryAddresses(JSON.parse(savedAddresses))
     if (savedAddressId) setSelectedAddressId(savedAddressId)
@@ -310,54 +330,106 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setIsInitialized(true)
   }, [])
 
-  // Xử lý khi user thay đổi (đăng nhập user khác hoặc logout)
+  // Xử lý khi user thay đổi (đăng nhập / logout / đổi user)
   useEffect(() => {
+    if (!isInitialized) return
+
     const newUserId = user?.id || null
+    if (currentUserId === newUserId) return
 
-    // Nếu user thay đổi, clear cart hiện tại và load cart của user mới
-    if (isInitialized && currentUserId !== newUserId) {
-      const currentItems = itemsRef.current
+    const prevUserId = currentUserId
+    const currentItems = itemsRef.current
 
-      // Lưu cart cũ vào localStorage trước khi clear (nếu có)
-      if (currentUserId && currentItems.length > 0) {
-        const oldCartKey = getCartStorageKey(currentUserId)
-        localStorage.setItem(oldCartKey, JSON.stringify(currentItems))
-      } else if (!currentUserId && currentItems.length > 0) {
-        // Lưu cart guest trước khi đăng nhập
-        const guestCartKey = getCartStorageKey(null)
-        localStorage.setItem(guestCartKey, JSON.stringify(currentItems))
-      }
+    console.log("[Cart] User change detected", {
+      prevUserId,
+      newUserId,
+      currentItems,
+    })
 
-      // Clear cart hiện tại
-      setItems([])
-      setAppliedPromotion(null)
+    // Lưu cart hiện tại theo user cũ (hoặc guest)
+    if (prevUserId && currentItems.length > 0) {
+      const oldCartKey = getCartStorageKey(prevUserId)
+      localStorage.setItem(oldCartKey, JSON.stringify(currentItems))
+    } else if (!prevUserId && currentItems.length > 0) {
+      const guestCartKey = getCartStorageKey(null)
+      localStorage.setItem(guestCartKey, JSON.stringify(currentItems))
+    }
 
-      // Nếu logout, load cart guest từ localStorage
-      if (!newUserId) {
-        const guestCartKey = getCartStorageKey(null)
-        const guestCart = localStorage.getItem(guestCartKey)
-        if (guestCart) {
-          try {
-            setItems(JSON.parse(guestCart))
-          } catch (e) {
-            console.error("Error parsing guest cart:", e)
-          }
+    // Trường hợp guest -> login: sync cart guest vào cart user
+    if (!prevUserId && newUserId) {
+      const guestCartKey = getCartStorageKey(null)
+      const guestCartRaw = localStorage.getItem(guestCartKey)
+      let guestItems: CartItem[] = []
+
+      if (guestCartRaw) {
+        try {
+          guestItems = JSON.parse(guestCartRaw)
+        } catch (e) {
+          console.error("[Cart] Error parsing guest cart on login:", e)
         }
       }
 
-      setCurrentUserId(newUserId)
+      const serverItems: CartItem[] =
+        serverCartData?.success && Array.isArray(serverCartData.data) ? serverCartData.data : []
+
+      console.log("[Cart] Cart before login (guest):", guestItems)
+      console.log("[Cart] Cart from server before merge:", serverItems)
+
+      const mergedItems = mergeCartItems(serverItems, guestItems)
+
+      console.log("[Cart] Cart after login (merged):", mergedItems)
+
+      setItems(mergedItems)
+      setAppliedPromotion(null)
+
+      // Sau khi sync, clear cart guest khỏi localStorage
+      localStorage.removeItem(guestCartKey)
     }
-  }, [user?.id, isInitialized, currentUserId])
+
+    // Trường hợp login -> logout: reset giỏ hàng ở storage cho session mới
+    if (prevUserId && !newUserId) {
+      console.log("[Cart] Logging out, clearing current cart state")
+      setItems([])
+      setAppliedPromotion(null)
+    }
+
+    // Trường hợp đổi user A -> user B (hiếm khi xảy ra trên FE)
+    if (prevUserId && newUserId && prevUserId !== newUserId) {
+      const newCartKey = getCartStorageKey(newUserId)
+      const newCartRaw = localStorage.getItem(newCartKey)
+      let newItems: CartItem[] = []
+
+      if (newCartRaw) {
+        try {
+          newItems = JSON.parse(newCartRaw)
+        } catch (e) {
+          console.error("[Cart] Error parsing new user cart on switch:", e)
+        }
+      }
+
+      console.log("[Cart] Switching user, load cart for new user:", {
+        newUserId,
+        newItems,
+      })
+
+      setItems(newItems)
+      setAppliedPromotion(null)
+    }
+
+    setCurrentUserId(newUserId)
+  }, [user?.id, isInitialized, currentUserId, serverCartData])
 
   // Load cart từ server khi có data mới (cho user hiện tại)
   useEffect(() => {
     if (user && currentUserId === user.id && !isLoadingCart && serverCartData) {
       if (serverCartData.success && serverCartData.data !== undefined) {
-        // Có data từ server, dùng data từ server
-        setItems(serverCartData.data || [])
+        // Chỉ override nếu hiện tại chưa có items (tránh ghi đè cart đã merge với guest)
+        setItems((prev) => {
+          if (prev.length > 0) return prev
+          return serverCartData.data || []
+        })
       } else if (serverCartData.success) {
-        // Server trả về success nhưng không có data (cart rỗng)
-        setItems([])
+        setItems((prev) => (prev.length > 0 ? prev : []))
       }
     }
   }, [serverCartData, user, currentUserId, isLoadingCart])

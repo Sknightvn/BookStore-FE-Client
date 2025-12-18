@@ -24,6 +24,8 @@ export interface OrderResponse {
     data?: Order
     message?: string
     paymentUrl?: string
+    // VNPay specific response (e.g. RspCode: "00" on success)
+    RspCode?: string
 }
 
 export interface VNPayResponse {

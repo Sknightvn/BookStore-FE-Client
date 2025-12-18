@@ -8,7 +8,25 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { IconShoppingCart, IconArrowLeft, IconTruck, IconCreditCard, IconMapPin, IconPlus, IconTrash, IconCheck, IconX } from "@tabler/icons-react"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import {
+  IconShoppingCart,
+  IconArrowLeft,
+  IconTruck,
+  IconCreditCard,
+  IconMapPin,
+  IconPlus,
+  IconTrash,
+  IconCheck,
+  IconX,
+} from "@tabler/icons-react"
 import { useCart } from "@/contexts/cart-context"
 import CartItemComponent from "@/components/cart-item"
 import PromotionSelector from "@/components/promotion-selector"
@@ -230,11 +248,26 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Breadcrumb */}
+        <div className="mb-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Trang chủ</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Giỏ hàng</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
         <div className="text-center py-12">
           <IconShoppingCart size={96} className="text-gray-300 mx-auto mb-6" />
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Giỏ hàng trống</h1>
           <p className="text-indigo-950 mb-8">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
-          <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
+          <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700">
             <Link href="/products">
               <IconArrowLeft size={16} className="mr-2" />
               Tiếp tục mua sắm
@@ -247,26 +280,30 @@ export default function CartPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Giỏ hàng</h1>
-          <p className="text-indigo-950 mt-2">Bạn có {getTotalItems()} sản phẩm trong giỏ hàng</p>
-        </div>
-        <Button variant="outline" onClick={handleClearCart} className="text-red-600 hover:text-red-700 bg-transparent">
-          Xóa tất cả
-        </Button>
+      {/* Breadcrumb + Header */}
+      <div className="mb-8 space-y-4">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Trang chủ</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Giỏ hàng</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
 
-      <Card className="mb-8">
-        <CardHeader>
-          <div className="flex items-center justify-between">
+      <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+      <CardHeader className="bg-indigo-100">
+          <div className="flex items-center justify-between text-lg">
             <CardTitle className="flex items-center space-x-2">
-              <IconMapPin size={20} />
-              <span>Địa chỉ nhận hàng</span>
+              <IconMapPin size={16} />
+              <span className="text-lg">Địa chỉ nhận hàng</span>
             </CardTitle>
             {!showAddressForm && (
-              <Button variant="outline" size="sm" onClick={() => setShowAddressForm(true)}>
+              <Button variant="fulled" size="sm" onClick={() => setShowAddressForm(true)}>
                 <IconPlus size={16} className="mr-2" />
                 Thêm địa chỉ
               </Button>
@@ -275,7 +312,7 @@ export default function CartPage() {
         </CardHeader>
         <CardContent>
           {showAddressForm && (
-            <div className="mb-6 p-4 border-2 border-blue-200 rounded-lg bg-blue-50">
+            <div className="mb-6 p-4 border-2 border-indigo-200 rounded-lg bg-indigo-50">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900">Thêm địa chỉ mới</h3>
                 <Button
@@ -350,7 +387,7 @@ export default function CartPage() {
                   >
                     Hủy
                   </Button>
-                  <Button onClick={handleSaveAddress} className="bg-blue-600 hover:bg-blue-700">
+                  <Button onClick={handleSaveAddress} className="bg-indigo-600 hover:bg-indigo-700">
                     Lưu địa chỉ
                   </Button>
                 </div>
@@ -369,7 +406,7 @@ export default function CartPage() {
                 <div
                   key={addr.id}
                   className={`p-4 rounded-lg border-2 transition-all cursor-pointer ${selectedAddressId === addr.id
-                    ? "border-blue-500 bg-blue-50"
+                    ? "border-indigo-500 bg-indigo-50"
                     : "border-gray-200 hover:border-gray-300"
                     }`}
                   onClick={() => handleSelectAddress(addr.id)}
@@ -378,7 +415,7 @@ export default function CartPage() {
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-2">
                         {selectedAddressId === addr.id && (
-                          <div className="flex items-center space-x-1 text-blue-600 text-sm font-medium">
+                          <div className="flex items-center space-x-1 text-indigo-600 text-sm font-medium">
                             <IconCheck size={16} />
                             <span>Địa chỉ đã chọn</span>
                           </div>
@@ -407,7 +444,7 @@ export default function CartPage() {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Cart Items */}
         <div className="lg:col-span-2">
           <div className="space-y-4">
@@ -476,8 +513,8 @@ export default function CartPage() {
                 </div>
 
                 {/* Shipping Info */}
-                <div className="p-3 bg-blue-50 rounded-lg">
-                  <div className="flex items-center space-x-2 text-sm text-blue-700">
+                <div className="p-3 bg-indigo-50 rounded-lg">
+                  <div className="flex items-center space-x-2 text-sm text-indigo-700">
                     <IconTruck size={16} />
                     <span>
                       {getShippingFee() === 0
@@ -492,19 +529,20 @@ export default function CartPage() {
                 {/* Checkout Button */}
                 <Button
                   onClick={handleCheckout}
-                  className="w-full bg-blue-600 hover:bg-blue-700"
                   size="lg"
+                  variant="fulled"
+                  className="w-full"
                   disabled={isCheckingStock}
                 >
-                  <IconCreditCard size={16} className="mr-2" />
-                  {isCheckingStock ? "Đang kiểm tra đơn hàng..." : "Tiến hành thanh toán"}
+                  <IconCreditCard size={20} className="mr-2" />
+                  <span className="text-base">{isCheckingStock ? "Đang kiểm tra đơn hàng..." : "Tiến hành thanh toán"}</span>
                 </Button>
 
                 {/* Payment Methods */}
                 <div className="text-center">
                   <p className="text-sm text-gray-500 mb-2">Chúng tôi chấp nhận</p>
                   <div className="flex justify-center space-x-2">
-                    <div className="w-8 h-5 bg-blue-600 rounded text-white text-sm flex items-center justify-center">
+                    <div className="w-8 h-5 bg-indigo-600 rounded text-white text-sm flex items-center justify-center">
                       VISA
                     </div>
                     <div className="w-8 h-5 bg-red-600 rounded text-white text-sm flex items-center justify-center">

@@ -137,7 +137,7 @@ export default function ChatSupport() {
         {!isOpen && (
           <Button
             onClick={() => setIsOpen(true)}
-            className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg transition-all duration-200 transform hover:scale-110"
+            className="w-14 h-14 rounded-full bg-indigo-600 hover:bg-indigo-700 shadow-lg transition-all duration-200 transform hover:scale-110"
             size="lg"
           >
             <IconMessageCircle size={24} />
@@ -149,13 +149,13 @@ export default function ChatSupport() {
       {isOpen && (
         <div className="fixed bottom-6 right-6 z-50 w-80">
           <Card className="bg-white rounded-lg shadow-2xl border overflow-hidden flex flex-col">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-blue-600 text-white">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-indigo-600 text-white">
               <CardTitle className="text-lg font-semibold">Hỗ trợ khách hàng</CardTitle>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-blue-700"
+                className="text-white hover:bg-indigo-700"
               >
                 <IconX size={16} />
               </Button>
@@ -173,7 +173,7 @@ export default function ChatSupport() {
                     <div
                       className={`max-w-[80%] p-3 rounded-lg break-words ${
                         msg.sender === "user"
-                          ? "bg-blue-600 text-white"
+                          ? "bg-indigo-600 text-white"
                           : "bg-gray-100 text-gray-900"
                       }`}
                     >
@@ -236,7 +236,7 @@ export default function ChatSupport() {
                   <Button
                     onClick={handleSendMessage}
                     disabled={!inputMessage.trim()}
-                    className="bg-blue-600 hover:bg-blue-700"
+                    className="bg-indigo-600 hover:bg-indigo-700"
                     size="sm"
                   >
                     <IconSend size={16} />

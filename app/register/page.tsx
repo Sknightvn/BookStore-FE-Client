@@ -121,7 +121,7 @@ export default function RegisterPage() {
                     Không nhận được mã?{" "}
                     <button
                       type="button"
-                      className="text-blue-600 hover:text-blue-500 font-medium transition-colors duration-200"
+                      className="text-indigo-600 hover:text-indigo-500 font-medium transition-colors duration-200"
                       disabled={isVerifyingOtp}
                       onClick={handleSubmit} // Gửi lại OTP
                     >
@@ -162,7 +162,7 @@ export default function RegisterPage() {
                     placeholder="Nhập họ và tên"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="pl-10 transition-all duration-200 focus:ring-2 focus:ring-blue-500"
+                    className="pl-10 transition-all duration-200 focus:ring-2 focus:ring-indigo-500"
                     required
                   />
                 </div>
@@ -176,7 +176,7 @@ export default function RegisterPage() {
                   placeholder="Nhập số điện thoại"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
+                  className="transition-all duration-200 focus:ring-2 focus:ring-indigo-500"
                   required
                 />
               </div>
@@ -191,7 +191,7 @@ export default function RegisterPage() {
                     placeholder="your@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 transition-all duration-200 focus:ring-2 focus:ring-blue-500"
+                    className="pl-10 transition-all duration-200 focus:ring-2 focus:ring-indigo-500"
                     required
                   />
                 </div>
@@ -207,7 +207,7 @@ export default function RegisterPage() {
                     placeholder="Nhập mật khẩu (ít nhất 6 ký tự)"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 transition-all duration-200 focus:ring-2 focus:ring-blue-500"
+                    className="pl-10 pr-10 transition-all duration-200 focus:ring-2 focus:ring-indigo-500"
                     required
                   />
                   <button
@@ -230,7 +230,7 @@ export default function RegisterPage() {
                     placeholder="Nhập lại mật khẩu"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="pl-10 pr-10 transition-all duration-200 focus:ring-2 focus:ring-blue-500"
+                    className="pl-10 pr-10 transition-all duration-200 focus:ring-2 focus:ring-indigo-500"
                     required
                   />
                   <button
@@ -250,15 +250,15 @@ export default function RegisterPage() {
                   type="checkbox"
                   checked={acceptTerms}
                   onChange={(e) => setAcceptTerms(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
                 <label htmlFor="accept-terms" className="ml-2 block text-sm text-gray-900">
                   Tôi đồng ý với{" "}
-                  <Link href="/terms" className="text-blue-600 hover:text-blue-500 transition-colors duration-200">
+                  <Link href="/terms" className="text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
                     điều khoản sử dụng
                   </Link>{" "}
                   và{" "}
-                  <Link href="/privacy" className="text-blue-600 hover:text-blue-500 transition-colors duration-200">
+                  <Link href="/privacy" className="text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
                     chính sách bảo mật
                   </Link>
                 </label>
@@ -266,7 +266,7 @@ export default function RegisterPage() {
 
               <Button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-200 transform hover:scale-105"
+                className="w-full bg-indigo-600 hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105"
                 disabled={isSendingOtp}
               >
                 {isSendingOtp ? "Đang gửi OTP..." : "Đăng ký"}
@@ -278,7 +278,7 @@ export default function RegisterPage() {
                 Đã có tài khoản?{" "}
                 <Link
                   href="/login"
-                  className="text-blue-600 hover:text-blue-500 font-medium transition-colors duration-200"
+                  className="text-indigo-600 hover:text-indigo-500 font-medium transition-colors duration-200"
                 >
                   Đăng nhập ngay
                 </Link>

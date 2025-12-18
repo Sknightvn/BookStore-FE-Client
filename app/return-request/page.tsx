@@ -185,7 +185,7 @@ function ReturnRequestContent() {
             <CardContent className="space-y-4">
               <div>
                 <label className="text-sm font-medium text-gray-500">Mã đơn hàng</label>
-                <p className="font-mono text-sm text-blue-600">{order.orderCode}</p>
+                <p className="font-mono text-sm text-indigo-600">{order.orderCode}</p>
               </div>
               <div>
                 <label className="text-sm font-medium text-gray-500">Trạng thái</label>
@@ -267,7 +267,7 @@ function ReturnRequestContent() {
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Vui lòng mô tả chi tiết về vấn đề..."
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
                     rows={4}
                   />
                 </div>
@@ -276,7 +276,7 @@ function ReturnRequestContent() {
                   <label className="block text-sm font-medium text-gray-900 mb-3">
                     Tải lên hình ảnh chứng minh <span className="text-red-500">*</span>
                   </label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition">
                     <input
                       type="file"
                       accept="image/*"
@@ -291,7 +291,7 @@ function ReturnRequestContent() {
                           <span className="text-green-600 font-medium">{formData.image.name}</span>
                         ) : (
                           <>
-                            Kéo thả hình ảnh hoặc <span className="text-blue-600">bấm để chọn</span>
+                            Kéo thả hình ảnh hoặc <span className="text-indigo-600">bấm để chọn</span>
                           </>
                         )}
                       </p>

@@ -79,12 +79,12 @@ export default function OrderConfirmationPage() {
               </div>
             </div>
 
-            <div className="p-3 bg-blue-50 rounded-lg">
+            <div className="p-3 bg-indigo-50 rounded-lg">
               <div className="flex items-center space-x-2">
-                <IconPackage size={20} className="text-blue-600" />
+                <IconPackage size={20} className="text-indigo-600" />
                 <div>
-                  <p className="font-medium text-blue-900">Trạng thái đơn hàng</p>
-                  <p className="text-sm text-blue-700">
+                  <p className="font-medium text-indigo-900">Trạng thái đơn hàng</p>
+                  <p className="text-sm text-indigo-700">
                     {order.status === "pending"
                       ? "Chờ xác nhận"
                       : order.status === "confirmed"
@@ -192,7 +192,7 @@ export default function OrderConfirmationPage() {
           <Button variant="outline" asChild className="flex-1 bg-transparent">
             <Link href="/products">Tiếp tục mua sắm</Link>
           </Button>
-          <Button asChild className="flex-1 bg-blue-600 hover:bg-blue-700">
+          <Button asChild className="flex-1 bg-indigo-600 hover:bg-indigo-700">
             <Link href="/orders">Xem đơn hàng của tôi</Link>
           </Button>
         </div>

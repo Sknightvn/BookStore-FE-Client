@@ -143,12 +143,12 @@
 //                 </div>
 //               </div>
 //             ) : (
-//               <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+//               <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
 //                 <div className="flex items-center space-x-3 mb-3">
-//                   <CreditCard className="w-6 h-6 text-blue-600" />
-//                   <p className="font-medium text-blue-900">Chuyển khoản ngân hàng</p>
+//                   <CreditCard className="w-6 h-6 text-indigo-600" />
+//                   <p className="font-medium text-indigo-900">Chuyển khoản ngân hàng</p>
 //                 </div>
-//                 <div className="text-sm text-blue-800 space-y-1 ml-9">
+//                 <div className="text-sm text-indigo-800 space-y-1 ml-9">
 //                   <p>
 //                     <strong>Ngân hàng:</strong> Vietcombank2
 //                   </p>
@@ -253,7 +253,7 @@
 //         <Button
 //           onClick={handleConfirmPayment}
 //           disabled={isProcessing}
-//           className="w-full bg-blue-600 hover:bg-blue-700"
+//           className="w-full bg-indigo-600 hover:bg-indigo-700"
 //           size="lg"
 //         >
 //           {isProcessing ? "Đang xử lý..." : "Xác nhận thanh toán"}
@@ -410,12 +410,12 @@ export default function PaymentPage() {
                 </div>
               </div>
             ) : (
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
                 <div className="flex items-center space-x-3 mb-3">
-                  <IconCreditCard size={24} className="text-blue-600" />
-                  <p className="font-medium text-blue-900">Thanh toán qua VNPay</p>
+                  <IconCreditCard size={24} className="text-indigo-600" />
+                  <p className="font-medium text-indigo-900">Thanh toán qua VNPay</p>
                 </div>
-                <div className="text-sm text-blue-800 ml-9">
+                <div className="text-sm text-indigo-800 ml-9">
                   <p>Bạn sẽ được chuyển hướng tới cổng thanh toán VNPay để hoàn tất giao dịch.</p>
                 </div>
               </div>
@@ -451,7 +451,7 @@ export default function PaymentPage() {
         <Button
           onClick={handleConfirmPayment}
           disabled={isProcessing}
-          className="w-full bg-blue-600 hover:bg-blue-700"
+          className="w-full bg-indigo-600 hover:bg-indigo-700"
           size="lg"
         >
           {isProcessing ? "Đang xử lý..." : "Xác nhận thanh toán"}

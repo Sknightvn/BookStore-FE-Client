@@ -158,7 +158,7 @@ export default function BlogPage() {
                     </span>
                     <Badge variant="outline">{post.category}</Badge>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">
                     {post.title}
                   </h3>
                   <p className="text-indigo-950 mb-4 line-clamp-3">{post.excerpt}</p>
@@ -166,7 +166,7 @@ export default function BlogPage() {
                     <span className="text-sm text-gray-500">{post.readTime} phút đọc</span>
                     <Link
                       href={`/blog/${post.id}`}
-                      className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+                      className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium"
                     >
                       Đọc tiếp
                       <IconArrowRight size={16} className="ml-1" />
@@ -219,7 +219,7 @@ export default function BlogPage() {
                 alt={post.title}
                 className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <Badge className="absolute top-3 left-3 bg-blue-500 hover:bg-blue-600">{post.category}</Badge>
+              <Badge className="absolute top-3 left-3 bg-indigo-500 hover:bg-indigo-600">{post.category}</Badge>
             </div>
             <CardContent className="p-4 flex-1 flex flex-col">
               <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
@@ -232,7 +232,7 @@ export default function BlogPage() {
                   {post.author}
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+              <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
                 {post.title}
               </h3>
               <p className="text-indigo-950 mb-4 line-clamp-3 flex-1">{post.excerpt}</p>
@@ -250,7 +250,7 @@ export default function BlogPage() {
                 </span>
                 <Link
                   href={`/blog/${post.id}`}
-                  className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium hover:scale-105 transition-transform duration-200"
+                  className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium hover:scale-105 transition-transform duration-200"
                 >
                   Đọc tiếp
                   <IconArrowRight size={16} className="ml-1" />
@@ -270,16 +270,16 @@ export default function BlogPage() {
       )}
 
       {/* Newsletter Signup */}
-      <Card className="mt-16 bg-gradient-to-r from-blue-50 to-purple-50 border-none">
+      <Card className="mt-16 bg-gradient-to-r from-indigo-50 to-purple-50 border-none">
         <CardContent className="p-8 text-center">
-          <IconTrendingUp size={48} className="text-blue-600 mx-auto mb-4" />
+          <IconTrendingUp size={48} className="text-indigo-600 mx-auto mb-4" />
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Đăng ký nhận tin tức</h3>
           <p className="text-indigo-950 mb-6 max-w-2xl mx-auto">
             Nhận thông báo về những bài viết mới nhất, review sách hay và các chương trình khuyến mãi đặc biệt
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <Input placeholder="Nhập email của bạn" className="flex-1" />
-            <Button className="bg-blue-600 hover:bg-blue-700">Đăng ký</Button>
+            <Button className="bg-indigo-600 hover:bg-indigo-700">Đăng ký</Button>
           </div>
         </CardContent>
       </Card>

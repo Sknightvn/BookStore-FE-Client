@@ -16,10 +16,10 @@ export default function Footer() {
               Cửa hàng sách trực tuyến hàng đầu Việt Nam, cung cấp hàng ngàn đầu sách chất lượng với giá cả hợp lý.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.facebook.com/baokhanh.luutran.5/" className="text-gray-400 hover:text-blue-400 transition-colors duration-200">
+              <a href="https://www.facebook.com/baokhanh.luutran.5/" className="text-gray-400 hover:text-indigo-400 transition-colors duration-200">
                 <IconBrandFacebook size={20} />
               </a>
-              <a href="https://www.instagram.com/ltrbao.khanhh/" className="text-gray-400 hover:text-blue-400 transition-colors duration-200">
+              <a href="https://www.instagram.com/ltrbao.khanhh/" className="text-gray-400 hover:text-indigo-400 transition-colors duration-200">
                 <IconBrandInstagram size={20} />
               </a>
             </div>
@@ -96,15 +96,15 @@ export default function Footer() {
             <h3 className="text-lg font-semibold">Thông tin liên hệ</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <IconMapPin size={16} className="text-blue-400 flex-shrink-0" />
+                <IconMapPin size={16} className="text-indigo-400 flex-shrink-0" />
                 <span className="text-gray-300 text-sm">55/30 Đường số 7, Phường 7, Quận Gò Vấp, TP.HCM</span>
               </div>
               <div className="flex items-center space-x-3">
-                <IconPhone size={16} className="text-blue-400 flex-shrink-0" />
+                <IconPhone size={16} className="text-indigo-400 flex-shrink-0" />
                 <span className="text-gray-300 text-sm">(094) 6280 159</span>
               </div>
               <div className="flex items-center space-x-3">
-                <IconMail size={16} className="text-blue-400 flex-shrink-0" />
+                <IconMail size={16} className="text-indigo-400 flex-shrink-0" />
                 <span className="text-gray-300 text-sm">ltranbaokhanh@gmail.com</span>
               </div>
             </div>

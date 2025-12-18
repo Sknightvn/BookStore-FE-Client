@@ -122,7 +122,7 @@ export default function CategoryBanner({ categories, products }: CategoryBannerP
               key={category}
               onClick={() => setActiveCategory(index)}
               className={`px-5 py-1 rounded-full font-semibold transition-all whitespace-nowrap ${activeCategory === index
-                ? "bg-gradient-to-r from-indigo-500 to-blue-400 text-white shadow-lg"
+                ? "bg-gradient-to-r from-indigo-500 to-indigo-400 text-white shadow-lg"
                 : "bg-white text-indigo-800 font-normal border border-indigo-500 hover:border-indigo-400"
                 }`}
             >

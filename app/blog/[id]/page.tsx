@@ -266,7 +266,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
       <article className="space-y-6">
         <header className="space-y-4">
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-            <Badge className="bg-blue-500 hover:bg-blue-600">{post.category}</Badge>
+            <Badge className="bg-indigo-500 hover:bg-indigo-600">{post.category}</Badge>
             <span className="flex items-center">
               <IconCalendar size={16} className="mr-1" />
               {new Date(post.publishDate).toLocaleDateString("vi-VN")}
@@ -322,8 +322,8 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
         <Card className="mt-8">
           <CardContent className="p-4">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                <IconUserSquareRounded size={32} className="text-blue-600" />
+              <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center">
+                <IconUserSquareRounded size={32} className="text-indigo-600" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gray-900">{post.author}</h3>
@@ -345,7 +345,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
             </h3>
             <div className="space-y-4">
               <Link href="/blog/2" className="block hover:bg-gray-50 p-3 rounded-lg transition-colors">
-                <h4 className="font-medium text-gray-900 hover:text-blue-600">
+                <h4 className="font-medium text-gray-900 hover:text-indigo-600">
                   Cách Xây Dựng Thói Quen Đọc Sách Hiệu Quả
                 </h4>
                 <p className="text-sm text-indigo-950 mt-1">
@@ -353,7 +353,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                 </p>
               </Link>
               <Link href="/blog/3" className="block hover:bg-gray-50 p-3 rounded-lg transition-colors">
-                <h4 className="font-medium text-gray-900 hover:text-blue-600">
+                <h4 className="font-medium text-gray-900 hover:text-indigo-600">
                   Review: Sapiens - Cuốn Sách Thay Đổi Cách Nhìn Về Lịch Sử
                 </h4>
                 <p className="text-sm text-indigo-950 mt-1">

@@ -58,12 +58,12 @@ export default function OrderTrackingPage() {
     const statusConfig: Record<string, { text: string; color: string }> = {
       pending: { text: "Chờ xác nhận", color: "bg-yellow-500" },
       pending_payment: { text: "Chờ thanh toán", color: "bg-yellow-600" },
-      confirmed: { text: "Đã xác nhận", color: "bg-blue-500" },
+      confirmed: { text: "Đã xác nhận", color: "bg-indigo-500" },
       processing: { text: "Đang xử lý", color: "bg-purple-500" },
       shipping: { text: "Đang giao hàng", color: "bg-orange-500" },
       delivered: { text: "Đã giao hàng", color: "bg-green-500" },
       completed: { text: "Hoàn thành", color: "bg-green-600" },
-      refunded: { text: "Đã hoàn trả", color: "bg-blue-600" },
+      refunded: { text: "Đã hoàn trả", color: "bg-indigo-600" },
       cancelled: { text: "Đã từ chối trả hàng", color: "bg-red-500" },
       yeu_cau_hoan_tra: { text: "Yêu cầu hoàn trả", color: "bg-red-500" },
       paid: { text: "Hoàn trả", color: "bg-green-500" },
@@ -80,7 +80,7 @@ export default function OrderTrackingPage() {
       case "pending_payment":
         return <IconClock size={20} className="text-yellow-500" />
       case "confirmed":
-        return <IconCircleCheck size={20} className="text-blue-500" />
+        return <IconCircleCheck size={20} className="text-indigo-500" />
       case "processing":
         return <IconPackage size={20} className="text-purple-500" />
       case "shipping":
@@ -90,11 +90,11 @@ export default function OrderTrackingPage() {
       case "completed":
         return <IconAward size={20} className="text-green-600" />
       case "refunded":
-        return <IconRefresh size={20} className="text-blue-600" />
+        return <IconRefresh size={20} className="text-indigo-600" />
       case "cancelled":
         return <IconCircleX size={20} className="text-red-500" />
       case "yeu_cau_hoan_tra":
-        return <IconCircleX size={20} className="text-blue-500" />
+        return <IconCircleX size={20} className="text-indigo-500" />
       default:
         return <IconClock size={20} className="text-gray-500" />
     }
@@ -186,7 +186,7 @@ export default function OrderTrackingPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="font-medium">Mã đơn hàng:</span>
-                    <span className="font-mono text-blue-600">{order.orderCode}</span>
+                    <span className="font-mono text-indigo-600">{order.orderCode}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-medium">Ngày đặt:</span>
@@ -231,7 +231,7 @@ export default function OrderTrackingPage() {
                         className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${step.completed
                           ? "bg-green-100 text-green-600"
                           : step.active
-                            ? "bg-blue-100 text-blue-600"
+                            ? "bg-indigo-100 text-indigo-600"
                             : "bg-gray-100 text-gray-400"
                           }`}
                       >
@@ -279,7 +279,7 @@ export default function OrderTrackingPage() {
                         className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${step.completed
                           ? "bg-green-100 text-green-600"
                           : step.active
-                            ? "bg-blue-100 text-blue-600"
+                            ? "bg-indigo-100 text-indigo-600"
                             : "bg-gray-100 text-gray-400"
                           }`}
                       >
@@ -331,13 +331,13 @@ export default function OrderTrackingPage() {
           )}
 
           {order.status === "refunded" && (
-            <Card className="border-blue-200 mb-6">
+            <Card className="border-indigo-200 mb-6">
               <CardContent className="p-4">
-                <div className="flex items-center space-x-3 text-blue-600">
+                <div className="flex items-center space-x-3 text-indigo-600">
                   <IconRefresh size={24} />
                   <div>
                     <h3 className="font-medium">Đơn hàng đã được hoàn trả</h3>
-                    <p className="text-sm text-blue-500">
+                    <p className="text-sm text-indigo-500">
                       Đơn hàng của bạn đã được hoàn trả thành công. Tiền sẽ được chuyển về tài khoản trong 3-5 ngày làm
                       việc.
                     </p>
@@ -364,13 +364,13 @@ export default function OrderTrackingPage() {
           )}
 
           {returnRequest && returnRequest.status === "checking" && (
-            <Card className="border-blue-200 mb-6">
+            <Card className="border-indigo-200 mb-6">
               <CardContent className="p-4">
-                <div className="flex items-center space-x-3 text-blue-600">
+                <div className="flex items-center space-x-3 text-indigo-600">
                   <IconPackage size={24} />
                   <div>
                     <h3 className="font-medium">Đang kiểm tra hàng trả về</h3>
-                    <p className="text-sm text-blue-500">
+                    <p className="text-sm text-indigo-500">
                       Chúng tôi đang kiểm tra hàng trả về. Tiền sẽ được hoàn lại sau khi kiểm tra xong.
                     </p>
                   </div>

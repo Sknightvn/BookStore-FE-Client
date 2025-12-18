@@ -47,7 +47,7 @@ export default function OrderSuccessPage() {
   const getStatusBadge = (status: string) => {
     const statusConfig = {
       pending: { text: "Chờ xác nhận", color: "bg-yellow-500" },
-      confirmed: { text: "Đã xác nhận", color: "bg-blue-500" },
+      confirmed: { text: "Đã xác nhận", color: "bg-indigo-500" },
       processing: { text: "Đang xử lý", color: "bg-purple-500" },
       shipping: { text: "Đang giao hàng", color: "bg-orange-500" },
       delivered: { text: "Đã giao hàng", color: "bg-green-500" },
@@ -61,7 +61,7 @@ export default function OrderSuccessPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
           <p className="mt-4 text-indigo-950">Đang tải thông tin đơn hàng...</p>
         </div>
       </div>
@@ -94,7 +94,7 @@ export default function OrderSuccessPage() {
               <div className="flex justify-between">
                 <span className="font-medium">Mã đơn hàng:</span>
                 <div className="flex items-center space-x-2">
-                  <span className="font-mono text-blue-600">{order.orderNumber}</span>
+                  <span className="font-mono text-indigo-600">{order.orderNumber}</span>
                   <Button variant="ghost" size="sm" onClick={copyOrderNumber} className="p-1 h-auto">
                     <IconCopy size={16} />
                   </Button>
@@ -122,9 +122,9 @@ export default function OrderSuccessPage() {
           </div>
 
           {order.paymentMethod === "bank_transfer" && order.status === "pending" && (
-            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <h4 className="font-medium text-blue-900 mb-2">Thông tin chuyển khoản:</h4>
-              <div className="text-sm text-blue-800 space-y-1">
+            <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+              <h4 className="font-medium text-indigo-900 mb-2">Thông tin chuyển khoản:</h4>
+              <div className="text-sm text-indigo-800 space-y-1">
                 <p>
                   <strong>Ngân hàng:</strong> Vietcombank
                 </p>
@@ -141,7 +141,7 @@ export default function OrderSuccessPage() {
                   <strong>Nội dung:</strong> {order.orderNumber} - {order.shippingAddress.fullName}
                 </p>
               </div>
-              <p className="text-sm text-blue-700 mt-2">
+              <p className="text-sm text-indigo-700 mt-2">
                 * Vui lòng chuyển khoản trong vòng 24h để đơn hàng được xử lý
               </p>
             </div>

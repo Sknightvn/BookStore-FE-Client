@@ -82,12 +82,12 @@ export default function ProfilePage() {
     const statusConfig = {
       pending: { text: "Chờ xác nhận", color: "bg-yellow-500", icon: IconClock },
       pending_payment: { text: "Chờ thanh toán", color: "bg-yellow-600", icon: IconClock },
-      confirmed: { text: "Đã xác nhận", color: "bg-blue-500", icon: IconCircleCheck },
+      confirmed: { text: "Đã xác nhận", color: "bg-indigo-500", icon: IconCircleCheck },
       processing: { text: "Đang xử lý", color: "bg-purple-500", icon: IconPackage },
       shipping: { text: "Đang giao hàng", color: "bg-orange-500", icon: IconPackage },
       delivered: { text: "Đã giao hàng", color: "bg-green-500", icon: IconCircleCheck },
       completed: { text: "Hoàn thành", color: "bg-green-600", icon: IconAward },
-      refunded: { text: "Đã hoàn trả", color: "bg-blue-600", icon: IconRefresh },
+      refunded: { text: "Đã hoàn trả", color: "bg-indigo-600", icon: IconRefresh },
       cancelled: { text: "Đã hủy", color: "bg-red-500", icon: IconClock },
       yeu_cau_hoan_tra: { text: "Đã gửi yêu cầu trả hàng", color: "bg-red-500", icon: IconClock },
       paid: { text: "Hoàn hàng", color: "bg-yellow-500", icon: IconClock },
@@ -275,9 +275,9 @@ export default function ProfilePage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">{stats.total}</div>
-                  <div className="text-sm text-blue-600">Tổng đơn hàng</div>
+                <div className="text-center p-4 bg-indigo-50 rounded-lg">
+                  <div className="text-2xl font-bold text-indigo-600">{stats.total}</div>
+                  <div className="text-sm text-indigo-600">Tổng đơn hàng</div>
                 </div>
                 <div className="text-center p-4 bg-green-50 rounded-lg">
                   <div className="text-2xl font-bold text-green-600">{stats.delivered}</div>
@@ -318,7 +318,7 @@ export default function ProfilePage() {
                     placeholder="Nhập mật khẩu hiện tại"
                     value={passwordData.currentPassword}
                     onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
                   />
                 </div>
                 <div className="space-y-2">
@@ -328,7 +328,7 @@ export default function ProfilePage() {
                     placeholder="Nhập mật khẩu mới"
                     value={passwordData.newPassword}
                     onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
                   />
                 </div>
                 <div className="space-y-2">
@@ -338,10 +338,10 @@ export default function ProfilePage() {
                     placeholder="Xác nhận mật khẩu mới"
                     value={passwordData.confirmPassword}
                     onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
                   />
                 </div>
-                <Button type="submit" disabled={isChangingPassword} className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button type="submit" disabled={isChangingPassword} className="w-full bg-indigo-600 hover:bg-indigo-700">
                   {isChangingPassword ? "Đang xử lý..." : "Đổi mật khẩu"}
                 </Button>
               </form>
@@ -373,7 +373,7 @@ export default function ProfilePage() {
                     <div key={order._id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center space-x-3">
-                          <span className="font-mono text-sm text-blue-600">{order.orderCode}</span>
+                          <span className="font-mono text-sm text-indigo-600">{order.orderCode}</span>
                           {getStatusBadge(order.status)}
                         </div>
                         <div className="text-right">

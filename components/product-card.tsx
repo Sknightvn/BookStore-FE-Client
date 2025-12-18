@@ -71,7 +71,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
         </Link>
-        <Link href={`/products/${product._id}`} className="hover:text-blue-600 !text-white text-xl">
+        <Link href={`/products/${product._id}`} className="hover:text-indigo-600 !text-white text-xl">
           <CardTitle className="line-clamp-2 text-xl !text-white">{product.title}</CardTitle>
         </Link>
         <CardDescription className="text-sm text-gray-200 flex justify-between">

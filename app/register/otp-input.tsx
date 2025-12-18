@@ -82,7 +82,7 @@ export function OTPInput({ length = 6, onComplete, className }: OTPInputProps) {
           onChange={(e) => handleChange(index, e.target.value)}
           onKeyDown={(e) => handleKeyDown(index, e)}
           onPaste={handlePaste}
-          className="w-12 h-12 text-center text-lg font-semibold transition-all duration-200 focus:ring-2 focus:ring-blue-500"
+          className="w-12 h-12 text-center text-lg font-semibold transition-all duration-200 focus:ring-2 focus:ring-indigo-500"
         />
       ))}
     </div>
