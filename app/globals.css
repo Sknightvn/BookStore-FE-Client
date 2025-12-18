@@ -203,3 +203,66 @@
   width: 0;
   height: 0;
 }
+
+/* Chatbot Widget - Set z-index cao nhất */
+[class*="chatbot-widget"],
+[class*="chatbot-button"],
+[class*="chatbot-interface"],
+[class*="ChatBotWidget"],
+[class*="chatbot"] {
+  z-index: 9999 !important;
+}
+
+/* Target các element có position fixed từ chatbot widget */
+div[style*="position: fixed"][style*="bottom"],
+button[style*="position: fixed"][style*="bottom"] {
+  z-index: 9999 !important;
+}
+
+/* Chatbot Name - Giảm font-size và font-weight */
+[class*="chatbot"] [class*="name"],
+[class*="chatbot"] [class*="title"],
+[class*="chatbot"] [class*="header"],
+[class*="chatbot"] [class*="header"] *,
+[class*="chatbot"] h1,
+[class*="chatbot"] h2,
+[class*="chatbot"] h3,
+[class*="chatbot"] h4,
+[class*="chatbot"] h5,
+[class*="chatbot"] h6,
+[class*="ChatBotWidget"] [class*="name"],
+[class*="ChatBotWidget"] [class*="title"],
+[class*="ChatBotWidget"] [class*="header"],
+[class*="ChatBotWidget"] [class*="header"] *,
+[class*="ChatBotWidget"] h1,
+[class*="ChatBotWidget"] h2,
+[class*="ChatBotWidget"] h3,
+[class*="ChatBotWidget"] h4,
+[class*="ChatBotWidget"] h5,
+[class*="ChatBotWidget"] h6,
+div[class*="chatbot"] > div:first-child,
+div[class*="ChatBotWidget"] > div:first-child {
+  font-size: 0.875rem !important; /* 14px */
+  font-weight: 400 !important; /* normal */
+  line-height: 1.25rem !important;
+}
+
+/* Fix icon robot alignment - Center icon */
+[class*="chatbot"] svg,
+[class*="ChatBotWidget"] svg,
+[class*="chatbot"] [class*="icon"],
+[class*="ChatBotWidget"] [class*="icon"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: auto !important;
+}
+
+/* Fix material-symbols-outlined icon alignment */
+.material-symbols-outlined,
+[class*="material-symbols"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+}
