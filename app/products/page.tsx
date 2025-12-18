@@ -1,12 +1,13 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { IconSearch, IconFilter, IconLayoutGrid, IconList } from "@tabler/icons-react"
 import ProductCard from "@/components/product-card"
+import Image from "next/image"
 import { useBooks } from "@/hooks/useBooks"
 import type { Book } from "@/interface/response/book"
 import {
@@ -17,26 +18,55 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function ProductsPage() {
-  const { data: booksData, isLoading: loading } = useBooks()
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 9
+  const headerRef = useRef<HTMLDivElement>(null)
+  const scrollAnimationRef = useRef<number | null>(null)
+
+  const { data: booksData, isLoading: loading } = useBooks(currentPage, itemsPerPage)
 
   const products = booksData?.data || []
+  const pagination = booksData?.pagination
+  const totalPages = pagination?.totalPages || 1
+  const total = pagination?.total || 0
+
+  // Fetch all books for categories (only once)
+  const { data: allBooksData } = useBooks()
+  const allProducts = allBooksData?.data || []
+  
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(
       new Set(
-        products.map((b: Book) => (b && b.category && b.category.name ? b.category.name : "Khác"))
+        allProducts.map((b: Book) => (b && b.category && b.category.name ? b.category.name : "Khác"))
       )
     )
     return ["Tất cả", ...uniqueCategories]
-  }, [products])
+  }, [allProducts])
 
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Tất cả")
   const [sortBy, setSortBy] = useState("default")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 12
 
   const filteredProducts = useMemo(() => {
     let result = products
@@ -72,8 +102,7 @@ export default function ProductsPage() {
     return result
   }, [products, searchQuery, selectedCategory, sortBy])
 
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
-  const paginatedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  const paginatedProducts = filteredProducts
 
   // Generate pagination items with ellipsis
   const paginationItems = useMemo(() => {
@@ -123,6 +152,59 @@ export default function ProductsPage() {
     setCurrentPage(1)
   }
 
+  // Reset to page 1 when filters change
+  const handleFilterChange = () => {
+    setCurrentPage(1)
+  }
+
+  // Scroll to top when page changes with custom smooth animation
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    // Cancel any existing animation
+    if (scrollAnimationRef.current) {
+      cancelAnimationFrame(scrollAnimationRef.current)
+    }
+
+    const startY = window.scrollY || window.pageYOffset
+
+    let targetY = 0
+    if (headerRef.current) {
+      const rect = headerRef.current.getBoundingClientRect()
+      const offset = 80 // keep a little space from the very top
+      targetY = rect.top + startY - offset
+    }
+
+    const distance = targetY - startY
+    const duration = 700 // ms
+    const startTime = performance.now()
+
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+
+    const step = (currentTime: number) => {
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const eased = easeOutCubic(progress)
+
+      window.scrollTo(0, startY + distance * eased)
+
+      if (progress < 1) {
+        scrollAnimationRef.current = requestAnimationFrame(step)
+      } else {
+        scrollAnimationRef.current = null
+      }
+    }
+
+    scrollAnimationRef.current = requestAnimationFrame(step)
+
+    return () => {
+      if (scrollAnimationRef.current) {
+        cancelAnimationFrame(scrollAnimationRef.current)
+        scrollAnimationRef.current = null
+      }
+    }
+  }, [currentPage, headerRef])
+
   if (loading) {
     return <div className="text-center py-12 text-gray-500 text-lg">Đang tải dữ liệu sách...</div>
   }
@@ -130,7 +212,7 @@ export default function ProductsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumb + Header */}
-      <div className="mb-8 space-y-4">
+      <div ref={headerRef} className="mb-8 space-y-4 scroll-mt-8">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -144,7 +226,7 @@ export default function ProductsPage() {
         </Breadcrumb>
         <div>
             <h2 className="text-2xl font-semibold text-indigo-800 mb-2">
-              <span className="text-indigo-950 bg-indigo-800 w-1.5 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
+              <span className="text-indigo-950 bg-indigo-800 w-1.5 h-5 rounded-full inline-block mr-2 translate-y-0.5"></span>
               <span>Danh mục sách</span>
             </h2>
             <p className="text-indigo-950 text-xl">Khám phá hàng ngàn đầu sách chất lượng</p>
@@ -154,28 +236,34 @@ export default function ProductsPage() {
       {/* Sidebar and Main Content Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {/* Sidebar - Filters */}
-        <aside className="lg:col-span-1">
-          <div className="bg-white rounded-lg shadow-sm border p-4 sticky top-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Bộ lọc</h3>
-            
+        <aside className="lg:col-span-1 border-none">
+          <div className="rounded-lg shadow-sm border border-indigo-300 sticky top-8 bg-indigo-100">
+            <h3 className="text-lg font-semibold text-gray-900 p-2">Bộ lọc</h3>
+            <div className="border-t border-indigo-300"></div>
             {/* Search */}
-            <div className="mb-4">
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Tìm kiếm</label>
+            <div className="p-2">
+              <label className="text-sm font-medium text-indigo-950 mb-2 block">Tìm kiếm</label>
               <div className="relative">
                 <IconSearch size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <Input
                   placeholder="Tìm kiếm sách, tác giả..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value)
+                    handleFilterChange()
+                  }}
                   className="pl-10"
                 />
               </div>
             </div>
 
             {/* Category Filter */}
-            <div className="mb-4">
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Danh mục</label>
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <div className="p-2">
+              <label className="text-sm font-medium text-indigo-950 mb-2 block">Danh mục</label>
+              <Select value={selectedCategory} onValueChange={(value) => {
+                setSelectedCategory(value)
+                handleFilterChange()
+              }}>
                 <SelectTrigger>
                   <SelectValue placeholder="Chọn danh mục" />
                 </SelectTrigger>
@@ -191,9 +279,12 @@ export default function ProductsPage() {
             </div>
 
             {/* Sort */}
-            <div className="mb-4">
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Sắp xếp</label>
-              <Select value={sortBy} onValueChange={setSortBy}>
+            <div className="p-2">
+              <label className="text-sm font-medium text-indigo-950 mb-2 block">Sắp xếp</label>
+              <Select value={sortBy} onValueChange={(value) => {
+                setSortBy(value)
+                handleFilterChange()
+              }}>
                 <SelectTrigger>
                   <SelectValue placeholder="Sắp xếp theo" />
                 </SelectTrigger>
@@ -207,7 +298,7 @@ export default function ProductsPage() {
             </div>
 
             {/* Active Filters */}
-            <div className="mb-4">
+            <div className="p-2">
               <div className="flex flex-wrap items-center gap-2">
                 {searchQuery && (
                   <Badge variant="secondary" className="flex items-center gap-1">
@@ -218,9 +309,9 @@ export default function ProductsPage() {
                   </Badge>
                 )}
                 {selectedCategory !== "Tất cả" && (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge variant="secondary" className="flex items-center gap-1 border-indigo-300 bg-indigo-50">
                     {selectedCategory}
-                    <button onClick={() => setSelectedCategory("Tất cả")} className="ml-1 hover:text-red-500">
+                    <button onClick={() => setSelectedCategory("Tất cả")} className="ml-1 hover:text-red-500 text-lg">
                       ×
                     </button>
                   </Badge>
@@ -234,7 +325,7 @@ export default function ProductsPage() {
                 variant="outline" 
                 size="sm" 
                 onClick={handleClearFilters} 
-                className="w-full text-red-600 hover:text-red-700 hover:bg-red-50"
+                className="w-full text-red-600 hover:text-red-700 border-red-500 bg-red-100  hover:bg-red-50"
               >
                 <IconFilter size={16} className="mr-1" />
                 Xóa bộ lọc
@@ -247,14 +338,14 @@ export default function ProductsPage() {
         <main className="lg:col-span-3">
           {/* Results Info and View Mode */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-            <p className="text-indigo-950">
-              Hiển thị {paginatedProducts.length} trong tổng số {filteredProducts.length} sản phẩm
+            <p className="text-indigo-950 text-lg">
+              Hiển thị {paginatedProducts.length} trong tổng số {total} sản phẩm
             </p>
             
             {/* View Mode */}
             <div className="flex items-center space-x-2">
               <Button
-                variant={viewMode === "grid" ? "default" : "outline"}
+                variant={viewMode === "grid" ? "fulled" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("grid")}
               >
@@ -262,7 +353,7 @@ export default function ProductsPage() {
                 Lưới
               </Button>
               <Button
-                variant={viewMode === "list" ? "default" : "outline"}
+                variant={viewMode === "list" ? "fulled" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("list")}
               >
@@ -272,19 +363,69 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          {/* Products Grid */}
+          {/* Products Grid / List */}
           {paginatedProducts.length > 0 ? (
-            <div
-              className={
-                viewMode === "grid"
-                  ? "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-8"
-                  : "space-y-4 mb-8"
-              }
-            >
-              {paginatedProducts.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-            </div>
+            viewMode === "grid" ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
+                {paginatedProducts.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="mb-8 overflow-hidden rounded-lg border border-indigo-200 bg-white shadow-sm">
+                <Table>
+                  <TableHeader className="bg-indigo-50">
+                    <TableRow>
+                      <TableHead className="w-[64px]"></TableHead>
+                      <TableHead>Sách</TableHead>
+                      <TableHead>Danh mục</TableHead>
+                      <TableHead>Giá</TableHead>
+                      <TableHead>Kho</TableHead>
+                      <TableHead>Năm</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {paginatedProducts.map((product) => (
+                      <TableRow key={product._id}>
+                        <TableCell className="w-[64px]">
+                          <div className="relative h-12 w-10 overflow-hidden rounded">
+                            {product.coverImage ? (
+                              <Image
+                                src={product.coverImage}
+                                alt={product.title}
+                                fill
+                                className="object-cover"
+                                sizes="40px"
+                              />
+                            ) : (
+                              <div className="flex h-full w-full items-center justify-center bg-indigo-100 text-xs text-indigo-500">
+                                N/A
+                              </div>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col gap-1">
+                            <span className="font-semibold text-indigo-950">{product.title}</span>
+                            <span className="text-xs text-gray-500">Tác giả: {product.author}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-sm text-indigo-700">
+                          {product.category?.name || "Khác"}
+                        </TableCell>
+                        <TableCell className="font-semibold text-indigo-900">
+                          {product.price.toLocaleString("vi-VN")}₫
+                        </TableCell>
+                        <TableCell className={product.stock === 0 ? "text-red-600" : "text-green-600"}>
+                          {product.stock === 0 ? "Hết hàng" : `${product.stock} cuốn`}
+                        </TableCell>
+                        <TableCell>{product.publishYear}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            )
           ) : (
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg mb-4">Không tìm thấy sản phẩm nào</p>
@@ -295,41 +436,42 @@ export default function ProductsPage() {
           )}
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-center space-x-2 flex-wrap">
-              <Button
-                variant="outline"
-                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                disabled={currentPage === 1}
-              >
-                Trước
-              </Button>
-              {paginationItems.map((item, index) => {
-                if (item === "...") {
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  />
+                </PaginationItem>
+                {paginationItems.map((item, index) => {
+                  if (item === "...") {
+                    return (
+                      <PaginationItem key={`ellipsis-${index}`}>
+                        <PaginationEllipsis />
+                      </PaginationItem>
+                    )
+                  }
                   return (
-                    <span key={`ellipsis-${index}`} className="px-2 text-gray-500">
-                      ...
-                    </span>
+                    <PaginationItem key={item}>
+                      <PaginationLink
+                        onClick={() => setCurrentPage(item as number)}
+                        isActive={currentPage === item}
+                        className="cursor-pointer"
+                      >
+                        {item}
+                      </PaginationLink>
+                    </PaginationItem>
                   )
-                }
-                return (
-                  <Button
-                    key={item}
-                    variant={currentPage === item ? "default" : "outline"}
-                    onClick={() => setCurrentPage(item as number)}
-                    className="w-10 h-10"
-                  >
-                    {item}
-                  </Button>
-                )
-              })}
-              <Button
-                variant="outline"
-                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                disabled={currentPage === totalPages}
-              >
-                Sau
-              </Button>
-            </div>
+                })}
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           )}
         </main>
       </div>

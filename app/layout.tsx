@@ -9,6 +9,7 @@ import { AuthProvider } from "@/contexts/auth-context";
 import { CartProvider } from "@/contexts/cart-context";
 import ChatSupport from "@/components/chat-support";
 import { QueryProvider } from "@/lib/query-provider";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: "BookStore - Cửa hàng sách trực tuyến",
@@ -28,6 +29,13 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
       <body className="min-h-screen flex flex-col">
+        <NextTopLoader
+          color="#4f46e5"
+          height={3}
+          crawlSpeed={150}
+          showSpinner={false}
+          shadow="0 0 10px #4f46e5,0 0 5px #4f46e5"
+        />
         <QueryProvider>
           <AuthProvider>
             <CartProvider>

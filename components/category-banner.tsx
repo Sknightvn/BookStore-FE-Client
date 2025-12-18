@@ -90,7 +90,7 @@ export default function CategoryBanner({ categories, products }: CategoryBannerP
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-2xl font-semibold text-indigo-800 mb-2">
-              <span className="text-indigo-950 bg-indigo-800 w-1.5 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
+              <span className="text-indigo-950 bg-indigo-800 w-1.5 h-5 rounded-full inline-block mr-2 translate-y-0.5"></span>
               <span>Khám phá danh mục</span>
             </h2>
             <p className="text-indigo-950 text-xl">Duyệt qua các bộ sưu tập sách yêu thích</p>

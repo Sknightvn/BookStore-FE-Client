@@ -148,7 +148,6 @@ export function generateOrderNumber(): string {
 // }
 export async function createSampleOrders(): Promise<void> {
   try {
-    // 1. Gọi API từ http://localhost:5000/api/orders/
     const response = await axios.get(`${API_URL}/orders`);
 
     // 2. Kiểm tra dữ liệu trả về từ API

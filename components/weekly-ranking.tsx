@@ -90,7 +90,7 @@ export default function WeeklyRanking() {
             onClick={() => setSelectedCategory(cat)}
             className={`px-4 py-2 whitespace-nowrap rounded transition-all ${selectedCategory === cat
               ? "bg-indigo-500 text-white font-semibold"
-              : "bg-white text-gray-700"
+              : "bg-white text-indigo-950"
               }`}
           >
             {cat}

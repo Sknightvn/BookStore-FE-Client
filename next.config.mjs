@@ -12,7 +12,6 @@ const nextConfig = {
   async rewrites() {
     const domain =
       process.env.NEXT_PUBLIC_API_DOMAIN || "bookstore-be-b450.onrender.com"
-
     return [
       {
         source: "/api/:path*",

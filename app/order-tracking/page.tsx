@@ -413,7 +413,7 @@ export default function OrderTrackingPage() {
                   <div className="flex-1">
                     <p className="font-medium">{item.title}</p>
                     {(item as any)?.author && <p className="text-sm text-gray-500">{(item as any).author}</p>}
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-indigo-950">
                       {item.quantity} x {item.price.toLocaleString("vi-VN")}đ
                     </p>
                   </div>

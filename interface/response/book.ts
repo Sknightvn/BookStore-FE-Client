@@ -22,6 +22,12 @@ export interface BooksResponse {
     success: boolean
     data: Book[]
     message?: string
+    pagination?: {
+        page: number
+        limit: number
+        total: number
+        totalPages: number
+    }
 }
 
 export interface BookResponse {

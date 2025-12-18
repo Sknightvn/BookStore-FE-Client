@@ -41,21 +41,21 @@ export default function Header() {
           </Link>
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8 w-full justify-center">
-            <Link href="/" className="text-gray-700 hover:text-blue-600 uppercase transition-colors duration-200 p-2">
+            <Link href="/" className="text-indigo-950 hover:text-blue-600 uppercase transition-colors duration-200 p-2">
               Trang chủ
             </Link>
             <Link
               href="/products"
-              className="text-gray-700 hover:text-blue-600 transition-colors uppercase duration-200 p-2"
+              className="text-indigo-950 hover:text-blue-600 transition-colors uppercase duration-200 p-2"
             >
               Sản phẩm
             </Link>
-            <Link href="/blog" className="text-gray-700 hover:text-blue-600 uppercase transition-colors duration-200 p-2">
+            <Link href="/blog" className="text-indigo-950 hover:text-blue-600 uppercase transition-colors duration-200 p-2">
               Blog
             </Link>
             <Link
               href="/about"
-              className="text-gray-700 hover:text-blue-600 uppercase transition-colors duration-200 p-2"
+              className="text-indigo-950 hover:text-blue-600 uppercase transition-colors duration-200 p-2"
             >
               Giới thiệu
             </Link>
@@ -155,28 +155,28 @@ export default function Header() {
               </div>
               <Link
                 href="/"
-                className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Trang chủ
               </Link>
               <Link
                 href="/products"
-                className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sản phẩm
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blog
               </Link>
               <Link
                 href="/about"
-                className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Giới thiệu
@@ -184,7 +184,7 @@ export default function Header() {
               {/* Added cart link to mobile menu */}
               <Link
                 href="/cart"
-                className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Giỏ hàng ({getTotalItems()})
@@ -195,14 +195,14 @@ export default function Header() {
                     <div className="px-3 py-2 text-sm text-gray-500">Xin chào, {user.name}</div>
                     <Link
                       href="/profile"
-                      className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                      className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Thông tin cá nhân
                     </Link>
                     <Link
                       href="/orders"
-                      className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                      className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Đơn hàng của tôi
@@ -218,14 +218,14 @@ export default function Header() {
                   <>
                     <Link
                       href="/login"
-                      className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                      className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Đăng nhập
                     </Link>
                     <Link
                       href="/register"
-                      className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                      className="block px-3 py-2 text-indigo-950 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Đăng ký

@@ -60,7 +60,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       backgroundPosition: "bottom",
       backgroundRepeat: "no-repeat",
     }}
-    className="flex flex-col h-full hover:shadow-lg cursor-pointer hover:translate-y-2 transition-all duration-300">
+    className="flex flex-col h-full hover:shadow-lg cursor-pointer hover:translate-y-2 transition-all duration-300 !border-indigo-300">
       <CardHeader className="pb-2">
         <Link href={`/products/${product._id}`}>
           <div className="relative w-full h-48 mb-2 rounded-md overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
@@ -71,8 +71,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
         </Link>
-        <Link href={`/products/${product._id}`} className="hover:text-blue-600 text-white text-xl">
-          <CardTitle className="line-clamp-2 text-xl">{product.title}</CardTitle>
+        <Link href={`/products/${product._id}`} className="hover:text-blue-600 !text-white text-xl">
+          <CardTitle className="line-clamp-2 text-xl !text-white">{product.title}</CardTitle>
         </Link>
         <CardDescription className="text-sm text-gray-200 flex justify-between">
         <span className="text-gray-200 text-sm">Tác giả:</span>
@@ -107,7 +107,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="flex items-center justify-between pt-3 border-t">
+      <CardFooter className="flex items-center justify-between pt-3 border-t border-t-indigo-500">
         <div className="text-lg font-bold text-indigo-400">{product.price.toLocaleString("vi-VN")}₫</div>
         <Button onClick={handleAddToCart} disabled={isOutOfStock} size="sm" className="gap-2" variant="fulled">
           <IconShoppingCart size={16} />

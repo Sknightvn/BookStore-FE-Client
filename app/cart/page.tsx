@@ -384,7 +384,7 @@ export default function CartPage() {
                           </div>
                         )}
                       </div>
-                      <p className="text-sm text-gray-700">
+                      <p className="text-sm text-indigo-950">
                         {addr.street}, {addr.ward}, {addr.district}, {addr.city}
                       </p>
                     </div>

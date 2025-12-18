@@ -2,6 +2,12 @@
 export const queryKeys = {
     // Books
     books: ['books'] as const,
+    booksPaginated: (page?: number, limit?: number) => {
+        if (page === undefined && limit === undefined) {
+            return ['books'] as const
+        }
+        return ['books', 'paginated', page, limit] as const
+    },
     book: (id: string) => ['books', id] as const,
     topProducts: ['books', 'top'] as const,
 

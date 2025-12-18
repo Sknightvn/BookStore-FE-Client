@@ -2,8 +2,17 @@ import axiosInstance from '@/lib/axios'
 import type { BooksResponse, BookResponse, TopProductsResponse } from '@/interface/response/book'
 
 // Get all books
-export const getBooks = async (): Promise<BooksResponse> => {
-    const response = await axiosInstance.get('/books')
+export const getBooks = async (page?: number, limit?: number): Promise<BooksResponse> => {
+    const params = new URLSearchParams()
+    if (page !== undefined) {
+        params.append('page', page.toString())
+    }
+    if (limit !== undefined) {
+        params.append('limit', limit.toString())
+    }
+    const queryString = params.toString()
+    const url = queryString ? `/books?${queryString}` : '/books'
+    const response = await axiosInstance.get(url)
     return response.data
 }
 

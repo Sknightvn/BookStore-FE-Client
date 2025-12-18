@@ -3,10 +3,10 @@ import { queryKeys } from '@/lib/query-keys'
 import * as booksApi from '@/api/books'
 
 // Get all books
-export const useBooks = () => {
+export const useBooks = (page?: number, limit?: number) => {
     return useQuery({
-        queryKey: queryKeys.books,
-        queryFn: () => booksApi.getBooks(),
+        queryKey: queryKeys.booksPaginated(page, limit),
+        queryFn: () => booksApi.getBooks(page, limit),
         staleTime: 5 * 60 * 1000, // 5 minutes
     })
 }

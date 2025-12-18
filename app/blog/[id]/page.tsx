@@ -310,7 +310,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 pt-6 border-t">
-          <span className="text-sm font-medium text-gray-700">Tags:</span>
+          <span className="text-sm font-medium text-indigo-950">Tags:</span>
           {post.tags.map((tag) => (
             <Badge key={tag} variant="secondary" className="text-sm">
               #{tag}

@@ -312,7 +312,7 @@ export default function ProfilePage() {
             <CardContent>
               <form onSubmit={handlePasswordChange} className="space-y-6 max-w-md">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Mật khẩu hiện tại</label>
+                  <label className="text-sm font-medium text-indigo-950">Mật khẩu hiện tại</label>
                   <input
                     type="password"
                     placeholder="Nhập mật khẩu hiện tại"
@@ -322,7 +322,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Mật khẩu mới</label>
+                  <label className="text-sm font-medium text-indigo-950">Mật khẩu mới</label>
                   <input
                     type="password"
                     placeholder="Nhập mật khẩu mới"
@@ -332,7 +332,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Xác nhận mật khẩu mới</label>
+                  <label className="text-sm font-medium text-indigo-950">Xác nhận mật khẩu mới</label>
                   <input
                     type="password"
                     placeholder="Xác nhận mật khẩu mới"

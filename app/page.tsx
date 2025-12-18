@@ -30,7 +30,7 @@ export default function HomePage() {
         <ImageCarousel />
         {/* Buttons Section */}
         <h2 className="text-2xl font-semibold text-indigo-800 my-6 mt-12">
-          <span className="text-indigo-950 bg-indigo-800 w-1.5 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
+          <span className="text-indigo-950 bg-indigo-800 w-1.5 h-5 rounded-full inline-block mr-2 translate-y-0.5"></span>
           <span>Dịch vụ & Hỗ trợ</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -87,7 +87,7 @@ export default function HomePage() {
       {/* Featured Books */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-2xl font-semibold text-indigo-800 mb-6">
-              <span className="text-indigo-950 bg-indigo-800 w-1.5 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
+              <span className="text-indigo-950 bg-indigo-800 w-1.5 h-5 rounded-full inline-block mr-2 translate-y-0.5"></span>
               <span>Sách nổi bật</span>
             </h2>
         {loading ? (
