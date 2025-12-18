@@ -1,195 +1,3 @@
-// "use client"
-
-// import type React from "react"
-// import { createContext, useContext, useState, useEffect } from "react"
-
-// export interface CartItem {
-//   product: {
-//     id: string
-//     title: string
-//     price: number
-//     coverImage: string
-//   }
-//   quantity: number
-// }
-
-// export interface DeliveryAddress {
-//   id: string
-//   street: string
-//   ward: string
-//   district: string
-//   city: string
-// }
-
-// interface CartContextType {
-//   items: CartItem[]
-//   addToCart: (product: any, quantity: number) => void
-//   removeFromCart: (productId: string) => void
-//   updateQuantity: (productId: string, quantity: number) => void
-//   clearCart: () => void
-//   getTotalItems: () => number
-//   getTotalPrice: () => number
-//   getShippingFee: () => number
-//   getTax: () => number
-//   getFinalTotal: () => number
-//   deliveryAddresses: DeliveryAddress[]
-//   selectedAddressId: string | null
-//   saveDeliveryAddress: (address: Omit<DeliveryAddress, "id">) => void
-//   selectAddress: (addressId: string) => void
-//   deleteAddress: (addressId: string) => void
-//   getSelectedAddress: () => DeliveryAddress | null
-//   setDeliveryAddresses: (addresses: DeliveryAddress[]) => void
-// }
-
-// const CartContext = createContext<CartContextType | undefined>(undefined)
-
-// export function CartProvider({ children }: { children: React.ReactNode }) {
-//   const [items, setItems] = useState<CartItem[]>([])
-//   const [deliveryAddresses, setDeliveryAddresses] = useState<DeliveryAddress[]>([])
-//   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null)
-
-//   // Load from localStorage on mount
-//   useEffect(() => {
-//     const savedItems = localStorage.getItem("cartItems")
-//     const savedAddresses = localStorage.getItem("deliveryAddresses")
-//     const savedAddressId = localStorage.getItem("selectedAddressId")
-
-//     if (savedItems) setItems(JSON.parse(savedItems))
-//     if (savedAddresses) setDeliveryAddresses(JSON.parse(savedAddresses))
-//     if (savedAddressId) setSelectedAddressId(savedAddressId)
-//   }, [])
-
-//   // Save to localStorage whenever items change
-//   useEffect(() => {
-//     localStorage.setItem("cartItems", JSON.stringify(items))
-//   }, [items])
-
-//   useEffect(() => {
-//     localStorage.setItem("deliveryAddresses", JSON.stringify(deliveryAddresses))
-//   }, [deliveryAddresses])
-
-//   useEffect(() => {
-//     localStorage.setItem("selectedAddressId", selectedAddressId || "")
-//   }, [selectedAddressId])
-
-//   const addToCart = (product: any, quantity = 1) => {
-//     setItems((prevItems) => {
-//       const existingItem = prevItems.find((item) => item.product.id === product._id)
-//       if (existingItem) {
-//         return prevItems.map((item) =>
-//           item.product.id === product._id ? { ...item, quantity: item.quantity + quantity } : item,
-//         )
-//       }
-//       return [
-//         ...prevItems,
-//         {
-//           product: {
-//             id: product._id,
-//             title: product.title,
-//             price: product.price,
-//             coverImage: product.coverImage,
-//           },
-//           quantity,
-//         },
-//       ]
-//     })
-//   }
-
-//   const removeFromCart = (productId: string) => {
-//     setItems((prevItems) => prevItems.filter((item) => item.product.id !== productId))
-//   }
-
-//   const updateQuantity = (productId: string, quantity: number) => {
-//     if (quantity <= 0) {
-//       removeFromCart(productId)
-//       return
-//     }
-//     setItems((prevItems) => prevItems.map((item) => (item.product.id === productId ? { ...item, quantity } : item)))
-//   }
-
-//   const clearCart = () => {
-//     setItems([])
-//   }
-
-//   const getTotalItems = () => {
-//     return items.reduce((total, item) => total + item.quantity, 0)
-//   }
-
-//   const getTotalPrice = () => {
-//     return items.reduce((total, item) => total + item.product.price * item.quantity, 0)
-//   }
-
-//   const getShippingFee = () => {
-//     const total = getTotalPrice()
-//     return total >= 200000 ? 0 : 30000
-//   }
-
-//   const getTax = () => {
-//     return Math.round(getTotalPrice() * 0.1)
-//   }
-
-//   const getFinalTotal = () => {
-//     return getTotalPrice() + getShippingFee() + getTax()
-//   }
-
-//   const saveDeliveryAddress = (address: Omit<DeliveryAddress, "id">) => {
-//     const newAddress: DeliveryAddress = {
-//       ...address,
-//       id: Date.now().toString(),
-//     }
-//     setDeliveryAddresses((prev) => [...prev, newAddress])
-//   }
-
-//   const selectAddress = (addressId: string) => {
-//     setSelectedAddressId(addressId)
-//   }
-
-//   const deleteAddress = (addressId: string) => {
-//     setDeliveryAddresses((prev) => prev.filter((addr) => addr.id !== addressId))
-//     if (selectedAddressId === addressId) {
-//       setSelectedAddressId(null)
-//     }
-//   }
-
-//   const getSelectedAddress = () => {
-//     return deliveryAddresses.find((addr) => addr.id === selectedAddressId) || null
-//   }
-
-//   return (
-//     <CartContext.Provider
-//       value={{
-//         items,
-//         addToCart,
-//         removeFromCart,
-//         updateQuantity,
-//         clearCart,
-//         getTotalItems,
-//         getTotalPrice,
-//         getShippingFee,
-//         getTax,
-//         getFinalTotal,
-//         deliveryAddresses,
-//         selectedAddressId,
-//         saveDeliveryAddress,
-//         selectAddress,
-//         deleteAddress,
-//         getSelectedAddress,
-//         setDeliveryAddresses
-//       }}
-//     >
-//       {children}
-//     </CartContext.Provider>
-//   )
-// }
-
-// export function useCart() {
-//   const context = useContext(CartContext)
-//   if (!context) {
-//     throw new Error("useCart must be used within CartProvider")
-//   }
-//   return context
-// }
-
 "use client"
 
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react"
@@ -232,26 +40,18 @@ interface CartContextType {
   deliveryAddresses: DeliveryAddress[]
   selectedAddressId: string | null
   appliedPromotion: Promotion | null
-
-  // Cart operations
   addToCart: (product: CartItem["product"], quantity: number) => void
   removeFromCart: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
   getTotalItems: () => number
   getTotalPrice: () => number
-
-  // Address operations
   selectAddress: (addressId: string) => void
   deleteAddress: (addressId: string) => void
   setDeliveryAddresses: (addresses: DeliveryAddress[]) => void
   getSelectedAddress: () => DeliveryAddress | null
-
-  // Shipping & Tax
   getShippingFee: () => number
   getTax: () => number
-
-  // Promotion operations
   applyPromotion: (promotion: Promotion) => boolean
   removePromotion: () => void
   getDiscountAmount: () => number
@@ -268,6 +68,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [appliedPromotion, setAppliedPromotion] = useState<Promotion | null>(null)
   const [isInitialized, setIsInitialized] = useState(false)
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
+  const [isCartCleared, setIsCartCleared] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('isCartCleared') === 'true'
+    }
+    return false
+  })
   const itemsRef = useRef<CartItem[]>([])
 
   useEffect(() => {
@@ -284,7 +90,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const mergeCartItems = (baseItems: CartItem[], extraItems: CartItem[]): CartItem[] => {
     const map = new Map<string, CartItem>()
-
     const addItems = (list: CartItem[]) => {
       list.forEach((item) => {
         const key = item.product.id
@@ -296,57 +101,36 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         }
       })
     }
-
     addItems(baseItems)
     addItems(extraItems)
-
     return Array.from(map.values())
   }
 
-  // Load from localStorage on mount (chỉ cho guest hoặc user hiện tại)
   useEffect(() => {
     const userId = user?.id || null
     const cartKey = getCartStorageKey(userId)
-
     const savedItems = localStorage.getItem(cartKey)
     const savedAddresses = localStorage.getItem("deliveryAddresses")
     const savedAddressId = localStorage.getItem("selectedAddressId")
     const savedPromotion = localStorage.getItem("appliedPromotion")
-
     if (!user && savedItems) {
       try {
-        const parsed = JSON.parse(savedItems)
-        console.log("[Cart] Initial guest cart from storage:", parsed)
-        setItems(parsed)
-      } catch (e) {
-        console.error("[Cart] Error parsing initial guest cart:", e)
-      }
+        setItems(JSON.parse(savedItems))
+      } catch (e) {}
     }
     if (savedAddresses) setDeliveryAddresses(JSON.parse(savedAddresses))
     if (savedAddressId) setSelectedAddressId(savedAddressId)
     if (savedPromotion) setAppliedPromotion(JSON.parse(savedPromotion))
-
     setCurrentUserId(userId)
     setIsInitialized(true)
   }, [])
 
-  // Xử lý khi user thay đổi (đăng nhập / logout / đổi user)
   useEffect(() => {
     if (!isInitialized) return
-
     const newUserId = user?.id || null
     if (currentUserId === newUserId) return
-
     const prevUserId = currentUserId
     const currentItems = itemsRef.current
-
-    console.log("[Cart] User change detected", {
-      prevUserId,
-      newUserId,
-      currentItems,
-    })
-
-    // Lưu cart hiện tại theo user cũ (hoặc guest)
     if (prevUserId && currentItems.length > 0) {
       const oldCartKey = getCartStorageKey(prevUserId)
       localStorage.setItem(oldCartKey, JSON.stringify(currentItems))
@@ -354,76 +138,45 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const guestCartKey = getCartStorageKey(null)
       localStorage.setItem(guestCartKey, JSON.stringify(currentItems))
     }
-
-    // Trường hợp guest -> login: sync cart guest vào cart user
     if (!prevUserId && newUserId) {
       const guestCartKey = getCartStorageKey(null)
       const guestCartRaw = localStorage.getItem(guestCartKey)
       let guestItems: CartItem[] = []
-
       if (guestCartRaw) {
         try {
           guestItems = JSON.parse(guestCartRaw)
-        } catch (e) {
-          console.error("[Cart] Error parsing guest cart on login:", e)
-        }
+        } catch (e) {}
       }
-
       const serverItems: CartItem[] =
         serverCartData?.success && Array.isArray(serverCartData.data) ? serverCartData.data : []
-
-      console.log("[Cart] Cart before login (guest):", guestItems)
-      console.log("[Cart] Cart from server before merge:", serverItems)
-
       const mergedItems = mergeCartItems(serverItems, guestItems)
-
-      console.log("[Cart] Cart after login (merged):", mergedItems)
-
       setItems(mergedItems)
       setAppliedPromotion(null)
-
-      // Sau khi sync, clear cart guest khỏi localStorage
       localStorage.removeItem(guestCartKey)
     }
-
-    // Trường hợp login -> logout: reset giỏ hàng ở storage cho session mới
     if (prevUserId && !newUserId) {
-      console.log("[Cart] Logging out, clearing current cart state")
       setItems([])
       setAppliedPromotion(null)
     }
-
-    // Trường hợp đổi user A -> user B (hiếm khi xảy ra trên FE)
     if (prevUserId && newUserId && prevUserId !== newUserId) {
       const newCartKey = getCartStorageKey(newUserId)
       const newCartRaw = localStorage.getItem(newCartKey)
       let newItems: CartItem[] = []
-
       if (newCartRaw) {
         try {
           newItems = JSON.parse(newCartRaw)
-        } catch (e) {
-          console.error("[Cart] Error parsing new user cart on switch:", e)
-        }
+        } catch (e) {}
       }
-
-      console.log("[Cart] Switching user, load cart for new user:", {
-        newUserId,
-        newItems,
-      })
-
       setItems(newItems)
       setAppliedPromotion(null)
     }
-
     setCurrentUserId(newUserId)
   }, [user?.id, isInitialized, currentUserId, serverCartData])
 
-  // Load cart từ server khi có data mới (cho user hiện tại)
   useEffect(() => {
+    if (isCartCleared) return
     if (user && currentUserId === user.id && !isLoadingCart && serverCartData) {
       if (serverCartData.success && serverCartData.data !== undefined) {
-        // Chỉ override nếu hiện tại chưa có items (tránh ghi đè cart đã merge với guest)
         setItems((prev) => {
           if (prev.length > 0) return prev
           return serverCartData.data || []
@@ -432,9 +185,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setItems((prev) => (prev.length > 0 ? prev : []))
       }
     }
-  }, [serverCartData, user, currentUserId, isLoadingCart])
+  }, [serverCartData, user, currentUserId, isLoadingCart, isCartCleared])
 
-  // Save to localStorage khi items thay đổi (với key riêng cho mỗi user)
   useEffect(() => {
     if (isInitialized) {
       const userId = user?.id || null
@@ -443,50 +195,38 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [items, isInitialized, user?.id])
 
-  // Sync với server khi items thay đổi (debounced để tránh quá nhiều requests)
-  // Chỉ sync cho user hiện tại
   useEffect(() => {
     if (!isInitialized || !user || (!user.id && !user.email)) return
-    if (currentUserId !== user.id) return // Chỉ sync cho user hiện tại
-
+    if (currentUserId !== user.id) return
     const syncTimeout = setTimeout(() => {
       const cartRequest = {
         userId: user.id,
         email: user.email,
         productsCart: items,
       }
-
-      // Kiểm tra xem cart đã tồn tại trên server chưa
       if (serverCartData?.success && serverCartData.data !== undefined) {
-        // Update cart nếu đã tồn tại
         updateCartMutation.mutate(cartRequest)
       } else if (items.length > 0) {
-        // Tạo cart mới nếu chưa tồn tại và có items
         createCartMutation.mutate(cartRequest)
       } else if (items.length === 0 && serverCartData?.success) {
-        // Nếu cart rỗng nhưng server có cart, update để clear server cart
         updateCartMutation.mutate(cartRequest)
       }
-    }, 1000) // Debounce 1 giây
-
+    }, 1000)
     return () => clearTimeout(syncTimeout)
   }, [items, isInitialized, user, currentUserId, serverCartData?.success, createCartMutation, updateCartMutation])
 
-  // Save addresses to localStorage
   useEffect(() => {
     if (isInitialized) {
       localStorage.setItem("deliveryAddresses", JSON.stringify(deliveryAddresses))
     }
   }, [deliveryAddresses, isInitialized])
 
-  // Save selected address to localStorage
   useEffect(() => {
     if (isInitialized) {
       localStorage.setItem("selectedAddressId", selectedAddressId || "")
     }
   }, [selectedAddressId, isInitialized])
 
-  // Save promotion to localStorage
   useEffect(() => {
     if (isInitialized) {
       localStorage.setItem("appliedPromotion", JSON.stringify(appliedPromotion))
@@ -514,25 +254,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const getDiscountAmount = useCallback(() => {
     if (!appliedPromotion) return 0
-
     const subtotal = getTotalPrice()
-
-    // Kiểm tra giá trị đơn hàng tối thiểu
     if (subtotal < appliedPromotion.minOrderValue) return 0
-
     let discount = 0
-
     if (appliedPromotion.discountType === "percentage") {
       discount = Math.round((subtotal * appliedPromotion.discountValue) / 100)
     } else {
       discount = appliedPromotion.discountValue
     }
-
-    // Áp dụng giới hạn giảm giá tối đa nếu có
     if (appliedPromotion.maxDiscount) {
       discount = Math.min(discount, appliedPromotion.maxDiscount)
     }
-
     return discount
   }, [appliedPromotion, getTotalPrice])
 
@@ -541,11 +273,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const discount = getDiscountAmount()
     const shipping = getShippingFee()
     const tax = getTax()
-
     return subtotal - discount + shipping + tax
   }, [getTotalPrice, getDiscountAmount, getShippingFee, getTax])
 
   const addToCart = useCallback((product: CartItem["product"], quantity: number) => {
+    if (isCartCleared) {
+      setIsCartCleared(false)
+      localStorage.removeItem('isCartCleared')
+    }
     setItems((prevItems: CartItem[]) => {
       const existingItem = prevItems.find((item: CartItem) => item.product.id === product.id)
       if (existingItem) {
@@ -555,7 +290,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prevItems, { product, quantity }]
     })
-  }, [])
+  }, [isCartCleared])
 
   const removeFromCart = useCallback((productId: string) => {
     setItems((prevItems: CartItem[]) => prevItems.filter((item: CartItem) => item.product.id !== productId))
@@ -575,6 +310,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const clearCart = useCallback(() => {
     setItems([])
     setAppliedPromotion(null)
+    setIsCartCleared(true)
+    localStorage.setItem('isCartCleared', 'true')
   }, [])
 
   const selectAddress = useCallback((addressId: string) => {
@@ -598,12 +335,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const applyPromotion = useCallback(
     (promotion: Promotion) => {
       const subtotal = getTotalPrice()
-
-      // Kiểm tra giá trị đơn hàng tối thiểu
       if (subtotal < promotion.minOrderValue) {
         return false
       }
-
       setAppliedPromotion(promotion)
       return true
     },

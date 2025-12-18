@@ -60,92 +60,11 @@ export interface CheckoutData {
   customerId?: string // 👈 thêm để liên kết với customer
 }
 
-// ===============================
-// ⚙️ Helper functions
-// ===============================
 export function generateOrderNumber(): string {
   const timestamp = Date.now().toString()
   const random = Math.random().toString(36).substring(2, 8).toUpperCase()
   return `BK${timestamp.slice(-6)}${random}`
 }
-
-// ===============================
-// 💾 MOCK LOCAL STORAGE (fallback khi không có API)
-// ===============================
-// export function createSampleOrders(): void {
-//   const sampleOrders: Order[] = [
-//     {
-//       id: "1",
-//       orderNumber: "BK123456ABC",
-//       items: [
-//         {
-//           productId: "1",
-//           title: "Đắc Nhân Tâm",
-//           author: "Dale Carnegie",
-//           price: 89000,
-//           quantity: 1,
-//           image: "/dac-nhan-tam-book-cover.png",
-//         },
-//       ],
-//       shippingAddress: {
-//         fullName: "Nguyễn Văn A",
-//         phone: "0123456789",
-//         email: "user@example.com",
-//         address: "123 Đường ABC",
-//         ward: "Phường 1",
-//         district: "Quận 1",
-//         city: "TP.HCM",
-//       },
-//       paymentMethod: "cod",
-//       subtotal: 89000,
-//       shippingFee: 0,
-//       tax: 8900,
-//       total: 97900,
-//       status: "completed",
-//       createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-//       updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-//       completedDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-//     },
-//     {
-//       id: "2",
-//       orderNumber: "BK789012DEF",
-//       items: [
-//         {
-//           productId: "2",
-//           title: "Sapiens: Lược sử loài người",
-//           author: "Yuval Noah Harari",
-//           price: 156000,
-//           quantity: 1,
-//           image: "/sapiens-book-cover.png",
-//         },
-//       ],
-//       shippingAddress: {
-//         fullName: "Trần Thị B",
-//         phone: "0987654321",
-//         email: "user2@example.com",
-//         address: "456 Đường XYZ",
-//         ward: "Phường 2",
-//         district: "Quận 2",
-//         city: "TP.HCM",
-//       },
-//       paymentMethod: "bank_transfer",
-//       subtotal: 156000,
-//       shippingFee: 30000,
-//       tax: 15600,
-//       total: 201600,
-//       status: "refunded",
-//       createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
-//       updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-//       refundReason: "Sách bị lỗi in ấn",
-//       refundDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-//     },
-//   ]
-
-//   const existingOrders = getOrders()
-//   if (existingOrders.length === 0) {
-//     localStorage.setItem("bookstore_orders", JSON.stringify(sampleOrders))
-//   }
-// }
 export async function createSampleOrders(): Promise<void> {
   try {
     const response = await axios.get(`${API_URL}/orders`);
@@ -186,16 +105,12 @@ export async function createSampleOrders(): Promise<void> {
         completedDate: order.completedDate ? new Date(order.completedDate) : undefined,
       }));
 
-      // 3. Lưu dữ liệu vào localStorage
       const existingOrders = getOrders();
       if (existingOrders.length === 0) {
         localStorage.setItem("bookstore_orders", JSON.stringify(orders));
       } else {
-        // Có thể thực hiện gộp với các đơn hàng hiện có
         localStorage.setItem("bookstore_orders", JSON.stringify(existingOrders.concat(orders)));
       }
-
-      console.log("Dữ liệu đã được nhập thành công!");
     } else {
       console.error("Dữ liệu không hợp lệ từ API");
     }
@@ -203,10 +118,6 @@ export async function createSampleOrders(): Promise<void> {
     console.error("Lỗi khi gọi API hoặc lưu dữ liệu:", error);
   }
 }
-
-// ===============================
-// 📖 LOCAL STORAGE utilities (mock mode)
-// ===============================
 export function saveOrder(order: Order): void {
   const existingOrders = getOrders()
   existingOrders.push(order)

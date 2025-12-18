@@ -52,11 +52,7 @@ export default function ProfilePage() {
       joinOrderRoom(order._id)
     })
 
-    // Lắng nghe sự kiện cập nhật trạng thái
     const handleOrderUpdate = (data: any) => {
-      console.log("🔔 Received order update in profile:", data)
-
-      // React Query will automatically refetch orders
       message.info(`Đơn hàng ${data.orderCode} đã được cập nhật!`)
     }
 

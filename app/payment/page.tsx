@@ -284,6 +284,8 @@ import { useAuth } from "@/contexts/auth-context"
 import { CheckoutData } from "@/lib/orders-data"
 import { useCreateOrder, useCreateVNPayOrder } from "@/hooks/useOrders"
 import { useUpdateUserCart } from "@/hooks/useCart"
+import { useQueryClient } from "@tanstack/react-query"
+import { queryKeys } from "@/lib/query-keys"
 
 export default function PaymentPage() {
   const router = useRouter()
@@ -296,6 +298,7 @@ export default function PaymentPage() {
   const createOrderMutation = useCreateOrder()
   const createVNPayOrderMutation = useCreateVNPayOrder()
   const updateCartMutation = useUpdateUserCart()
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     const savedCheckoutData = localStorage.getItem("checkoutData")
@@ -337,30 +340,27 @@ export default function PaymentPage() {
         paymentMethod: checkoutData.paymentMethod,
       }
 
-      // Helper function để clear cart hoàn toàn (storage + server)
-      const clearCartCompletely = () => {
-        // Clear cart trong context (sẽ trigger localStorage update)
+      const clearCartCompletely = async () => {
         clearCart()
         
-        // Clear localStorage cart keys
         const cartKey = user?.id ? `cartItems_${user.id}` : "cartItems_guest"
         localStorage.removeItem(cartKey)
         localStorage.removeItem("checkoutData")
         localStorage.removeItem("selectedDeliveryAddress")
         
-        // Clear cart trên server nếu user đã đăng nhập
         if (user?.id || user?.email) {
-          updateCartMutation.mutate({
+          const cacheKey = user?.id || user?.email || ''
+          queryClient.setQueryData(queryKeys.userCart(cacheKey), { success: true, data: [] })
+          await queryClient.invalidateQueries({ queryKey: queryKeys.userCart(cacheKey) })
+          
+          const result = await updateCartMutation.mutateAsync({
             userId: user?.id,
             email: user?.email,
             productsCart: [],
           })
         }
-        
-        console.log("[Payment] Cart cleared completely - storage & server")
       }
 
-      // Nếu chọn thanh toán COD
       if (checkoutData.paymentMethod === "cod") {
         createOrderMutation.mutate(orderData, {
           onSuccess: () => {

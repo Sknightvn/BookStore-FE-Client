@@ -26,6 +26,7 @@ import {
   IconTrash,
   IconCheck,
   IconX,
+  IconShoppingCartPlus,
 } from "@tabler/icons-react"
 import { useCart } from "@/contexts/cart-context"
 import CartItemComponent from "@/components/cart-item"
@@ -37,6 +38,7 @@ import { useAuth } from "@/contexts/auth-context"
 import { useBooks } from "@/hooks/useBooks"
 import { useCustomerByUserId } from "@/hooks/useCustomers"
 import { useCustomerAddresses, useAddAddress, useDeleteAddress } from "@/hooks/useAddresses"
+import Image from "next/image"
 
 export default function CartPage() {
   const { user } = useAuth()
@@ -76,7 +78,6 @@ export default function CartPage() {
     city: "",
   })
 
-  // Sync addresses from API to cart context
   useEffect(() => {
     if (addressesData?.success && addressesData.addresses) {
       const formattedAddresses = addressesData.addresses.map((addr: any) => ({
@@ -205,7 +206,6 @@ export default function CartPage() {
     setIsCheckingStock(true)
     try {
       const stockCheck = await checkStockAvailability(items)
-      console.log("[v0] Stock check result:", stockCheck)
 
       if (!stockCheck.success) {
         message.error(stockCheck.error || "Không thể kiểm tra stock")
@@ -265,12 +265,17 @@ export default function CartPage() {
 
         <div className="text-center py-12">
           <IconShoppingCart size={96} className="text-gray-300 mx-auto mb-6" />
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Giỏ hàng trống</h1>
-          <p className="text-indigo-950 mb-8">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
-          <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700">
+          <Image
+            src="/empty-cart.png"
+            alt="Giỏ hàng trống"
+            width={200}
+            height={200}
+            className="mx-auto mb-4 h-20 w-20"
+          />
+          <Button asChild size="lg" variant="fulled">
             <Link href="/products">
-              <IconArrowLeft size={16} className="mr-2" />
               Tiếp tục mua sắm
+              <IconShoppingCartPlus size={16} className="mr-2" />
             </Link>
           </Button>
         </div>

@@ -27,7 +27,6 @@ function PaymentSuccessContent() {
 
     verifyPaymentMutation.mutate(queryString, {
       onSuccess: (result) => {
-        console.log("Kết quả từ server:", result)
         if (result.RspCode === "00") {
           message.success("Thanh toán thành công!")
           clearCart()
@@ -39,7 +38,6 @@ function PaymentSuccessContent() {
         }
       },
       onError: (error) => {
-        console.error("Lỗi xác nhận thanh toán:", error)
         message.error("Có lỗi xảy ra khi xác nhận thanh toán!")
         router.push("/cart")
       },
