@@ -320,7 +320,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
 
         {/* Author Info */}
         <Card className="mt-8">
-          <CardContent className="p-6">
+          <CardContent className="p-4">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
                 <IconUserSquareRounded size={32} className="text-blue-600" />
@@ -338,7 +338,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
 
         {/* Related Articles */}
         <Card className="mt-8">
-          <CardContent className="p-6">
+          <CardContent className="p-4">
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
               <IconBook size={20} className="mr-2" />
               Bài viết liên quan

@@ -94,7 +94,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
             <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <stat.icon className={`w-12 h-12 mx-auto mb-4 ${stat.color}`} />
                 <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
                 <div className="text-indigo-950">{stat.label}</div>
@@ -154,7 +154,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <service.icon className="w-12 h-12 text-green-600 mb-4" />
                 <h3 className="text-lg font-bold text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-indigo-950">{service.description}</p>
@@ -170,7 +170,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {team.map((member, index) => (
             <Card key={index} className="text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <img
                   src={member.image || "/placeholder.svg"}
                   alt={member.name}

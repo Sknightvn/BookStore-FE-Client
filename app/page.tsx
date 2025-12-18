@@ -3,21 +3,16 @@
 import Link from "next/link"
 import { useMemo } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { IconMapPinCog, IconStar } from "@tabler/icons-react"
-import { useCart } from "@/contexts/cart-context"
-import { message } from "antd"
+import { IconMapPinCog } from "@tabler/icons-react"
 import CategoryBanner from "@/components/category-banner"
 import WeeklyRanking from "@/components/weekly-ranking"
 import ImageCarousel from "@/components/image-carousel"
 import { TruckOutlined, GiftOutlined, PhoneOutlined, CustomerServiceOutlined } from "@ant-design/icons"
 import { useBooks } from "@/hooks/useBooks"
-import type { Book } from "@/interface/response/book"
 import Image from "next/image"
+import { FeaturedProductCard } from "@/components/product-card"
 
 export default function HomePage() {
-  const { addToCart } = useCart()
   const { data: booksData, isLoading: loading } = useBooks()
 
   const products = booksData?.data || []
@@ -27,26 +22,6 @@ export default function HomePage() {
     return ["Tất cả", ...uniqueCategories]
   }, [products])
 
-  const handleAddToCart = (book: Book) => {
-    if (book.stock <= 0) {
-      message.error("Sản phẩm đã hết hàng!")
-      return
-    }
-
-    addToCart(
-      {
-        id: book._id,
-        title: book.title,
-        price: book.price,
-        coverImage: book.coverImage,
-        volume: book.volume || "",
-      },
-      1,
-    )
-
-    message.success(`Đã thêm "${book.title}" vào giỏ hàng!`)
-  }
-
   return (
     <div className="space-y-12">
       {/* Hero Section */}
@@ -54,8 +29,8 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <ImageCarousel />
         {/* Buttons Section */}
-        <h2 className="text-2xl md:text-3xl font-semibold text-indigo-800 my-6 mt-12">
-          <span className="text-indigo-950 bg-indigo-800 w-2 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
+        <h2 className="text-2xl font-semibold text-indigo-800 my-6 mt-12">
+          <span className="text-indigo-950 bg-indigo-800 w-1.5 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
           <span>Dịch vụ & Hỗ trợ</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -111,59 +86,16 @@ export default function HomePage() {
 
       {/* Featured Books */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-bold mb-4">Sách nổi bật</h2>
-
+        <h2 className="text-2xl font-semibold text-indigo-800 mb-6">
+              <span className="text-indigo-950 bg-indigo-800 w-1.5 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
+              <span>Sách nổi bật</span>
+            </h2>
         {loading ? (
           <p className="text-center text-gray-500">Đang tải sản phẩm...</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-3 gap-y-4">
             {featuredBooks.map((book) => (
-              <Card key={book._id} className="group hover:shadow-xl overflow-hidden bg-indigo-950 transition cursor-pointer rounded-xl">
-                <CardHeader className="p-2">
-                  <div className="relative">
-                    <img
-                      src={book.coverImage || "/placeholder.svg"}
-                      alt={book.title}
-                      className="w-full h-56 object-cover rounded-lg"
-                    />
-
-                    {book.stock <= 0 && <Badge className="absolute top-2 right-2 bg-gray-500">Hết hàng</Badge>}
-                  </div>
-                </CardHeader>
-
-                <CardContent
-                  style={{
-                    background: "url('/circle-scatter-haikei.svg') no-repeat center center",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                  }}
-                  className="space-y-2 p-2">
-                  <h3 className="font-semibold text-xl text-white hover:text-indigo-500">
-                    <span> {book.title}</span>
-                    <span className="text-sm text-white"> | </span>
-                    <span className="text-sm text-white">Tập: {book.volume || "Không có"}</span>
-                  </h3>
-
-                  <p className="text-sm text-white">{book.author}</p>
-
-                  <div className="flex items-center gap-1 text-base text-gray-300">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <IconStar
-                        key={index}
-                        size={16}
-                        className="fill-yellow-400 text-yellow-400"
-                      />
-                    ))}
-                  </div>
-
-                  <p className="text-2xl font-medium text-red-500">{book.price.toLocaleString("vi-VN")}đ</p>
-
-                  <Button size="sm" className="w-full" variant="fulled" onClick={() => handleAddToCart(book)} disabled={book.stock <= 0}>
-                    {book.stock > 0 ? "Thêm vào giỏ" : "Hết hàng"}
-                  </Button>
-                </CardContent>
-              </Card>
+              <FeaturedProductCard key={book._id} product={book} />
             ))}
           </div>
         )}

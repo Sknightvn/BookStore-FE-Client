@@ -146,7 +146,7 @@ export default function BlogPage() {
                   />
                   <Badge className="absolute top-4 left-4 bg-red-500 hover:bg-red-600">Nổi bật</Badge>
                 </div>
-                <CardContent className="p-6">
+                <CardContent className="p-4">
                   <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
                     <span className="flex items-center">
                       <IconCalendar size={16} className="mr-1" />
@@ -221,7 +221,7 @@ export default function BlogPage() {
               />
               <Badge className="absolute top-3 left-3 bg-blue-500 hover:bg-blue-600">{post.category}</Badge>
             </div>
-            <CardContent className="p-6 flex-1 flex flex-col">
+            <CardContent className="p-4 flex-1 flex flex-col">
               <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
                 <span className="flex items-center">
                   <IconCalendar size={16} className="mr-1" />

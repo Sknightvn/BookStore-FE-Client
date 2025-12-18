@@ -89,8 +89,8 @@ export default function CategoryBanner({ categories, products }: CategoryBannerP
         {/* Category Navigation */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl md:text-3xl font-semibold text-indigo-800 mb-2">
-              <span className="text-indigo-950 bg-indigo-800 w-2 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
+            <h2 className="text-2xl font-semibold text-indigo-800 mb-2">
+              <span className="text-indigo-950 bg-indigo-800 w-1.5 h-6 rounded-full inline-block mr-2 translate-y-0.5"></span>
               <span>Khám phá danh mục</span>
             </h2>
             <p className="text-indigo-950 text-xl">Duyệt qua các bộ sưu tập sách yêu thích</p>
@@ -100,30 +100,30 @@ export default function CategoryBanner({ categories, products }: CategoryBannerP
               variant="outline"
               size="icon"
               onClick={handlePrevCategory}
-              className="rounded-full border-2 border-indigo-500 hover:bg-indigo-100 bg-transparent"
+              className="rounded-full border-2 group border-indigo-500 hover:bg-indigo-500 bg-transparent"
             >
-              <IconChevronLeft size={24} className="text-indigo-500" />
+              <IconChevronLeft size={24} className="text-indigo-500 group-hover:text-white" />
             </Button>
             <Button
               variant="outline"
               size="icon"
               onClick={handleNextCategory}
-              className="rounded-full border-2 border-indigo-500 hover:bg-indigo-100 bg-transparent"
+              className="rounded-full border-2 group border-indigo-500 hover:bg-indigo-500 bg-transparent"
             >
-              <IconChevronRight size={24} className="text-indigo-500" />
+              <IconChevronRight size={24} className="text-indigo-500 group-hover:text-white" />
             </Button>
           </div>
         </div>
 
         {/* Category Slider */}
-        <div className="flex gap-4 mb-6 flex-wrap pb-4">
+        <div className="flex gap-3 flex-wrap pb-6">
           {categories.map((category, index) => (
             <button
               key={category}
               onClick={() => setActiveCategory(index)}
               className={`px-5 py-1 rounded-full font-semibold transition-all whitespace-nowrap ${activeCategory === index
                 ? "bg-gradient-to-r from-indigo-500 to-blue-400 text-white shadow-lg"
-                : "bg-white text-indigo-800 font-normal border-2 border-indigo-500 hover:border-indigo-400"
+                : "bg-white text-indigo-800 font-normal border border-indigo-500 hover:border-indigo-400"
                 }`}
             >
               {category}
@@ -140,14 +140,14 @@ export default function CategoryBanner({ categories, products }: CategoryBannerP
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
-            className="grid grid-cols-1 rounded-2xl p-6 md:grid-cols-2 gap-8 items-center">
+            className="grid grid-cols-1 rounded-2xl p-4 md:grid-cols-2 gap-8 items-center">
             {/* Product Image Section */}
             <div className="relative group">
               <div className="bg-white rounded-2xl flex justify-center items-center overflow-hidden shadow-xl">
                 <img
                   src={currentProduct.coverImage || "/placeholder.svg"}
                   alt={currentProduct.title}
-                  className="w-auto h-80 p-6 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-auto h-80 p-4 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
 

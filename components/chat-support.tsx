@@ -203,13 +203,13 @@ export default function ChatSupport() {
                       <div className="flex items-center space-x-2">
                         <IconRobot size={16} />
                         <div className="flex space-x-1">
-                          <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" />
+                          <div className="w-1.5 h-2 rounded-full bg-gray-400 animate-bounce" />
                           <div
-                            className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
+                            className="w-1.5 h-2 rounded-full bg-gray-400 animate-bounce"
                             style={{ animationDelay: "0.1s" }}
                           />
                           <div
-                            className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"
+                            className="w-1.5 h-2 rounded-full bg-gray-400 animate-bounce"
                             style={{ animationDelay: "0.2s" }}
                           />
                         </div>

@@ -316,7 +316,7 @@ export default function OrderTrackingPage() {
           {/* Special Status */}
           {order.status === "completed" && (
             <Card className="border-green-200 mb-6">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-green-600">
                   <IconAward size={24} />
                   <div>
@@ -332,7 +332,7 @@ export default function OrderTrackingPage() {
 
           {order.status === "refunded" && (
             <Card className="border-blue-200 mb-6">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-blue-600">
                   <IconRotateCcw size={24} />
                   <div>
@@ -349,7 +349,7 @@ export default function OrderTrackingPage() {
 
           {returnRequest && returnRequest.status === "accepted" && (
             <Card className="border-orange-200 mb-6">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-orange-600">
                   <IconRotateCcw size={24} />
                   <div>
@@ -365,7 +365,7 @@ export default function OrderTrackingPage() {
 
           {returnRequest && returnRequest.status === "checking" && (
             <Card className="border-blue-200 mb-6">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-blue-600">
                   <IconPackage size={24} />
                   <div>
@@ -381,7 +381,7 @@ export default function OrderTrackingPage() {
 
           {returnRequest && returnRequest.status === "completed" && (
             <Card className="border-green-200 mb-6">
-              <CardContent className="p-6">
+              <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-green-600">
                   <IconCircleCheck size={24} />
                   <div>

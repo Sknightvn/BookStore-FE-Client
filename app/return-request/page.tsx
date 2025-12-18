@@ -276,7 +276,7 @@ function ReturnRequestContent() {
                   <label className="block text-sm font-medium text-gray-900 mb-3">
                     Tải lên hình ảnh chứng minh <span className="text-red-500">*</span>
                   </label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
                     <input
                       type="file"
                       accept="image/*"

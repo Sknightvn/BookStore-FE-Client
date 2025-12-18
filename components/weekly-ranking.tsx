@@ -34,11 +34,11 @@ export default function WeeklyRanking() {
 
   // Filter products based on selected category
   const rankedBooks = useMemo(() => {
-    let filtered = topProducts
+    let filteindigo = topProducts
     if (selectedCategory !== "Tất cả") {
-      filtered = topProducts.filter((p: TopProduct) => p.category === selectedCategory)
+      filteindigo = topProducts.filter((p: TopProduct) => p.category === selectedCategory)
     }
-    return filtered.slice(0, 5)
+    return filteindigo.slice(0, 5)
   }, [selectedCategory, topProducts])
 
   // Set initial selected book
@@ -73,10 +73,13 @@ export default function WeeklyRanking() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="bg-indigo-50 space-y-6 border-2 rounded-xl border-indigo-950">
       {/* Header */}
-      <div className="bg-gray-900 text-white px-6 py-4 rounded-t-lg">
-        <h2 className="text-2xl font-bold">Bảng xếp hạng bán chạy</h2>
+      <div className="bg-indigo-950 text-indigo-300 px-5 py-2 rounded-t-lg">
+        <h2 className="text-2xl font-semibold text-indigo-100 mb-2">
+              <span className="text-indigo-950 bg-indigo-100 w-1.5 h-5 rounded-full inline-block mr-2 translate-y-0.5"></span>
+              <span>Bảng xếp hạng bán chạy</span>
+            </h2>
       </div>
 
       {/* Category Tabs */}
@@ -86,8 +89,8 @@ export default function WeeklyRanking() {
             key={cat}
             onClick={() => setSelectedCategory(cat)}
             className={`px-4 py-2 whitespace-nowrap rounded transition-all ${selectedCategory === cat
-              ? "bg-red-500 text-white font-semibold"
-              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              ? "bg-indigo-500 text-white font-semibold"
+              : "bg-white text-gray-700"
               }`}
           >
             {cat}
@@ -104,15 +107,21 @@ export default function WeeklyRanking() {
               <div
                 key={book.productId}
                 onClick={() => setSelectedBook(book)}
-                className={`flex gap-4 p-4 rounded-lg cursor-pointer transition-all ${selectedBook?.productId === book.productId
-                  ? "bg-red-50 border-2 border-red-500"
-                  : "bg-gray-50 border border-gray-200 hover:bg-gray-100"
+                className={`flex gap-4 p-4 rounded-lg items-center cursor-pointer transition-all ${selectedBook?.productId === book.productId
+                  ? "bg-white border-2 border-indigo-500"
+                  : "bg-indigo-50 border-2 border-indigo-200 hover:bg-white"
                   }`}
               >
                 {/* Ranking Number */}
-                <div className="flex flex-col items-center justify-center min-w-12">
-                  <span className="text-xl font-bold text-gray-900">{String(index + 1).padStart(2, "0")}</span>
-                  <IconTrendingUp size={16} className="text-green-500" />
+                <div 
+                style={{
+                  background: "url('/three-star-medal-3d-icon.webp') no-repeat center center",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }}
+                className="flex w-16 h-16 flex-col items-center justify-center min-w-12">
+                  <span className="text-xl font-semibold text-yellow-200/90 translate-y-0.5">{String(index + 1).padStart(2, "0")}</span>
                 </div>
 
                 {/* Book Cover */}
@@ -132,7 +141,7 @@ export default function WeeklyRanking() {
                   <div className="flex items-center gap-2 mt-2">
                     <div className="flex items-center gap-1">
                       <IconStar size={16} className="fill-yellow-400 text-yellow-400" />
-                      <span className="text-sm text-indigo-950">{book.totalQuantity} bán</span>
+                      <span className="text-sm text-indigo-950">{book.totalQuantity} lượt bán</span>
                     </div>
                   </div>
                 </div>
@@ -143,7 +152,7 @@ export default function WeeklyRanking() {
           )}
         </div>
 
-        {/* Featured Product Detail */}
+        {/* Featuindigo Product Detail */}
         {selectedBook && (
           <div className="lg:col-span-1">
             <Card className="sticky top-4">
@@ -166,7 +175,7 @@ export default function WeeklyRanking() {
                 <div className="bg-blue-50 p-3 rounded-lg space-y-2">
                   <p className="text-sm font-semibold text-gray-900">Thống kê bán hàng</p>
                   <p className="text-sm text-indigo-950">
-                    Đã bán: <span className="font-bold text-red-600">{selectedBook.totalQuantity}</span> sản phẩm
+                    Đã bán: <span className="font-bold text-indigo-600">{selectedBook.totalQuantity}</span> sản phẩm
                   </p>
                   <p className="text-sm text-indigo-950">
                     Doanh thu:{" "}
@@ -178,7 +187,7 @@ export default function WeeklyRanking() {
 
                 {/* Add to Cart Button */}
                 <Button
-                  className="w-full bg-red-500 hover:bg-red-600 text-white"
+                  className="w-full bg-indigo-500 hover:bg-indigo-600 text-white"
                   onClick={() => handleAddToCart(selectedBook)}
                 >
                   Thêm vào giỏ hàng
