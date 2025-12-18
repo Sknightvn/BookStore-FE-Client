@@ -227,7 +227,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   if (isLoading) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-1/4"></div>
           <div className="h-64 bg-gray-200 rounded"></div>
@@ -244,9 +244,9 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   if (!post) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Không tìm thấy bài viết</h1>
+          <h1 className="text-2xl font-bold text-indigo-950 mb-4">Không tìm thấy bài viết</h1>
           <p className="text-indigo-950 mb-8">Bài viết bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.</p>
           <Button onClick={() => router.push("/blog")}>Quay lại blog</Button>
         </div>
@@ -255,15 +255,15 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       {/* Back Button */}
-      <Button variant="ghost" onClick={() => router.back()} className="mb-6">
+      <Button variant="ghost" onClick={() => router.back()} className="mb-4">
         <IconArrowLeft size={16} className="mr-2" />
         Quay lại
       </Button>
 
       {/* Article Header */}
-      <article className="space-y-6">
+      <article className="space-y-4">
         <header className="space-y-4">
           <div className="flex flex-wrap items-center gap-4 text-sm text-indigo-950">
             <Badge className="bg-indigo-500 hover:bg-indigo-600">{post.category}</Badge>
@@ -281,7 +281,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
             </span>
           </div>
 
-          <h1 className="text-4xl font-bold text-gray-900 leading-tight">{post.title}</h1>
+          <h1 className="text-4xl font-bold text-indigo-950 leading-tight">{post.title}</h1>
 
           <p className="text-xl text-indigo-950 leading-relaxed">{post.excerpt}</p>
 
@@ -309,7 +309,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 pt-6 border-t">
+        <div className="flex flex-wrap gap-2 pt-4 border-t">
           <span className="text-sm font-medium text-indigo-950">Tags:</span>
           {post.tags.map((tag) => (
             <Badge key={tag} variant="secondary" className="text-sm">
@@ -326,7 +326,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                 <IconUserSquareRounded size={32} className="text-indigo-600" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900">{post.author}</h3>
+                <h3 className="text-lg font-bold text-indigo-950">{post.author}</h3>
                 <p className="text-indigo-950">
                   Chuyên gia trong lĩnh vực {post.category.toLowerCase()}, có nhiều năm kinh nghiệm và đam mê chia sẻ
                   kiến thức.
@@ -339,13 +339,13 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
         {/* Related Articles */}
         <Card className="mt-8">
           <CardContent className="p-4">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+            <h3 className="text-lg font-bold text-indigo-950 mb-4 flex items-center">
               <IconBook size={20} className="mr-2" />
               Bài viết liên quan
             </h3>
             <div className="space-y-4">
               <Link href="/blog/2" className="block hover:bg-gray-50 p-3 rounded-lg transition-colors">
-                <h4 className="font-medium text-gray-900 hover:text-indigo-600">
+                <h4 className="font-medium text-indigo-950 hover:text-indigo-600">
                   Cách Xây Dựng Thói Quen Đọc Sách Hiệu Quả
                 </h4>
                 <p className="text-sm text-indigo-950 mt-1">
@@ -353,7 +353,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                 </p>
               </Link>
               <Link href="/blog/3" className="block hover:bg-gray-50 p-3 rounded-lg transition-colors">
-                <h4 className="font-medium text-gray-900 hover:text-indigo-600">
+                <h4 className="font-medium text-indigo-950 hover:text-indigo-600">
                   Review: Sapiens - Cuốn Sách Thay Đổi Cách Nhìn Về Lịch Sử
                 </h4>
                 <p className="text-sm text-indigo-950 mt-1">

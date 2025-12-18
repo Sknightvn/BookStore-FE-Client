@@ -200,11 +200,18 @@ export default function ProductsPage() {
   }, [currentPage, headerRef])
 
   if (loading) {
-    return <div className="text-center py-12 text-indigo-950 text-lg">Đang tải dữ liệu sách...</div>
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+          <p className="text-indigo-950 font-medium">Đang tải dữ liệu sách...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       {/* Breadcrumb + Header */}
       <div ref={headerRef} className="mb-8 space-y-4 scroll-mt-8">
         <Breadcrumb>
@@ -308,27 +315,27 @@ export default function ProductsPage() {
               </div>
             </div>
 
-          <div className="p-2 bg-white">
+            <div className="p-2 bg-white">
               {/* Clear Filters */}
               {(searchQuery || selectedCategory !== "Tất cả" || sortBy !== "default") && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleClearFilters}
-                className="w-full text-red-500 hover:text-red-700 border-red-500 bg-red-100  hover:bg-red-50"
-              >
-                <IconFilter size={16} className="mr-1" />
-                Xóa bộ lọc
-              </Button>
-            )}
-          </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleClearFilters}
+                  className="w-full text-red-500 hover:text-red-700 border-red-500 bg-red-100  hover:bg-red-50"
+                >
+                  <IconFilter size={16} className="mr-1" />
+                  Xóa bộ lọc
+                </Button>
+              )}
+            </div>
           </div>
         </aside>
 
         {/* Main Content - Products */}
         <main className="lg:col-span-3">
           {/* Results Info and View Mode */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-4">
             <p className="text-indigo-950 text-lg">
               Hiển thị {paginatedProducts.length} trong tổng số {total} sản phẩm
             </p>

@@ -122,7 +122,7 @@ export default function CategoryBanner({ products }: CategoryBannerProps) {
         </div>
 
         {/* Category Slider */}
-        <div className="flex gap-3 flex-wrap pb-6">
+        <div className="flex gap-3 flex-wrap pb-4">
           {categories.map((category, index) => (
             <button
               key={category}

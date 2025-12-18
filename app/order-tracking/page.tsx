@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { IconSearch, IconPackage, IconTruck, IconCircleCheck, IconClock, IconCircleX, IconRefresh, IconAward } from "@tabler/icons-react"
+import { IconSearch, IconPackage, IconTruck, IconCircleCheck, IconClock, IconCircleX, IconRefresh, IconAward, IconShoppingCart } from "@tabler/icons-react"
 import { message } from "antd"
 import { useSearchParams } from "next/navigation"
 import { useOrderByCode } from "@/hooks/useOrders"
@@ -134,10 +134,10 @@ export default function OrderTrackingPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Theo dõi đơn hàng</h1>
+        <h1 className="text-3xl font-bold text-indigo-950 mb-2">Theo dõi đơn hàng</h1>
         <p className="text-indigo-950">Nhập mã đơn hàng để kiểm tra trạng thái</p>
       </div>
 
@@ -174,7 +174,7 @@ export default function OrderTrackingPage() {
       {order && (
         <>
           {/* Order Info */}
-          <Card className="mb-6">
+          <Card className="mb-4">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>Thông tin đơn hàng</span>
@@ -219,7 +219,7 @@ export default function OrderTrackingPage() {
 
           {/* Order Status Tracking Timeline */}
           {order.status !== "cancelled" && order.status !== "refunded" && !returnRequest && (
-            <Card className="mb-6">
+            <Card className="mb-4">
               <CardHeader>
                 <CardTitle>Trạng thái đơn hàng</CardTitle>
               </CardHeader>
@@ -245,7 +245,7 @@ export default function OrderTrackingPage() {
                       </div>
                       <div className="flex-1">
                         <h4
-                          className={`font-medium ${step.completed || step.active ? "text-gray-900" : "text-indigo-950"}`}
+                          className={`font-medium ${step.completed || step.active ? "text-indigo-950" : "text-indigo-950"}`}
                         >
                           {step.label}
                         </h4>
@@ -267,7 +267,7 @@ export default function OrderTrackingPage() {
 
           {/* Return Status Tracking Timeline */}
           {returnRequest && (
-            <Card className="mb-6">
+            <Card className="mb-4">
               <CardHeader>
                 <CardTitle>Trạng thái trả hàng</CardTitle>
               </CardHeader>
@@ -293,7 +293,7 @@ export default function OrderTrackingPage() {
                       </div>
                       <div className="flex-1">
                         <h4
-                          className={`font-medium ${step.completed || step.active ? "text-gray-900" : "text-indigo-950"}`}
+                          className={`font-medium ${step.completed || step.active ? "text-indigo-950" : "text-indigo-950"}`}
                         >
                           {step.label}
                         </h4>
@@ -315,7 +315,7 @@ export default function OrderTrackingPage() {
 
           {/* Special Status */}
           {order.status === "completed" && (
-            <Card className="border-green-200 mb-6">
+            <Card className="border-green-200 mb-4">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-green-600">
                   <IconAward size={24} />
@@ -331,7 +331,7 @@ export default function OrderTrackingPage() {
           )}
 
           {order.status === "refunded" && (
-            <Card className="border-indigo-200 mb-6">
+            <Card className="border-indigo-200 mb-4">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-indigo-600">
                   <IconRefresh size={24} />
@@ -348,7 +348,7 @@ export default function OrderTrackingPage() {
           )}
 
           {returnRequest && returnRequest.status === "accepted" && (
-            <Card className="border-orange-200 mb-6">
+            <Card className="border-orange-200 mb-4">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-orange-600">
                   <IconRefresh size={24} />
@@ -364,7 +364,7 @@ export default function OrderTrackingPage() {
           )}
 
           {returnRequest && returnRequest.status === "checking" && (
-            <Card className="border-indigo-200 mb-6">
+            <Card className="border-indigo-200 mb-4">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-indigo-600">
                   <IconPackage size={24} />
@@ -380,7 +380,7 @@ export default function OrderTrackingPage() {
           )}
 
           {returnRequest && returnRequest.status === "completed" && (
-            <Card className="border-green-200 mb-6">
+            <Card className="border-green-200 mb-4">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-green-600">
                   <IconCircleCheck size={24} />
@@ -396,9 +396,12 @@ export default function OrderTrackingPage() {
           )}
 
           {/* Order Items */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Sản phẩm trong đơn hàng</CardTitle>
+          <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+            <CardHeader className="bg-indigo-100">
+              <CardTitle className="flex items-center space-x-2">
+                <IconShoppingCart size={20} className="text-indigo-700" />
+                <span className="text-lg text-indigo-700">Sản phẩm trong đơn hàng</span>
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {order.items.map((item, index) => (

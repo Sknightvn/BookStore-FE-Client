@@ -72,10 +72,10 @@ const team = [
 
 export default function AboutPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       {/* Hero Section */}
       <section className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Về KT.BookStore</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-indigo-950 mb-4">Về KT.BookStore</h1>
         <p className="text-xl text-indigo-950 max-w-3xl mx-auto mb-8">
           Chúng tôi là nhà sách trực tuyến hàng đầu Việt Nam, cam kết mang đến cho bạn những cuốn sách chất lượng với
           dịch vụ tốt nhất và giá cả hợp lý nhất.
@@ -96,7 +96,7 @@ export default function AboutPage() {
             <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-4">
                 <stat.icon className={`w-12 h-12 mx-auto mb-4 ${stat.color}`} />
-                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                <div className="text-3xl font-bold text-indigo-950 mb-2">{stat.value}</div>
                 <div className="text-indigo-950">{stat.label}</div>
               </CardContent>
             </Card>
@@ -108,7 +108,7 @@ export default function AboutPage() {
       <section className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Câu chuyện của chúng tôi</h2>
+            <h2 className="text-3xl font-bold text-indigo-950 mb-4">Câu chuyện của chúng tôi</h2>
             <div className="space-y-4 text-indigo-950">
               <p>
                 KT.BookStore được thành lập vào năm 2009 với mong muốn đơn giản: làm cho việc mua sách trở nên dễ dàng và
@@ -134,13 +134,13 @@ export default function AboutPage() {
 
       {/* Values Section */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Sứ mệnh & Tầm nhìn</h2>
+        <h2 className="text-3xl font-bold text-indigo-950 text-center mb-12">Sứ mệnh & Tầm nhìn</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {values.map((value, index) => (
             <Card key={index} className="text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
               <CardContent className="p-8">
-                <value.icon className="w-16 h-16 text-indigo-600 mx-auto mb-6" />
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
+                <value.icon className="w-16 h-16 text-indigo-600 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-indigo-950 mb-4">{value.title}</h3>
                 <p className="text-indigo-950">{value.description}</p>
               </CardContent>
             </Card>
@@ -150,13 +150,13 @@ export default function AboutPage() {
 
       {/* Services Section */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Dịch vụ của chúng tôi</h2>
+        <h2 className="text-3xl font-bold text-indigo-950 text-center mb-12">Dịch vụ của chúng tôi</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-4">
                 <service.icon className="w-12 h-12 text-green-600 mb-4" />
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{service.title}</h3>
+                <h3 className="text-lg font-bold text-indigo-950 mb-3">{service.title}</h3>
                 <p className="text-indigo-950">{service.description}</p>
               </CardContent>
             </Card>
@@ -166,7 +166,7 @@ export default function AboutPage() {
 
       {/* Team Section */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Đội ngũ của chúng tôi</h2>
+        <h2 className="text-3xl font-bold text-indigo-950 text-center mb-12">Đội ngũ của chúng tôi</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {team.map((member, index) => (
             <Card key={index} className="text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
@@ -176,7 +176,7 @@ export default function AboutPage() {
                   alt={member.name}
                   className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
                 />
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                <h3 className="text-xl font-bold text-indigo-950 mb-2">{member.name}</h3>
                 <Badge className="mb-4 bg-indigo-100 text-indigo-800 hover:bg-indigo-200">{member.role}</Badge>
                 <p className="text-indigo-950 text-sm">{member.description}</p>
               </CardContent>
@@ -189,11 +189,11 @@ export default function AboutPage() {
       <section className="mb-16">
         <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 border-none">
           <CardContent className="p-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Liên hệ với chúng tôi</h2>
+            <h2 className="text-3xl font-bold text-indigo-950 text-center mb-8">Liên hệ với chúng tôi</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
                 <IconMapPin size={48} className="text-indigo-600 mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Địa chỉ</h3>
+                <h3 className="text-lg font-bold text-indigo-950 mb-2">Địa chỉ</h3>
                 <p className="text-indigo-950">
                   55/30 Đường số 7, Phường 7
                   <br />
@@ -204,7 +204,7 @@ export default function AboutPage() {
               </div>
               <div className="text-center">
                 <IconPhone size={48} className="text-green-600 mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Điện thoại</h3>
+                <h3 className="text-lg font-bold text-indigo-950 mb-2">Điện thoại</h3>
                 <p className="text-indigo-950">
                   Hotline: (094) 6280 159
                   <br />
@@ -215,7 +215,7 @@ export default function AboutPage() {
               </div>
               <div className="text-center">
                 <IconMail size={48} className="text-purple-600 mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Email</h3>
+                <h3 className="text-lg font-bold text-indigo-950 mb-2">Email</h3>
                 <p className="text-indigo-950">
                   ltranbaokhanh@gmail.com
                   <br />

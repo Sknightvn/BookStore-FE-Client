@@ -45,9 +45,9 @@ const faqs = [
 
 export default function FAQPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <h1 className="text-3xl font-bold mb-6">Câu hỏi thường gặp</h1>
-      <p className="text-indigo-950 mb-6">
+    <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-10">
+      <h1 className="text-3xl font-bold mb-4">Câu hỏi thường gặp</h1>
+      <p className="text-indigo-950 mb-4">
         Nếu bạn không tìm thấy giải đáp phù hợp, hãy liên hệ trực tiếp với KT.BookStore để được hỗ trợ nhanh nhất.
       </p>
 

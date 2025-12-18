@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { IconUpload, IconArrowLeft, IconCircleCheck } from "@tabler/icons-react"
+import { IconUpload, IconArrowLeft, IconCircleCheck, IconAlertCircle } from "@tabler/icons-react"
 import { message } from "antd"
 import { useAuth } from "@/contexts/auth-context"
 import { useOrderByCode } from "@/hooks/useOrders"
@@ -131,7 +131,7 @@ function ReturnRequestContent() {
 
   if (isLoading) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-1/4"></div>
           <div className="h-32 bg-gray-200 rounded"></div>
@@ -143,7 +143,7 @@ function ReturnRequestContent() {
 
   if (!order) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
         <p className="text-center text-indigo-950">Không tìm thấy đơn hàng</p>
       </div>
     )
@@ -151,11 +151,11 @@ function ReturnRequestContent() {
 
   if (submitted) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
         <div className="text-center">
           <IconCircleCheck size={64} className="text-green-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Yêu cầu hoàn trả đã được gửi</h1>
-          <p className="text-indigo-950 mb-6">Chúng tôi sẽ xem xét yêu cầu của bạn trong 1-2 ngày làm việc</p>
+          <h1 className="text-2xl font-bold text-indigo-950 mb-2">Yêu cầu hoàn trả đã được gửi</h1>
+          <p className="text-indigo-950 mb-4">Chúng tôi sẽ xem xét yêu cầu của bạn trong 1-2 ngày làm việc</p>
           <Button onClick={() => router.push("/profile")}>Quay lại trang cá nhân</Button>
         </div>
       </div>
@@ -165,7 +165,7 @@ function ReturnRequestContent() {
   const totalItems = order.items?.reduce((sum, item) => sum + item.quantity, 0) || 0
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       <div className="mb-8 flex items-center space-x-2">
         <Button variant="ghost" size="sm" onClick={() => router.push("/profile")}>
           <IconArrowLeft size={16} className="mr-2" />
@@ -173,14 +173,17 @@ function ReturnRequestContent() {
         </Button>
       </div>
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Yêu cầu hoàn trả</h1>
+      <h1 className="text-3xl font-bold text-indigo-950 mb-2">Yêu cầu hoàn trả</h1>
       <p className="text-indigo-950 mb-8">Gửi yêu cầu hoàn trả cho đơn hàng của bạn</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Thông tin đơn hàng</CardTitle>
+          <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+            <CardHeader className="bg-indigo-100">
+              <CardTitle className="flex items-center space-x-2">
+                <IconAlertCircle size={20} className="text-indigo-700" />
+                <span className="text-lg text-indigo-700">Thông tin đơn hàng</span>
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
@@ -220,7 +223,7 @@ function ReturnRequestContent() {
                       className="w-12 h-12 object-cover rounded"
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">{item.title}</p>
+                      <p className="text-sm font-medium text-indigo-950 truncate">{item.title}</p>
                       <p className="text-sm text-indigo-950">x{item.quantity}</p>
                     </div>
                   </div>
@@ -231,14 +234,17 @@ function ReturnRequestContent() {
         </div>
 
         <div className="lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Chi tiết yêu cầu hoàn trả</CardTitle>
+          <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+            <CardHeader className="bg-indigo-100">
+              <CardTitle className="flex items-center space-x-2">
+                <IconAlertCircle size={20} className="text-indigo-700" />
+                <span className="text-lg text-indigo-700">Chi tiết yêu cầu hoàn trả</span>
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-3">
+                  <label className="block text-sm font-medium text-indigo-950 mb-3">
                     Lý do hoàn trả <span className="text-red-500">*</span>
                   </label>
                   <div className="space-y-2">
@@ -255,14 +261,14 @@ function ReturnRequestContent() {
                           onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
                           className="w-4 h-4"
                         />
-                        <span className="ml-3 text-sm text-gray-900">{reason.label}</span>
+                        <span className="ml-3 text-sm text-indigo-950">{reason.label}</span>
                       </label>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-2">Mô tả chi tiết (tùy chọn)</label>
+                  <label className="block text-sm font-medium text-indigo-950 mb-2">Mô tả chi tiết (tùy chọn)</label>
                   <textarea
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -273,7 +279,7 @@ function ReturnRequestContent() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-3">
+                  <label className="block text-sm font-medium text-indigo-950 mb-3">
                     Tải lên hình ảnh chứng minh <span className="text-red-500">*</span>
                   </label>
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition">
@@ -325,7 +331,7 @@ function ReturnRequestContent() {
 export default function ReturnRequestPage() {
   return (
     <Suspense fallback={
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-1/4"></div>
           <div className="h-32 bg-gray-200 rounded"></div>

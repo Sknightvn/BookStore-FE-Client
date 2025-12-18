@@ -104,7 +104,7 @@ export default function PromotionSelector() {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-1">
-                        <span className="font-semibold text-gray-900">{promo.name}</span>
+                        <span className="font-semibold text-indigo-950">{promo.name}</span>
                         <Badge variant="secondary" className="text-sm">
                           {promo.code}
                         </Badge>

@@ -118,7 +118,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       {/* Header */}
       <div className="flex flex-col gap-4 mb-8">
         <Breadcrumb>
@@ -140,7 +140,7 @@ export default function CheckoutPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Checkout Form */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-4">
           {/* Shipping Address */}
           <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
             <CardHeader className="bg-indigo-100">
@@ -281,13 +281,13 @@ export default function CheckoutPage() {
                       <Label htmlFor="cod" className="cursor-pointer w-full">
                         <div className="flex items-start space-x-4">
                           <div className={`flex-shrink-0 p-3 rounded-lg transition-colors ${
-                            paymentMethod === "cod" ? "bg-green-500 text-white" : "bg-gray-100 text-gray-600"
+                            paymentMethod === "cod" ? "bg-green-500 text-white" : "bg-gray-100 text-indigo-950"
                           }`}>
                             <IconTruck size={22} />
                           </div>
                           <div className="flex-1 pt-0.5">
                             <div className={`font-bold text-lg mb-1 ${
-                              paymentMethod === "cod" ? "text-green-700" : "text-gray-900"
+                              paymentMethod === "cod" ? "text-green-700" : "text-indigo-950"
                             }`}>
                               Thanh toán khi nhận hàng (COD)
                             </div>
@@ -315,13 +315,13 @@ export default function CheckoutPage() {
                       <Label htmlFor="bank_transfer" className="cursor-pointer w-full">
                         <div className="flex items-start space-x-4">
                           <div className={`flex-shrink-0 p-3 rounded-lg transition-colors ${
-                            paymentMethod === "bank_transfer" ? "bg-purple-500 text-white" : "bg-gray-100 text-gray-600"
+                            paymentMethod === "bank_transfer" ? "bg-purple-500 text-white" : "bg-gray-100 text-indigo-950"
                           }`}>
                             <IconCreditCard size={22} />
                           </div>
                           <div className="flex-1 pt-0.5">
                             <div className={`font-bold text-lg mb-1 ${
-                              paymentMethod === "bank_transfer" ? "text-purple-700" : "text-gray-900"
+                              paymentMethod === "bank_transfer" ? "text-purple-700" : "text-indigo-950"
                             }`}>
                               Chuyển khoản ngân hàng
                             </div>
@@ -361,7 +361,7 @@ export default function CheckoutPage() {
                       className="w-12 h-12 object-cover rounded"
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 line-clamp-2">{item.product.title}</p>
+                      <p className="text-sm font-medium text-indigo-950 line-clamp-2">{item.product.title}</p>
                       <p className="text-sm text-indigo-950">
                         {item.quantity} × {item.product.price.toLocaleString("vi-VN")}đ
                       </p>

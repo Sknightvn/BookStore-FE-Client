@@ -59,26 +59,26 @@ export default function OrderSuccessPage() {
 
   if (!order) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-indigo-950">Đang tải thông tin đơn hàng...</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+          <p className="text-indigo-950 font-medium">Đang tải thông tin đơn hàng...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       {/* Success Header */}
       <div className="text-center mb-8">
         <IconCircleCheck size={64} className="text-green-500 mx-auto mb-4" />
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Đặt hàng thành công!</h1>
+        <h1 className="text-3xl font-bold text-indigo-950 mb-2">Đặt hàng thành công!</h1>
         <p className="text-indigo-950">Cảm ơn bạn đã mua sắm tại BookStore</p>
       </div>
 
       {/* Order Information */}
-      <Card className="mb-6">
+      <Card className="mb-4">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span className="flex items-center space-x-2">
@@ -150,7 +150,7 @@ export default function OrderSuccessPage() {
       </Card>
 
       {/* Shipping Address */}
-      <Card className="mb-6">
+      <Card className="mb-4">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <IconTruck size={20} />
@@ -174,7 +174,7 @@ export default function OrderSuccessPage() {
       </Card>
 
       {/* Order Items */}
-      <Card className="mb-6">
+      <Card className="mb-4">
         <CardHeader>
           <CardTitle>Sản phẩm đã đặt</CardTitle>
         </CardHeader>
@@ -188,7 +188,7 @@ export default function OrderSuccessPage() {
                   className="w-16 h-16 object-cover rounded"
                 />
                 <div className="flex-1">
-                  <h4 className="font-medium text-gray-900">{item.title}</h4>
+                  <h4 className="font-medium text-indigo-950">{item.title}</h4>
                   <p className="text-sm text-indigo-950">{item.author}</p>
                   <p className="text-sm text-indigo-950">
                     {item.quantity} × {item.price.toLocaleString("vi-VN")}đ
@@ -249,7 +249,7 @@ export default function OrderSuccessPage() {
 
       {/* Additional Info */}
       <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-        <h3 className="font-medium text-gray-900 mb-2">Thông tin quan trọng:</h3>
+        <h3 className="font-medium text-indigo-950 mb-2">Thông tin quan trọng:</h3>
         <ul className="text-sm text-indigo-950 space-y-1">
           <li>• Đơn hàng sẽ được xử lý trong vòng 1-2 ngày làm việc</li>
           <li>• Thời gian giao hàng: 2-5 ngày làm việc tùy theo khu vực</li>

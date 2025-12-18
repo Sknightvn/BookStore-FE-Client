@@ -23,6 +23,8 @@ import {
   IconBrandFacebook,
   IconBrandX,
   IconShare3,
+  IconBrandBooking,
+  IconLibrary,
 } from "@tabler/icons-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -91,12 +93,19 @@ export default function ProductDetailPage() {
   }
 
   if (loading) {
-    return <div className="text-center py-12 text-indigo-950 text-lg">Đang tải chi tiết sách...</div>
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+          <p className="text-indigo-950 font-medium">Đang tải chi tiết sách...</p>
+        </div>
+      </div>
+    )
   }
 
   if (!product) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
         <div className="text-center py-12">
           <p className="text-indigo-950 text-lg mb-4">Không tìm thấy sản phẩm</p>
           <Button asChild variant="outline">
@@ -113,7 +122,7 @@ export default function ProductDetailPage() {
   const isOutOfStock = product.stock === 0
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       {/* Breadcrumb + Back */}
       <Breadcrumb>
         <BreadcrumbList>
@@ -144,7 +153,7 @@ export default function ProductDetailPage() {
         </div>
 
         {/* Product Details */}
-        <div className="space-y-6 rounded-xl border border-indigo-100 bg-white/80 p-6 shadow-sm">
+        <div className="space-y-4 rounded-xl border border-indigo-100 bg-white/80 p-4 shadow-sm">
           <div>
             <h1 className="text-3xl font-semibold text-indigo-950 mb-1 line-clamp-2">{product.title}</h1>
             <div className="flex flex-wrap items-center gap-3 mt-2">
@@ -178,7 +187,10 @@ export default function ProductDetailPage() {
           {/* Product Info */}
           <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden">
             <CardHeader className="bg-indigo-100">
-              <CardTitle className="text-lg">Thông tin sách</CardTitle>
+              <CardTitle className="flex items-center space-x-2">
+                <IconBrandBooking size={20} className="text-indigo-700" />
+                <span className="text-lg text-indigo-700">Thông tin sách</span>
+              </CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="flex items-center justify-between">
@@ -234,7 +246,10 @@ export default function ProductDetailPage() {
           {product.description && (
             <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden">
               <CardHeader className="bg-indigo-100">
-                <CardTitle className="text-lg">Mô tả</CardTitle>
+                <CardTitle className="flex items-center space-x-2">
+                  <IconLibrary size={20} className="text-indigo-700" />
+                  <span className="text-lg text-indigo-700">Mô tả</span>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-indigo-950 leading-relaxed">{product.description}</p>

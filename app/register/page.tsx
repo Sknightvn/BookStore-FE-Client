@@ -92,10 +92,10 @@ export default function RegisterPage() {
 
   if (showOtpStep) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-4 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900">Xác thực OTP</h2>
+            <h2 className="text-3xl font-bold text-indigo-950">Xác thực OTP</h2>
             <p className="mt-2 text-indigo-950">Nhập mã OTP đã được gửi đến email của bạn</p>
           </div>
 
@@ -103,10 +103,10 @@ export default function RegisterPage() {
             <CardHeader className="space-y-1">
               <CardTitle className="text-2xl text-center">Nhập mã xác thực</CardTitle>
               <CardDescription className="text-center">
-                Mã OTP 6 số đã được gửi đến <span className="font-semibold text-gray-900">{email}</span>
+                Mã OTP 6 số đã được gửi đến <span className="font-semibold text-indigo-950">{email}</span>
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4">
               <div className="space-y-4">
                 <OTPInput length={6} onComplete={handleOtpComplete} />
                 {isVerifyingOtp && <p className="text-center text-sm text-indigo-950">Đang xác thực...</p>}
@@ -146,10 +146,10 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-4 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900">Đăng ký</h2>
+          <h2 className="text-3xl font-bold text-indigo-950">Đăng ký</h2>
           <p className="mt-2 text-indigo-950">Tạo tài khoản mới tại KT.BookStore</p>
         </div>
 
@@ -260,7 +260,7 @@ export default function RegisterPage() {
                   onChange={(e) => setAcceptTerms(e.target.checked)}
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
-                <label htmlFor="accept-terms" className="ml-2 block text-sm text-gray-900">
+                <label htmlFor="accept-terms" className="ml-2 block text-sm text-indigo-950">
                   Tôi đồng ý với{" "}
                   <Link href="/terms" className="text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
                     điều khoản sử dụng
@@ -281,7 +281,7 @@ export default function RegisterPage() {
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
+            <div className="mt-4 text-center">
               <p className="text-sm text-indigo-950">
                 Đã có tài khoản?{" "}
                 <Link

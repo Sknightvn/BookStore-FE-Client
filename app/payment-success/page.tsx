@@ -45,9 +45,11 @@ function PaymentSuccessContent() {
   }, [searchParams, router, clearCart, verifyPaymentMutation])
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h2 className="text-2xl font-semibold text-gray-800">Đang xác nhận thanh toán...</h2>
-      <p className="text-indigo-950 mt-2">Vui lòng chờ trong giây lát.</p>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="flex flex-col items-center space-y-4">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+        <p className="text-indigo-950 font-medium">Đang xác nhận thanh toán...</p>
+      </div>
     </div>
   )
 }
@@ -55,9 +57,11 @@ function PaymentSuccessContent() {
 export default function PaymentSuccessPage() {
   return (
     <Suspense fallback={
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h2 className="text-2xl font-semibold text-gray-800">Đang tải...</h2>
-        <p className="text-indigo-950 mt-2">Vui lòng chờ trong giây lát.</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+          <p className="text-indigo-950 font-medium">Đang tải...</p>
+        </div>
       </div>
     }>
       <PaymentSuccessContent />

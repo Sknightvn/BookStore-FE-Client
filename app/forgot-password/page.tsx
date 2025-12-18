@@ -58,11 +58,11 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-4 lg:px-8">
       {contextHolder}
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900">Quên mật khẩu</h2>
+          <h2 className="text-3xl font-bold text-indigo-950">Quên mật khẩu</h2>
           <p className="mt-2 text-indigo-950">Chúng tôi sẽ giúp bạn đặt lại mật khẩu</p>
         </div>
 
@@ -121,7 +121,7 @@ export default function ForgotPasswordPage() {
 
             {/* Back to login link */}
             {!isSubmitted && (
-              <div className="mt-6 text-center">
+              <div className="mt-4 text-center">
                 <Button
                   type="button"
                   variant="ghost"
@@ -135,7 +135,7 @@ export default function ForgotPasswordPage() {
             )}
 
             {isSubmitted && (
-              <div className="mt-6 text-center">
+              <div className="mt-4 text-center">
                 <Button
                   type="button"
                   onClick={handleBackToLogin}

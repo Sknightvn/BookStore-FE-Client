@@ -85,7 +85,7 @@ export default function ImageCarousel() {
       <button
         type="button"
         onClick={() => swiperRef.current?.slidePrev()}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/60 text-gray-800 shadow-lg hover:bg-white hover:text-gray-900 transition-all duration-200"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/60 text-indigo-950 shadow-lg hover:bg-white hover:text-indigo-950 transition-all duration-200"
         aria-label="Previous slide"
       >
         <IconChevronLeft size={24} />
@@ -94,7 +94,7 @@ export default function ImageCarousel() {
       <button
         type="button"
         onClick={() => swiperRef.current?.slideNext()}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/60 text-gray-800 shadow-lg hover:bg-white hover:text-gray-900 transition-all duration-200"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/60 text-indigo-950 shadow-lg hover:bg-white hover:text-indigo-950 transition-all duration-200"
         aria-label="Next slide"
       >
         <IconChevronRight size={24} />

@@ -119,10 +119,10 @@ export default function BlogPage() {
   const featuredPosts = blogPosts.filter((post) => post.featured)
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Blog BookStore</h1>
+        <h1 className="text-4xl font-bold text-indigo-950 mb-4">Blog BookStore</h1>
         <p className="text-xl text-indigo-950 max-w-3xl mx-auto">
           Khám phá thế giới sách qua những bài viết chất lượng về xu hướng đọc, review sách hay và mẹo đọc hiệu quả
         </p>
@@ -131,7 +131,7 @@ export default function BlogPage() {
       {/* Featured Posts */}
       {featuredPosts.length > 0 && (
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+          <h2 className="text-2xl font-bold text-indigo-950 mb-4 flex items-center">
             <IconStar size={24} className="mr-2 text-yellow-500" />
             Bài viết nổi bật
           </h2>
@@ -158,7 +158,7 @@ export default function BlogPage() {
                     </span>
                     <Badge variant="outline">{post.category}</Badge>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">
+                  <h3 className="text-xl font-bold text-indigo-950 mb-3 group-hover:text-indigo-600 transition-colors">
                     {post.title}
                   </h3>
                   <p className="text-indigo-950 mb-4 line-clamp-3">{post.excerpt}</p>
@@ -181,7 +181,7 @@ export default function BlogPage() {
 
       {/* Search and Filter */}
       <div className="mb-8">
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex flex-col md:flex-row gap-4 mb-4">
           <div className="flex-1 relative">
             <IconSearch size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <Input
@@ -232,7 +232,7 @@ export default function BlogPage() {
                   {post.author}
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
+              <h3 className="text-lg font-bold text-indigo-950 mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
                 {post.title}
               </h3>
               <p className="text-indigo-950 mb-4 line-clamp-3 flex-1">{post.excerpt}</p>
@@ -264,7 +264,7 @@ export default function BlogPage() {
       {filteredPosts.length === 0 && (
         <div className="text-center py-12">
           <IconBook size={64} className="text-gray-400 mx-auto mb-4" />
-          <h3 className="text-xl font-medium text-gray-900 mb-2">Không tìm thấy bài viết</h3>
+          <h3 className="text-xl font-medium text-indigo-950 mb-2">Không tìm thấy bài viết</h3>
           <p className="text-indigo-950">Thử thay đổi từ khóa tìm kiếm hoặc danh mục</p>
         </div>
       )}
@@ -273,8 +273,8 @@ export default function BlogPage() {
       <Card className="mt-16 bg-gradient-to-r from-indigo-50 to-purple-50 border-none">
         <CardContent className="p-8 text-center">
           <IconTrendingUp size={48} className="text-indigo-600 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Đăng ký nhận tin tức</h3>
-          <p className="text-indigo-950 mb-6 max-w-2xl mx-auto">
+          <h3 className="text-2xl font-bold text-indigo-950 mb-4">Đăng ký nhận tin tức</h3>
+          <p className="text-indigo-950 mb-4 max-w-2xl mx-auto">
             Nhận thông báo về những bài viết mới nhất, review sách hay và các chương trình khuyến mãi đặc biệt
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">

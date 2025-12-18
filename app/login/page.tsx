@@ -50,7 +50,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-4 lg:px-8">
       {contextHolder}
       <div className="max-w-md w-full space-y-8">
         <Card className="shadow-lg">
@@ -112,7 +112,7 @@ export default function LoginPage() {
                     type="checkbox"
                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                   />
-                  <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                  <label htmlFor="remember-me" className="ml-2 block text-sm text-indigo-950">
                     Ghi nhớ đăng nhập
                   </label>
                 </div>
@@ -135,7 +135,7 @@ export default function LoginPage() {
             </form>
 
             {/* Register link */}
-            <div className="mt-6 text-center">
+            <div className="mt-4 text-center">
               <p className="text-sm text-indigo-950">
                 Chưa có tài khoản?{" "}
                 <Link href="/register" className="text-indigo-600 hover:text-indigo-500 font-medium">

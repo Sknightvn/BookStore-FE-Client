@@ -266,9 +266,9 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <div className="mb-6">
+        <div className="mb-4">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -304,7 +304,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8 py-8">
       {/* Breadcrumb + Header */}
       <div className="mb-8 space-y-4">
         <Breadcrumb>
@@ -337,9 +337,9 @@ export default function CartPage() {
         </CardHeader>
         <CardContent>
           {showAddressForm && (
-            <div className="mb-6 p-4 border-2 border-indigo-200 rounded-lg bg-indigo-50">
+            <div className="mb-4 p-4 border-2 border-indigo-200 rounded-lg bg-indigo-50">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900">Thêm địa chỉ mới</h3>
+                <h3 className="font-semibold text-indigo-950">Thêm địa chỉ mới</h3>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -479,7 +479,7 @@ export default function CartPage() {
           </div>
 
           {/* Continue Shopping */}
-          <div className="mt-6">
+          <div className="mt-4">
             <Button variant="outline" asChild>
               <Link href="/products">
                 <IconArrowLeft size={16} className="mr-2" />

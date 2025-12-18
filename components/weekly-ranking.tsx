@@ -69,11 +69,18 @@ export default function WeeklyRanking() {
   }
 
   if (loading) {
-    return <div className="text-center py-8 text-indigo-950">Đang tải xếp hạng...</div>
+    return (
+      <div className="bg-indigo-50 border-2 rounded-xl border-indigo-950 min-h-[400px] flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+          <p className="text-indigo-950 font-medium">Đang tải xếp hạng...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="bg-indigo-50 space-y-6 border-2 rounded-xl border-indigo-950">
+    <div className="bg-indigo-50 space-y-4 border-2 rounded-xl border-indigo-950">
       {/* Header */}
       <div className="bg-indigo-950 text-indigo-300 px-5 py-2 rounded-t-lg">
         <h2 className="text-2xl font-semibold text-indigo-100 mb-2">
@@ -83,7 +90,7 @@ export default function WeeklyRanking() {
       </div>
 
       {/* Category Tabs */}
-      <div className="flex gap-2 px-6 overflow-x-auto pb-2">
+      <div className="flex gap-2 px-4 overflow-x-auto pb-2">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -99,7 +106,7 @@ export default function WeeklyRanking() {
       </div>
 
       {/* Main Content */}
-      <div className="px-6 pb-6 grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="px-4 pb-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Ranked List */}
         <div className="lg:col-span-2 space-y-3">
           {rankedBooks.length > 0 ? (
@@ -135,7 +142,7 @@ export default function WeeklyRanking() {
 
                 {/* Book Info */}
                 <div className="flex-grow">
-                  <h3 className="font-semibold text-gray-900 line-clamp-2">{book.title}</h3>
+                  <h3 className="font-semibold text-indigo-950 line-clamp-2">{book.title}</h3>
                   <p className="text-sm text-indigo-950">{book.author || "Không rõ tác giả"}</p>
                   <p className="text-sm text-indigo-600 font-medium">{book.category || "Khác"}</p>
                   <div className="flex items-center gap-2 mt-2">
@@ -165,7 +172,7 @@ export default function WeeklyRanking() {
               </CardHeader>
               <CardContent className="space-y-4 p-4">
                 <div>
-                  <h3 className="font-bold text-gray-900 line-clamp-3">{selectedBook.title}</h3>
+                  <h3 className="font-bold text-indigo-950 line-clamp-3">{selectedBook.title}</h3>
                   <p className="text-sm text-indigo-950 mt-1">Tác giả: {selectedBook.author || "Không rõ"}</p>
                   <p className="text-sm text-indigo-600 font-medium mt-1">Danh mục: {selectedBook.category || "Khác"}</p>
                   {selectedBook.ISSN && <p className="text-sm text-indigo-950">ISBN: {selectedBook.ISSN}</p>}
@@ -173,7 +180,7 @@ export default function WeeklyRanking() {
 
                 {/* Sales Statistics */}
                 <div className="bg-indigo-50 p-3 rounded-lg space-y-2">
-                  <p className="text-sm font-semibold text-gray-900">Thống kê bán hàng</p>
+                  <p className="text-sm font-semibold text-indigo-950">Thống kê bán hàng</p>
                   <p className="text-sm text-indigo-950">
                     Đã bán: <span className="font-bold text-indigo-600">{selectedBook.totalQuantity}</span> sản phẩm
                   </p>
