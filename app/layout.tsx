@@ -7,7 +7,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { AuthProvider } from "@/contexts/auth-context";
 import { CartProvider } from "@/contexts/cart-context";
-import ChatSupport from "@/components/chat-support";
+import ChatbotWrapper from "@/components/ChatbotWrapper";
 import { QueryProvider } from "@/lib/query-provider";
 import NextTopLoader from "nextjs-toploader";
 
@@ -49,7 +49,7 @@ export default function RootLayout({
               }}
               className="flex-1">{children}</main>
               <Footer />
-              <ChatSupport />
+              <ChatbotWrapper />
             </CartProvider>
           </AuthProvider>
         </QueryProvider>
