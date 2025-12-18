@@ -119,7 +119,7 @@ export default function HomePage() {
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-400 rounded-full blur-3xl"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8 relative z-10">
-          <p className="text-indigo-700 text-lg max-w-2xl mx-auto mb-8">
+          <p className="text-indigo-700 text-xl mx-auto mb-8 w-full text-center">
             Những con số ấn tượng phản ánh sự tin tưởng và hài lòng của khách hàng
           </p>
 
