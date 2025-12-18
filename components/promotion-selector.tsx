@@ -34,11 +34,11 @@ export default function PromotionSelector() {
   }
 
   return (
-    <Card className="mb-4">
-      <CardHeader>
+    <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+      <CardHeader className="bg-indigo-100">
         <CardTitle className="flex items-center space-x-2">
-          <IconGift size={20} className="text-amber-500" />
-          <span>Khuyến mãi áp dụng được</span>
+          <IconGift size={20} className="text-indigo-700"/>
+          <span className="text-lg text-indigo-700">Khuyến mãi áp dụng được</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -70,7 +70,7 @@ export default function PromotionSelector() {
             </div>
           </div>
         ) : (
-          <div className="text-center py-2 text-gray-500 text-sm">Chưa có khuyến mãi nào được áp dụng</div>
+          <div className="text-center py-2 text-indigo-950 text-sm">Chưa có khuyến mãi nào được áp dụng</div>
         )}
 
         <Separator />
@@ -95,11 +95,10 @@ export default function PromotionSelector() {
               {availablePromotions.map((promo) => (
                 <div
                   key={promo.id}
-                  className={`p-3 rounded-lg border-2 transition-all cursor-pointer ${
-                    appliedPromotion?.id === promo.id
+                  className={`p-3 rounded-lg border-2 transition-all cursor-pointer ${appliedPromotion?.id === promo.id
                       ? "border-green-500 bg-green-50"
                       : "border-gray-200 hover:border-amber-300 bg-gray-50"
-                  }`}
+                    }`}
                   onClick={() => handleApplyPromotion(promo)}
                 >
                   <div className="flex items-start justify-between">
@@ -128,7 +127,7 @@ export default function PromotionSelector() {
 
           {!showPromotions && unavailablePromotions.length > 0 && (
             <div className="mt-3 space-y-2">
-              <p className="text-sm text-gray-500 font-medium">Khuyến mãi khác:</p>
+              <p className="text-sm text-indigo-950 font-medium">Khuyến mãi khác:</p>
               {unavailablePromotions.map((promo) => (
                 <div key={promo.id} className="p-2 rounded-lg border border-gray-200 bg-gray-50 opacity-60">
                   <div className="flex items-start justify-between">
@@ -139,13 +138,13 @@ export default function PromotionSelector() {
                           {promo.code}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-500">{promo.description}</p>
+                      <p className="text-sm text-indigo-950">{promo.description}</p>
                     </div>
                     <IconAlertCircle size={16} className="text-gray-400 flex-shrink-0 ml-2" />
                   </div>
                 </div>
               ))}
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-indigo-950 mt-2">
                 Mua thêm{" "}
                 {(Math.min(...unavailablePromotions.map((p) => p.minOrderValue)) - subtotal).toLocaleString("vi-VN")}đ
                 để mở khóa khuyến mãi
@@ -154,7 +153,7 @@ export default function PromotionSelector() {
           )}
 
           {!showPromotions && availablePromotions.length === 0 && unavailablePromotions.length === 0 && (
-            <p className="text-sm text-gray-500 mt-2">Không có khuyến mãi nào</p>
+            <p className="text-sm text-indigo-950 mt-2">Không có khuyến mãi nào</p>
           )}
         </div>
       </CardContent>

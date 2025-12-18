@@ -38,19 +38,20 @@ import { useAuth } from "@/contexts/auth-context"
 import { useBooks } from "@/hooks/useBooks"
 import { useCustomerByUserId } from "@/hooks/useCustomers"
 import { useCustomerAddresses, useAddAddress, useDeleteAddress } from "@/hooks/useAddresses"
+import { useUserCart } from "@/hooks/useCart"
 import Image from "next/image"
 
 export default function CartPage() {
   const { user } = useAuth()
   const router = useRouter()
 
-  // React Query hooks
   const { data: booksData } = useBooks()
   const { data: customerData } = useCustomerByUserId(user?.id || "")
   const customerId = customerData?.data?._id || ""
   const { data: addressesData } = useCustomerAddresses(customerId)
   const addAddressMutation = useAddAddress()
   const deleteAddressMutation = useDeleteAddress()
+  const { data: userCartData } = useUserCart(user?.id, user?.email)
 
   const {
     items,
@@ -77,6 +78,24 @@ export default function CartPage() {
     district: "",
     city: "",
   })
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const storageKey = user?.id ? `cartItems_${user.id}` : "cartItems_guest"
+    const rawLocal = window.localStorage.getItem(storageKey)
+    let localCart: any = null
+    try {
+      localCart = rawLocal ? JSON.parse(rawLocal) : null
+    } catch {
+      localCart = rawLocal
+    }
+
+    // 1) Data giỏ hàng từ localStorage
+    console.log("[Cart Debug] LocalStorage cart:", localCart)
+    // 2) Data giỏ hàng của user từ database (server)
+    console.log("[Cart Debug] User cart from DB:", userCartData?.data)
+  }, [user, userCartData])
 
   useEffect(() => {
     if (addressesData?.success && addressesData.addresses) {
@@ -263,19 +282,20 @@ export default function CartPage() {
           </Breadcrumb>
         </div>
 
-        <div className="text-center py-12">
-          <IconShoppingCart size={96} className="text-gray-300 mx-auto mb-6" />
+        <div className="text-center pb-10">
           <Image
             src="/empty-cart.png"
             alt="Giỏ hàng trống"
-            width={200}
-            height={200}
-            className="mx-auto mb-4 h-20 w-20"
+            width={1000}
+            draggable={false}
+            height={1000}
+            className="mx-auto mb-4 h-80 w-80 object-contain"
+            quality={100}
           />
           <Button asChild size="lg" variant="fulled">
             <Link href="/products">
-              Tiếp tục mua sắm
-              <IconShoppingCartPlus size={16} className="mr-2" />
+              <span className="text-base">Tiếp tục mua sắm</span>
+              <IconShoppingCartPlus size={20} />
             </Link>
           </Button>
         </div>
@@ -301,11 +321,11 @@ export default function CartPage() {
       </div>
 
       <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
-      <CardHeader className="bg-indigo-100">
+        <CardHeader className="bg-indigo-100">
           <div className="flex items-center justify-between text-lg">
             <CardTitle className="flex items-center space-x-2">
-              <IconMapPin size={16} />
-              <span className="text-lg">Địa chỉ nhận hàng</span>
+              <IconMapPin size={20} className="text-indigo-700"/>
+              <span className="text-lg text-indigo-700">Địa chỉ nhận hàng</span>
             </CardTitle>
             {!showAddressForm && (
               <Button variant="fulled" size="sm" onClick={() => setShowAddressForm(true)}>
@@ -401,7 +421,7 @@ export default function CartPage() {
           )}
 
           {deliveryAddresses.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-indigo-950">
               <IconMapPin size={48} className="mx-auto mb-3 text-gray-300" />
               <p>Chưa có địa chỉ nào. Nhấn "Thêm địa chỉ" để thêm địa chỉ giao hàng.</p>
             </div>
@@ -474,11 +494,11 @@ export default function CartPage() {
           <div className="space-y-4">
             <PromotionSelector />
 
-            <Card className="sticky top-4">
-              <CardHeader>
+            <Card className="sticky top-4 border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+              <CardHeader className="bg-indigo-100">
                 <CardTitle className="flex items-center space-x-2">
-                  <IconShoppingCart size={20} />
-                  <span>Tóm tắt đơn hàng</span>
+                  <IconShoppingCart size={20} className="text-indigo-700"/>
+                  <span className="text-lg text-indigo-700">Tóm tắt đơn hàng</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -545,15 +565,15 @@ export default function CartPage() {
 
                 {/* Payment Methods */}
                 <div className="text-center">
-                  <p className="text-sm text-gray-500 mb-2">Chúng tôi chấp nhận</p>
+                  <p className="text-sm text-indigo-950 mb-2">Chúng tôi chấp nhận</p>
                   <div className="flex justify-center space-x-2">
-                    <div className="w-8 h-5 bg-indigo-600 rounded text-white text-sm flex items-center justify-center">
+                    <div className="w-fit h-5 bg-indigo-600 rounded text-white text-sm flex items-center justify-center !px-3">
                       VISA
                     </div>
-                    <div className="w-8 h-5 bg-red-600 rounded text-white text-sm flex items-center justify-center">
+                    <div className="w-fit h-5 bg-red-600 rounded text-white text-sm flex items-center justify-center !px-3">
                       MC
                     </div>
-                    <div className="w-8 h-5 bg-green-600 rounded text-white text-sm flex items-center justify-center">
+                    <div className="w-fit h-5 bg-green-600 rounded text-white text-sm flex items-center justify-center !px-3">
                       ATM
                     </div>
                   </div>

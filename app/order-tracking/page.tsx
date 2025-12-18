@@ -96,7 +96,7 @@ export default function OrderTrackingPage() {
       case "yeu_cau_hoan_tra":
         return <IconCircleX size={20} className="text-indigo-500" />
       default:
-        return <IconClock size={20} className="text-gray-500" />
+        return <IconClock size={20} className="text-indigo-950" />
     }
   }
 
@@ -245,7 +245,7 @@ export default function OrderTrackingPage() {
                       </div>
                       <div className="flex-1">
                         <h4
-                          className={`font-medium ${step.completed || step.active ? "text-gray-900" : "text-gray-500"}`}
+                          className={`font-medium ${step.completed || step.active ? "text-gray-900" : "text-indigo-950"}`}
                         >
                           {step.label}
                         </h4>
@@ -293,7 +293,7 @@ export default function OrderTrackingPage() {
                       </div>
                       <div className="flex-1">
                         <h4
-                          className={`font-medium ${step.completed || step.active ? "text-gray-900" : "text-gray-500"}`}
+                          className={`font-medium ${step.completed || step.active ? "text-gray-900" : "text-indigo-950"}`}
                         >
                           {step.label}
                         </h4>
@@ -412,7 +412,7 @@ export default function OrderTrackingPage() {
                   )}
                   <div className="flex-1">
                     <p className="font-medium">{item.title}</p>
-                    {(item as any)?.author && <p className="text-sm text-gray-500">{(item as any).author}</p>}
+                    {(item as any)?.author && <p className="text-sm text-indigo-950">{(item as any).author}</p>}
                     <p className="text-sm text-indigo-950">
                       {item.quantity} x {item.price.toLocaleString("vi-VN")}đ
                     </p>

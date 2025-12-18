@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import { IconSearch, IconFilter, IconLayoutGrid, IconList } from "@tabler/icons-react"
+import { IconSearch, IconFilter, IconLayoutGrid, IconList, IconFilter2Search } from "@tabler/icons-react"
 import ProductCard from "@/components/product-card"
 import Image from "next/image"
 import { useBooks } from "@/hooks/useBooks"
@@ -53,7 +53,7 @@ export default function ProductsPage() {
   // Fetch all books for categories (only once)
   const { data: allBooksData } = useBooks()
   const allProducts = allBooksData?.data || []
-  
+
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(
       new Set(
@@ -206,7 +206,7 @@ export default function ProductsPage() {
   }, [currentPage, headerRef])
 
   if (loading) {
-    return <div className="text-center py-12 text-gray-500 text-lg">Đang tải dữ liệu sách...</div>
+    return <div className="text-center py-12 text-indigo-950 text-lg">Đang tải dữ liệu sách...</div>
   }
 
   return (
@@ -224,25 +224,20 @@ export default function ProductsPage() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <div>
-            <h2 className="text-2xl font-semibold text-indigo-800 mb-2">
-              <span className="text-indigo-950 bg-indigo-800 w-1.5 h-5 rounded-full inline-block mr-2 translate-y-0.5"></span>
-              <span>Danh mục sách</span>
-            </h2>
-            <p className="text-indigo-950 text-xl">Khám phá hàng ngàn đầu sách chất lượng</p>
-          </div>
       </div>
 
       {/* Sidebar and Main Content Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {/* Sidebar - Filters */}
         <aside className="lg:col-span-1 border-none">
-          <div className="rounded-lg shadow-sm border border-indigo-300 sticky top-8 bg-indigo-100">
-            <h3 className="text-lg font-semibold text-gray-900 p-2">Bộ lọc</h3>
+          <div className="rounded-lg shadow-sm border border-indigo-300 sticky top-8 bg-indigo-100 overflow-hidden">
+            <div className="flex bg-indigo-100 p-2  items-center space-x-2 font-semibold text-indigo-950 leading-none tracking-tight">
+              <IconFilter2Search size={20} className="text-indigo-700" />
+              <span className="text-indigo-700 text-lg">Bộ lọc</span></div>
             <div className="border-t border-indigo-300"></div>
             {/* Search */}
-            <div className="p-2">
-              <label className="text-sm font-medium text-indigo-950 mb-2 block">Tìm kiếm</label>
+            <div className="p-2 bg-white">
+              <label className="text-base font-medium text-indigo-950 mb-2 block">Tìm kiếm:</label>
               <div className="relative">
                 <IconSearch size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <Input
@@ -258,8 +253,8 @@ export default function ProductsPage() {
             </div>
 
             {/* Category Filter */}
-            <div className="p-2">
-              <label className="text-sm font-medium text-indigo-950 mb-2 block">Danh mục</label>
+            <div className="p-2 bg-white">
+              <label className="text-base font-medium text-indigo-950 mb-2 block">Danh mục:</label>
               <Select value={selectedCategory} onValueChange={(value) => {
                 setSelectedCategory(value)
                 handleFilterChange()
@@ -279,8 +274,8 @@ export default function ProductsPage() {
             </div>
 
             {/* Sort */}
-            <div className="p-2">
-              <label className="text-sm font-medium text-indigo-950 mb-2 block">Sắp xếp</label>
+            <div className="p-2 bg-white">
+              <label className="text-base font-medium text-indigo-950 mb-2 block">Sắp xếp:</label>
               <Select value={sortBy} onValueChange={(value) => {
                 setSortBy(value)
                 handleFilterChange()
@@ -298,10 +293,10 @@ export default function ProductsPage() {
             </div>
 
             {/* Active Filters */}
-            <div className="p-2">
+            <div className="p-2 bg-white">
               <div className="flex flex-wrap items-center gap-2">
                 {searchQuery && (
-                  <Badge variant="secondary" className="flex items-center gap-1">
+                  <Badge variant="default" className="flex items-center gap-1">
                     "{searchQuery}"
                     <button onClick={() => setSearchQuery("")} className="ml-1 hover:text-red-500">
                       ×
@@ -309,9 +304,9 @@ export default function ProductsPage() {
                   </Badge>
                 )}
                 {selectedCategory !== "Tất cả" && (
-                  <Badge variant="secondary" className="flex items-center gap-1 border-indigo-300 bg-indigo-50">
+                  <Badge variant="default" className="flex items-center gap-1 border-indigo-300 bg-indigo-700">
                     {selectedCategory}
-                    <button onClick={() => setSelectedCategory("Tất cả")} className="ml-1 hover:text-red-500 text-lg">
+                    <button onClick={() => setSelectedCategory("Tất cả")} className="ml-1 hover:text-red-500">
                       ×
                     </button>
                   </Badge>
@@ -319,18 +314,20 @@ export default function ProductsPage() {
               </div>
             </div>
 
-            {/* Clear Filters */}
-            {(searchQuery || selectedCategory !== "Tất cả" || sortBy !== "default") && (
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={handleClearFilters} 
+          <div className="p-2 bg-white">
+              {/* Clear Filters */}
+              {(searchQuery || selectedCategory !== "Tất cả" || sortBy !== "default") && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleClearFilters}
                 className="w-full text-red-600 hover:text-red-700 border-red-500 bg-red-100  hover:bg-red-50"
               >
                 <IconFilter size={16} className="mr-1" />
                 Xóa bộ lọc
               </Button>
             )}
+          </div>
           </div>
         </aside>
 
@@ -341,7 +338,7 @@ export default function ProductsPage() {
             <p className="text-indigo-950 text-lg">
               Hiển thị {paginatedProducts.length} trong tổng số {total} sản phẩm
             </p>
-            
+
             {/* View Mode */}
             <div className="flex items-center space-x-2">
               <Button
@@ -407,7 +404,7 @@ export default function ProductsPage() {
                         <TableCell>
                           <div className="flex flex-col gap-1">
                             <span className="font-semibold text-indigo-950">{product.title}</span>
-                            <span className="text-xs text-gray-500">Tác giả: {product.author}</span>
+                            <span className="text-xs text-indigo-950">Tác giả: {product.author}</span>
                           </div>
                         </TableCell>
                         <TableCell className="text-sm text-indigo-700">
@@ -428,7 +425,7 @@ export default function ProductsPage() {
             )
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg mb-4">Không tìm thấy sản phẩm nào</p>
+              <p className="text-indigo-950 text-lg mb-4">Không tìm thấy sản phẩm nào</p>
               <Button onClick={handleClearFilters} variant="outline">
                 Xóa bộ lọc
               </Button>

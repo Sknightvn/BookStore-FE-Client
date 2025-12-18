@@ -69,7 +69,7 @@ export default function WeeklyRanking() {
   }
 
   if (loading) {
-    return <div className="text-center py-8 text-gray-500">Đang tải xếp hạng...</div>
+    return <div className="text-center py-8 text-indigo-950">Đang tải xếp hạng...</div>
   }
 
   return (
@@ -148,7 +148,7 @@ export default function WeeklyRanking() {
               </div>
             ))
           ) : (
-            <div className="text-center py-8 text-gray-500">Không có sản phẩm bán chạy</div>
+            <div className="text-center py-8 text-indigo-950">Không có sản phẩm bán chạy</div>
           )}
         </div>
 

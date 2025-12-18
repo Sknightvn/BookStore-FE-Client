@@ -242,21 +242,21 @@ export default function ProfilePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-500">Họ và tên</label>
+                    <label className="text-sm font-medium text-indigo-950">Họ và tên</label>
                     <p className="text-lg font-medium text-gray-900">{user.name}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-500">Email</label>
+                    <label className="text-sm font-medium text-indigo-950">Email</label>
                     <p className="text-lg font-medium text-gray-900">{user.email}</p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-500">Ngày tham gia</label>
+                    <label className="text-sm font-medium text-indigo-950">Ngày tham gia</label>
                     <p className="text-lg font-medium text-gray-900">{new Date().toLocaleDateString("vi-VN")}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-500">Trạng thái</label>
+                    <label className="text-sm font-medium text-indigo-950">Trạng thái</label>
                     <Badge className="bg-green-500 hover:bg-green-600">Đã xác thực</Badge>
                   </div>
                 </div>
@@ -374,7 +374,7 @@ export default function ProfilePage() {
                         </div>
                         <div className="text-right">
                           <div className="font-bold text-red-600">{order.total.toLocaleString("vi-VN")}đ</div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-indigo-950">
                             {new Date(order.createdAt).toLocaleDateString("vi-VN")}
                           </div>
                         </div>

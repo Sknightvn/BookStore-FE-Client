@@ -167,7 +167,7 @@ export default function OrderSuccessPage() {
               {order.shippingAddress.city}
             </p>
             {order.shippingAddress.notes && (
-              <p className="text-sm text-gray-500 italic">Ghi chú: {order.shippingAddress.notes}</p>
+              <p className="text-sm text-indigo-950 italic">Ghi chú: {order.shippingAddress.notes}</p>
             )}
           </div>
         </CardContent>
@@ -190,7 +190,7 @@ export default function OrderSuccessPage() {
                 <div className="flex-1">
                   <h4 className="font-medium text-gray-900">{item.title}</h4>
                   <p className="text-sm text-indigo-950">{item.author}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-indigo-950">
                     {item.quantity} × {item.price.toLocaleString("vi-VN")}đ
                   </p>
                 </div>

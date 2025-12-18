@@ -17,7 +17,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { IconArrowLeft, IconCreditCard, IconTruck, IconMapPin, IconUserSquareRounded, IconPhone, IconMail } from "@tabler/icons-react"
+import { IconArrowLeft, IconCreditCard, IconTruck, IconMapPin, IconUserSquareRounded, IconPhone, IconMail, IconShoppingCart } from "@tabler/icons-react"
 import { useCart } from "@/contexts/cart-context"
 import { useAuth } from "@/contexts/auth-context"
 import type { ShippingAddress } from "@/lib/orders-data"
@@ -100,7 +100,7 @@ export default function CheckoutPage() {
         tax: getTax(),
         total: getFinalTotal(),
         paymentMethod,
-        
+
       }
 
       localStorage.setItem("checkoutData", JSON.stringify(checkoutData))
@@ -136,28 +136,17 @@ export default function CheckoutPage() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-
-        <div className="flex items-center">
-          <Button variant="ghost" onClick={() => router.back()} className="mr-4">
-            <IconArrowLeft size={16} className="mr-2" />
-            Quay lại
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Thanh toán</h1>
-            <p className="text-indigo-950 mt-2">Hoàn tất đơn hàng của bạn</p>
-          </div>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Checkout Form */}
         <div className="lg:col-span-2 space-y-6">
           {/* Shipping Address */}
-          <Card>
-            <CardHeader>
+          <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+            <CardHeader className="bg-indigo-100">
               <CardTitle className="flex items-center space-x-2">
-                <IconMapPin size={20} />
-                <span>Thông tin giao hàng</span>
+                <IconMapPin size={20} className="text-indigo-700" />
+                <span className="text-lg text-indigo-700">Thông tin giao hàng</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -266,11 +255,11 @@ export default function CheckoutPage() {
           </Card>
 
           {/* Payment Method */}
-          <Card>
-            <CardHeader>
+          <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+          <CardHeader className="bg-indigo-100">
               <CardTitle className="flex items-center space-x-2">
-                <IconCreditCard size={20} />
-                <span>Phương thức thanh toán</span>
+                <IconCreditCard size={20} className="text-indigo-700" />
+                <span className="text-lg text-indigo-700">Phương thức thanh toán</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -278,66 +267,88 @@ export default function CheckoutPage() {
                 value={paymentMethod}
                 onValueChange={(value) => setPaymentMethod(value as "cod" | "bank_transfer")}
               >
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3 p-4 border rounded-lg hover:bg-gray-50 transition-colors duration-200">
-                    <RadioGroupItem value="cod" id="cod" />
+                <div className="space-y-3">
+                  <div
+                    className={`relative flex items-start space-x-4 p-5 rounded-lg border transition-all duration-200 cursor-pointer ${
+                      paymentMethod === "cod"
+                        ? "border-green-500 bg-gradient-to-br from-green-100 via-emerald-100 to-teal-100"
+                        : "border-gray-200 bg-white hover:border-green-400 hover:bg-green-50/30"
+                    }`}
+                    onClick={() => setPaymentMethod("cod")}
+                  >
+                    <RadioGroupItem value="cod" id="cod" className="mt-1" />
                     <div className="flex-1">
-                      <Label htmlFor="cod" className="flex items-center space-x-3 cursor-pointer">
-                        <IconTruck size={20} className="text-green-600" />
-                        <div>
-                          <div className="font-medium">Thanh toán khi nhận hàng (COD)</div>
-                          <div className="text-sm text-gray-500">Thanh toán bằng tiền mặt khi nhận hàng</div>
+                      <Label htmlFor="cod" className="cursor-pointer w-full">
+                        <div className="flex items-start space-x-4">
+                          <div className={`flex-shrink-0 p-3 rounded-lg transition-colors ${
+                            paymentMethod === "cod" ? "bg-green-500 text-white" : "bg-gray-100 text-gray-600"
+                          }`}>
+                            <IconTruck size={22} />
+                          </div>
+                          <div className="flex-1 pt-0.5">
+                            <div className={`font-bold text-lg mb-1 ${
+                              paymentMethod === "cod" ? "text-green-700" : "text-gray-900"
+                            }`}>
+                              Thanh toán khi nhận hàng (COD)
+                            </div>
+                            <div className={`text-sm ${
+                              paymentMethod === "cod" ? "text-green-600" : "text-gray-500"
+                            }`}>
+                              Thanh toán bằng tiền mặt khi nhận hàng
+                            </div>
+                          </div>
                         </div>
                       </Label>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-3 p-4 border rounded-lg hover:bg-gray-50 transition-colors duration-200">
-                    <RadioGroupItem value="bank_transfer" id="bank_transfer" />
+                  <div
+                    className={`relative flex items-start space-x-4 p-5 rounded-lg border transition-all duration-200 cursor-pointer ${
+                      paymentMethod === "bank_transfer"
+                        ? "border-purple-500 bg-gradient-to-br from-purple-100 via-violet-100 to-fuchsia-100"
+                        : "border-gray-200 bg-white hover:border-purple-400 hover:bg-purple-50/30"
+                    }`}
+                    onClick={() => setPaymentMethod("bank_transfer")}
+                  >
+                    <RadioGroupItem value="bank_transfer" id="bank_transfer" className="mt-1" />
                     <div className="flex-1">
-                      <Label htmlFor="bank_transfer" className="flex items-center space-x-3 cursor-pointer">
-                        <IconCreditCard size={20} className="text-indigo-600" />
-                        <div>
-                          <div className="font-medium">Chuyển khoản ngân hàng</div>
-                          <div className="text-sm text-gray-500">Chuyển khoản trước khi giao hàng</div>
+                      <Label htmlFor="bank_transfer" className="cursor-pointer w-full">
+                        <div className="flex items-start space-x-4">
+                          <div className={`flex-shrink-0 p-3 rounded-lg transition-colors ${
+                            paymentMethod === "bank_transfer" ? "bg-purple-500 text-white" : "bg-gray-100 text-gray-600"
+                          }`}>
+                            <IconCreditCard size={22} />
+                          </div>
+                          <div className="flex-1 pt-0.5">
+                            <div className={`font-bold text-lg mb-1 ${
+                              paymentMethod === "bank_transfer" ? "text-purple-700" : "text-gray-900"
+                            }`}>
+                              Chuyển khoản ngân hàng
+                            </div>
+                            <div className={`text-sm ${
+                              paymentMethod === "bank_transfer" ? "text-purple-600" : "text-gray-500"
+                            }`}>
+                              Chuyển khoản trước khi giao hàng
+                            </div>
+                          </div>
                         </div>
                       </Label>
                     </div>
                   </div>
                 </div>
               </RadioGroup>
-
-              {/* {paymentMethod === "bank_transfer" && (
-                <div className="mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
-                  <h4 className="font-medium text-indigo-900 mb-2">Thông tin chuyển khoản:</h4>
-                  <div className="text-sm text-indigo-800 space-y-1">
-                    <p>
-                      <strong>Ngân hàng:</strong> Vietcombank
-                    </p>
-                    <p>
-                      <strong>Số tài khoản:</strong> 1234567890
-                    </p>
-                    <p>
-                      <strong>Chủ tài khoản:</strong> BOOKSTORE VIETNAM
-                    </p>
-                    <p>
-                      <strong>Nội dung:</strong> [Mã đơn hàng] - [Họ tên]
-                    </p>
-                  </div>
-                  <p className="text-sm text-indigo-700 mt-2">
-                    * Đơn hàng sẽ được xử lý sau khi chúng tôi xác nhận thanh toán
-                  </p>
-                </div>
-              )} */}
             </CardContent>
           </Card>
         </div>
 
         {/* Order Summary */}
         <div className="lg:col-span-1">
-          <Card className="sticky top-4">
-            <CardHeader>
-              <CardTitle>Tóm tắt đơn hàng</CardTitle>
+          <Card className="sticky top-4 border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+            <CardHeader className="bg-indigo-100">
+              <CardTitle className="flex items-center space-x-2">
+                <IconShoppingCart size={20} />
+                <span className="text-lg text-indigo-700">Tóm tắt đơn hàng</span>
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Order Items */}
@@ -397,7 +408,7 @@ export default function CheckoutPage() {
                 {isLoading ? "Đang xử lý..." : "Tiến hành thanh toán"}
               </Button>
 
-              <p className="text-sm text-gray-500 text-center">
+              <p className="text-sm text-indigo-950 text-center">
                 Bằng cách đặt hàng, bạn đồng ý với{" "}
                 <a href="/terms" className="text-indigo-600 hover:underline">
                   điều khoản sử dụng

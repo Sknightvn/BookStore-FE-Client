@@ -147,7 +147,7 @@ export default function BlogPage() {
                   <Badge className="absolute top-4 left-4 bg-red-500 hover:bg-red-600">Nổi bật</Badge>
                 </div>
                 <CardContent className="p-4">
-                  <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+                  <div className="flex items-center space-x-4 text-sm text-indigo-950 mb-3">
                     <span className="flex items-center">
                       <IconCalendar size={16} className="mr-1" />
                       {new Date(post.publishDate).toLocaleDateString("vi-VN")}
@@ -163,7 +163,7 @@ export default function BlogPage() {
                   </h3>
                   <p className="text-indigo-950 mb-4 line-clamp-3">{post.excerpt}</p>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500">{post.readTime} phút đọc</span>
+                    <span className="text-sm text-indigo-950">{post.readTime} phút đọc</span>
                     <Link
                       href={`/blog/${post.id}`}
                       className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium"
@@ -222,7 +222,7 @@ export default function BlogPage() {
               <Badge className="absolute top-3 left-3 bg-indigo-500 hover:bg-indigo-600">{post.category}</Badge>
             </div>
             <CardContent className="p-4 flex-1 flex flex-col">
-              <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+              <div className="flex items-center space-x-4 text-sm text-indigo-950 mb-3">
                 <span className="flex items-center">
                   <IconCalendar size={16} className="mr-1" />
                   {new Date(post.publishDate).toLocaleDateString("vi-VN")}
@@ -244,7 +244,7 @@ export default function BlogPage() {
                 ))}
               </div>
               <div className="flex items-center justify-between mt-auto">
-                <span className="text-sm text-gray-500 flex items-center">
+                <span className="text-sm text-indigo-950 flex items-center">
                   <IconBook size={16} className="mr-1" />
                   {post.readTime} phút đọc
                 </span>

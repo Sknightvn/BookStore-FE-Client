@@ -128,11 +128,11 @@ export default function OrderConfirmationPage() {
         </Card>
 
         {/* Shipping Address */}
-        <Card>
-          <CardHeader>
+        <Card className="border border-indigo-300 bg-slate-50/80 overflow-hidden mb-4">
+          <CardHeader className="bg-indigo-100">
             <CardTitle className="flex items-center space-x-2">
-              <IconMapPin size={20} />
-              <span>Địa chỉ giao hàng</span>
+              <IconMapPin size={20} className="text-indigo-700" />
+              <span className="text-lg text-indigo-700">Địa chỉ giao hàng</span>
             </CardTitle>
           </CardHeader>
           <CardContent>

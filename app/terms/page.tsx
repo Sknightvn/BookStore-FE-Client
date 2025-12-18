@@ -64,7 +64,7 @@ export default function TermsPage() {
         thương lượng; nếu không đạt được thỏa thuận, sẽ được đưa ra cơ quan có thẩm quyền tại Việt Nam.
       </p>
 
-      <p className="text-gray-500 text-sm mt-6">
+      <p className="text-indigo-950 text-sm mt-6">
         Nội dung trên mang tính mẫu tham khảo. Nếu bạn cần tuân thủ chặt chẽ các quy định pháp lý, nên tham khảo thêm ý
         kiến tư vấn pháp lý chuyên nghiệp.
       </p>

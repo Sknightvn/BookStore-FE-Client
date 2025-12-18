@@ -53,15 +53,15 @@ export default function ProductCard({ product }: ProductCardProps) {
   }
 
   return (
-    <Card 
-    style={{
-      background: "url('/layered-waves-haikei.svg') no-repeat center center",
-      backgroundSize: "cover",
-      backgroundPosition: "bottom",
-      backgroundRepeat: "no-repeat",
-    }}
-    className="flex flex-col h-full hover:shadow-lg cursor-pointer hover:translate-y-2 transition-all duration-300 !border-indigo-300">
-      <CardHeader className="pb-2">
+    <Card
+      style={{
+        background: "url('/layered-waves-haikei.svg') no-repeat center center",
+        backgroundSize: "cover",
+        backgroundPosition: "bottom",
+        backgroundRepeat: "no-repeat",
+      }}
+      className="flex flex-col h-full hover:shadow-lg cursor-pointer hover:translate-y-2 transition-all duration-300 !border-indigo-300">
+      <CardHeader className="pb-2 !border-b-0">
         <Link href={`/products/${product._id}`}>
           <div className="relative w-full h-48 mb-2 rounded-md overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
             {product.coverImage ? (
@@ -75,8 +75,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           <CardTitle className="line-clamp-2 text-xl !text-white">{product.title}</CardTitle>
         </Link>
         <CardDescription className="text-sm text-gray-200 flex justify-between">
-        <span className="text-gray-200 text-sm">Tác giả:</span>
-        <span className="font-medium px-3 py-1 text-indigo-950 rounded-full bg-[#E1CAAB]">{product.author}</span>
+          <span className="text-gray-200 text-sm">Tác giả:</span>
+          <span className="font-medium px-3 py-1 text-indigo-950 rounded-full bg-[#E1CAAB]">{product.author}</span>
         </CardDescription>
       </CardHeader>
 
@@ -107,8 +107,8 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="flex items-center justify-between pt-3 border-t border-t-indigo-500">
-        <div className="text-lg font-bold text-indigo-400">{product.price.toLocaleString("vi-VN")}₫</div>
+      <CardFooter className="flex items-center justify-between pt-3 border-t border-t-indigo-400">
+        <div className="!text-2xl font-semibold text-[#E1CAAB]">{product.price.toLocaleString("vi-VN")}₫</div>
         <Button onClick={handleAddToCart} disabled={isOutOfStock} size="sm" className="gap-2" variant="fulled">
           <IconShoppingCart size={16} />
           Thêm
@@ -144,7 +144,7 @@ export function FeaturedProductCard({ product }: ProductCardProps) {
 
   return (
     <Card className="group hover:shadow-xl overflow-hidden bg-indigo-950 transition cursor-pointer rounded-xl">
-      <CardHeader className="p-2">
+      <CardHeader className="p-2 !border-b-0">
         <div className="relative">
           <img
             src={product.coverImage || "/placeholder.svg"}

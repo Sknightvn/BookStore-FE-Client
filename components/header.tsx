@@ -28,7 +28,7 @@ export default function Header() {
   const handleLogout = () => {
     logout()
     setIsMenuOpen(false)
-    window.location.reload() 
+    window.location.reload()
   }
 
   return (
@@ -61,21 +61,9 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Search Bar */}
-          <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
-            {/* <div className="relative w-full">
-              <Input
-                type="text"
-                placeholder="Tìm kiếm sách..."
-                className="pl-10 pr-4 py-2 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            </div> */}
-          </div>
-
           {/* Right Actions */}
           <div className="flex items-center space-x-4">
-          <Button
+            <Button
               variant="ghost"
               size="sm"
               className="relative hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200"
@@ -94,8 +82,8 @@ export default function Header() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
-                    variant="ghost"
-                    className="flex items-center space-x-2 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200"
+                    variant="fulled"
+                    className="flex items-center hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200"
                   >
                     <Avatar className="w-6 h-6">
                       <AvatarFallback className="text-sm bg-indigo-100 text-indigo-600">
@@ -192,7 +180,7 @@ export default function Header() {
               <div className="border-t pt-2">
                 {user ? (
                   <>
-                    <div className="px-3 py-2 text-sm text-gray-500">Xin chào, {user.name}</div>
+                    <div className="px-3 py-2 text-sm text-indigo-950">Xin chào, {user.name}</div>
                     <Link
                       href="/profile"
                       className="block px-3 py-2 text-indigo-950 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors duration-200"

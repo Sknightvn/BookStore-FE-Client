@@ -91,14 +91,14 @@ export default function ProductDetailPage() {
   }
 
   if (loading) {
-    return <div className="text-center py-12 text-gray-500 text-lg">Đang tải chi tiết sách...</div>
+    return <div className="text-center py-12 text-indigo-950 text-lg">Đang tải chi tiết sách...</div>
   }
 
   if (!product) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg mb-4">Không tìm thấy sản phẩm</p>
+          <p className="text-indigo-950 text-lg mb-4">Không tìm thấy sản phẩm</p>
           <Button asChild variant="outline">
             <Link href="/products">
               <IconArrowLeft size={16} className="mr-2" />

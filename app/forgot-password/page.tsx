@@ -92,7 +92,7 @@ export default function ForgotPasswordPage() {
                       required
                     />
                   </div>
-                  <p className="text-sm text-gray-500 mt-1">Mật khẩu mới sẽ được gửi đến email này</p>
+                  <p className="text-sm text-indigo-950 mt-1">Mật khẩu mới sẽ được gửi đến email này</p>
                 </div>
 
                 {/* Submit button */}
@@ -114,7 +114,7 @@ export default function ForgotPasswordPage() {
                 </div>
 
                 <div className="pt-4">
-                  <p className="text-sm text-gray-500">Tự động chuyển hướng trong 3 giây...</p>
+                  <p className="text-sm text-indigo-950">Tự động chuyển hướng trong 3 giây...</p>
                 </div>
               </div>
             )}

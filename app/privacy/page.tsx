@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
         <strong>(094) 6280 159</strong>.
       </p>
 
-      <p className="text-gray-500 text-sm mt-6">
+      <p className="text-indigo-950 text-sm mt-6">
         Lưu ý: Nội dung trên mang tính tham khảo và có thể được điều chỉnh để phù hợp hơn với yêu cầu pháp lý thực tế.
       </p>
     </div>

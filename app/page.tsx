@@ -91,7 +91,7 @@ export default function HomePage() {
               <span>Sách nổi bật</span>
             </h2>
         {loading ? (
-          <p className="text-center text-gray-500">Đang tải sản phẩm...</p>
+          <p className="text-center text-indigo-950">Đang tải sản phẩm...</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-3 gap-y-4">
             {featuredBooks.map((book) => (

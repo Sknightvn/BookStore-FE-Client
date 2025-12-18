@@ -47,7 +47,7 @@ function PaymentSuccessContent() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h2 className="text-2xl font-semibold text-gray-800">Đang xác nhận thanh toán...</h2>
-      <p className="text-gray-500 mt-2">Vui lòng chờ trong giây lát.</p>
+      <p className="text-indigo-950 mt-2">Vui lòng chờ trong giây lát.</p>
     </div>
   )
 }
@@ -57,7 +57,7 @@ export default function PaymentSuccessPage() {
     <Suspense fallback={
       <div className="flex flex-col items-center justify-center h-screen">
         <h2 className="text-2xl font-semibold text-gray-800">Đang tải...</h2>
-        <p className="text-gray-500 mt-2">Vui lòng chờ trong giây lát.</p>
+        <p className="text-indigo-950 mt-2">Vui lòng chờ trong giây lát.</p>
       </div>
     }>
       <PaymentSuccessContent />

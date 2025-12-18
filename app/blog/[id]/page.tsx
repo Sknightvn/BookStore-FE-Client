@@ -265,7 +265,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
       {/* Article Header */}
       <article className="space-y-6">
         <header className="space-y-4">
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-indigo-950">
             <Badge className="bg-indigo-500 hover:bg-indigo-600">{post.category}</Badge>
             <span className="flex items-center">
               <IconCalendar size={16} className="mr-1" />

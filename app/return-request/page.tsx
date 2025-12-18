@@ -184,23 +184,23 @@ function ReturnRequestContent() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-500">Mã đơn hàng</label>
+                <label className="text-sm font-medium text-indigo-950">Mã đơn hàng</label>
                 <p className="font-mono text-sm text-indigo-600">{order.orderCode}</p>
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-500">Trạng thái</label>
+                <label className="text-sm font-medium text-indigo-950">Trạng thái</label>
                 <Badge className="bg-green-500 hover:bg-green-600 mt-1">Đã giao hàng</Badge>
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-500">Tổng tiền</label>
+                <label className="text-sm font-medium text-indigo-950">Tổng tiền</label>
                 <p className="text-xl font-bold text-red-600">{order.total.toLocaleString("vi-VN")}đ</p>
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-500">Ngày đặt hàng</label>
+                <label className="text-sm font-medium text-indigo-950">Ngày đặt hàng</label>
                 <p className="text-sm">{new Date(order.createdAt).toLocaleDateString("vi-VN")}</p>
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-500">Số sản phẩm</label>
+                <label className="text-sm font-medium text-indigo-950">Số sản phẩm</label>
                 <p className="text-sm">{totalItems} sản phẩm</p>
               </div>
             </CardContent>
@@ -221,7 +221,7 @@ function ReturnRequestContent() {
                     />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">{item.title}</p>
-                      <p className="text-sm text-gray-500">x{item.quantity}</p>
+                      <p className="text-sm text-indigo-950">x{item.quantity}</p>
                     </div>
                   </div>
                 ))}
@@ -295,7 +295,7 @@ function ReturnRequestContent() {
                           </>
                         )}
                       </p>
-                      <p className="text-sm text-gray-500 mt-1">JPG, PNG, GIF. Tối đa 5MB</p>
+                      <p className="text-sm text-indigo-950 mt-1">JPG, PNG, GIF. Tối đa 5MB</p>
                     </label>
                   </div>
                 </div>
