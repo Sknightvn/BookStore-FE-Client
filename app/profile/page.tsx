@@ -373,7 +373,7 @@ export default function ProfilePage() {
                           {getStatusBadge(order.status)}
                         </div>
                         <div className="text-right">
-                          <div className="font-bold text-red-600">{order.total.toLocaleString("vi-VN")}đ</div>
+                          <div className="font-bold text-red-500">{order.total.toLocaleString("vi-VN")}đ</div>
                           <div className="text-sm text-indigo-950">
                             {new Date(order.createdAt).toLocaleDateString("vi-VN")}
                           </div>

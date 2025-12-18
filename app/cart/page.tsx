@@ -457,7 +457,7 @@ export default function CartPage() {
                         e.stopPropagation()
                         handleDeleteAddress(addr.id)
                       }}
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
                     >
                       <IconTrash size={16} />
                     </Button>
@@ -534,7 +534,7 @@ export default function CartPage() {
                 {/* Total */}
                 <div className="flex justify-between text-lg font-bold">
                   <span>Tổng cộng</span>
-                  <span className="text-red-600">{getFinalTotal().toLocaleString("vi-VN")}đ</span>
+                  <span className="text-red-500">{getFinalTotal().toLocaleString("vi-VN")}đ</span>
                 </div>
 
                 {/* Shipping Info */}

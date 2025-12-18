@@ -395,7 +395,7 @@ export default function CheckoutPage() {
 
               <div className="flex justify-between text-lg font-bold">
                 <span>Tổng cộng</span>
-                <span className="text-red-600">{getFinalTotal().toLocaleString("vi-VN")}đ</span>
+                <span className="text-red-500">{getFinalTotal().toLocaleString("vi-VN")}đ</span>
               </div>
 
               {/* Proceed to Payment Button */}

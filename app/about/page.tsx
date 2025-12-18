@@ -10,7 +10,7 @@ const stats = [
   { icon: IconBook, label: "Đầu sách", value: "50,000+", color: "text-indigo-600" },
   { icon: IconUserSquareRounded, label: "Khách hàng", value: "100,000+", color: "text-green-600" },
   { icon: IconAward, label: "Năm kinh nghiệm", value: "15+", color: "text-purple-600" },
-  { icon: IconHeart, label: "Đánh giá 5 sao", value: "98%", color: "text-red-600" },
+  { icon: IconHeart, label: "Đánh giá 5 sao", value: "98%", color: "text-red-500" },
 ]
 
 const values = [

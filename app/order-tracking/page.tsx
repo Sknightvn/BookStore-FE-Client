@@ -202,7 +202,7 @@ export default function OrderTrackingPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="font-medium">Tổng tiền:</span>
-                    <span className="text-lg font-bold text-red-600">{order.total?.toLocaleString("vi-VN")}đ</span>
+                    <span className="text-lg font-bold text-red-500">{order.total?.toLocaleString("vi-VN")}đ</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-medium">Người nhận:</span>

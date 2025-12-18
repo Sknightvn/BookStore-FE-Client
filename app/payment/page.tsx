@@ -234,7 +234,7 @@ export default function PaymentPage() {
 
             <div className="flex justify-between text-lg font-bold">
               <span>Tổng cộng</span>
-              <span className="text-red-600">{checkoutData.total.toLocaleString("vi-VN")}đ</span>
+              <span className="text-red-500">{checkoutData.total.toLocaleString("vi-VN")}đ</span>
             </div>
           </CardContent>
         </Card>

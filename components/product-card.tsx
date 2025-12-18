@@ -100,7 +100,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
           <div className="flex justify-between">
             <span className="text-gray-200 text-sm">Kho:</span>
-            <span className={`font-medium ${isOutOfStock ? "text-red-600" : "text-green-600"}`}>
+            <span className={`font-medium ${isOutOfStock ? "text-red-500" : "text-green-600"}`}>
               {isOutOfStock ? "Hết hàng" : `${product.stock} cuốn`}
             </span>
           </div>

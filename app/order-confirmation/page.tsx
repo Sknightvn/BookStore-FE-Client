@@ -208,7 +208,7 @@ export default function OrderConfirmationPage() {
 
             <div className="flex justify-between text-lg font-bold">
               <span>Tổng cộng</span>
-              <span className="text-red-600">{order.total.toLocaleString("vi-VN")}đ</span>
+              <span className="text-red-500">{order.total.toLocaleString("vi-VN")}đ</span>
             </div>
           </CardContent>
         </Card>

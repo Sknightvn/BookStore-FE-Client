@@ -107,7 +107,7 @@ export default function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} className="flex items-center space-x-2 text-red-600">
+                  <DropdownMenuItem onClick={handleLogout} className="flex items-center space-x-2 text-red-500">
                     <IconLogout size={16} />
                     <span>Đăng xuất</span>
                   </DropdownMenuItem>
@@ -197,7 +197,7 @@ export default function Header() {
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="block w-full text-left px-3 py-2 text-red-600 hover:bg-red-50 rounded-md transition-colors duration-200"
+                      className="block w-full text-left px-3 py-2 text-red-500 hover:bg-red-50 rounded-md transition-colors duration-200"
                     >
                       Đăng xuất
                     </button>

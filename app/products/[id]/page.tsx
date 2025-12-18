@@ -223,7 +223,7 @@ export default function ProductDetailPage() {
                   <IconBuildingWarehouse size={16} className="text-indigo-500" />
                   Kho hàng:
                 </span>
-                <span className={`font-medium ${isOutOfStock ? "text-red-600" : "text-green-600"}`}>
+                <span className={`font-medium ${isOutOfStock ? "text-red-500" : "text-green-600"}`}>
                   {isOutOfStock ? "Hết hàng" : `${product.stock} cuốn`}
                 </span>
               </div>

@@ -193,7 +193,7 @@ function ReturnRequestContent() {
               </div>
               <div>
                 <label className="text-sm font-medium text-indigo-950">Tổng tiền</label>
-                <p className="text-xl font-bold text-red-600">{order.total.toLocaleString("vi-VN")}đ</p>
+                <p className="text-xl font-bold text-red-500">{order.total.toLocaleString("vi-VN")}đ</p>
               </div>
               <div>
                 <label className="text-sm font-medium text-indigo-950">Ngày đặt hàng</label>

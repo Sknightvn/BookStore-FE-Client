@@ -63,7 +63,7 @@ export default function PromotionSelector() {
                 variant="ghost"
                 size="sm"
                 onClick={handleRemovePromotion}
-                className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                className="text-red-500 hover:text-red-700 hover:bg-red-50"
               >
                 <IconX size={16} />
               </Button>

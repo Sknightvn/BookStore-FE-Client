@@ -321,7 +321,7 @@ export default function ProductsPage() {
                 variant="outline"
                 size="sm"
                 onClick={handleClearFilters}
-                className="w-full text-red-600 hover:text-red-700 border-red-500 bg-red-100  hover:bg-red-50"
+                className="w-full text-red-500 hover:text-red-700 border-red-500 bg-red-100  hover:bg-red-50"
               >
                 <IconFilter size={16} className="mr-1" />
                 Xóa bộ lọc
@@ -413,7 +413,7 @@ export default function ProductsPage() {
                         <TableCell className="font-semibold text-indigo-900">
                           {product.price.toLocaleString("vi-VN")}₫
                         </TableCell>
-                        <TableCell className={product.stock === 0 ? "text-red-600" : "text-green-600"}>
+                        <TableCell className={product.stock === 0 ? "text-red-500" : "text-green-600"}>
                           {product.stock === 0 ? "Hết hàng" : `${product.stock} cuốn`}
                         </TableCell>
                         <TableCell>{product.publishYear}</TableCell>
