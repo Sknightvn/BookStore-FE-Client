@@ -75,33 +75,23 @@ export const ChatbotWidgetComponent = ({
     },
   });
 
-  // Load messages từ localStorage khi mount
-  useEffect(() => {
-    const savedMessages = localStorage.getItem(`chatbot_messages_${userId || "guest"}`);
-    if (savedMessages) {
-      try {
-        const parsed = JSON.parse(savedMessages);
-        // Không set trực tiếp, để useChatbot quản lý
-      } catch (e) {
-        console.error("Error loading messages:", e);
+  const formattedMessages = messages.map((msg) => {
+    if (msg.role === "assistant" && msg.content) {
+      if (!msg.content.includes('<strong>') && !msg.content.includes('<br>')) {
+        return {
+          ...msg,
+          content: formatMarkdownToHTML(msg.content),
+        };
       }
     }
-  }, [userId]);
-
-  // Lưu messages vào localStorage
-  useEffect(() => {
-    if (messages.length > 0) {
-      localStorage.setItem(`chatbot_messages_${userId || "guest"}`, JSON.stringify(messages));
-    }
-  }, [messages, userId]);
+    return msg;
+  });
 
   const customApiCall = useCallback(
     async (message: string): Promise<string> => {
       try {
         const response = await sendMessage(message);
-        // Format markdown thành HTML
-        const formattedResponse = formatMarkdownToHTML(response);
-        return formattedResponse;
+        return response;
       } catch (error) {
         throw error;
       }
@@ -123,7 +113,7 @@ export const ChatbotWidgetComponent = ({
         callApi={customApiCall}
         onBotResponse={handleBotResponse}
         handleNewMessage={handleNewMessage}
-        messages={messages}
+        messages={formattedMessages}
         primaryColor={primaryColor}
         inputMsgPlaceholder="Nhập câu hỏi của bạn..."
         chatbotName={chatbotName}

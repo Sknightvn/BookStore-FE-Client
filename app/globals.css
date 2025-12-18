@@ -266,3 +266,31 @@ div[class*="ChatBotWidget"] > div:first-child {
   justify-content: center !important;
   vertical-align: middle !important;
 }
+
+/* Format HTML trong chatbot messages */
+[class*="chatbot"] p,
+[class*="ChatBotWidget"] p,
+[class*="chatbot"] [class*="message"],
+[class*="ChatBotWidget"] [class*="message"],
+[class*="chatbot"] [class*="content"],
+[class*="ChatBotWidget"] [class*="content"],
+[class*="incoming"] p,
+[class*="outgoing"] p {
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+}
+
+/* Style cho strong tags trong messages */
+[class*="chatbot"] strong,
+[class*="ChatBotWidget"] strong,
+[class*="incoming"] strong,
+[class*="outgoing"] strong {
+  font-weight: 600 !important;
+  color: inherit !important;
+}
+
+/* Đảm bảo HTML được render */
+[class*="chatbot"] p[style*="font-family"],
+[class*="ChatBotWidget"] p[style*="font-family"] {
+  line-height: 1.6 !important;
+}
