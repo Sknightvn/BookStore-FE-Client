@@ -9,6 +9,7 @@ import { IconSearch, IconFilter, IconLayoutGrid, IconList, IconFilter2Search } f
 import ProductCard from "@/components/product-card"
 import Image from "next/image"
 import { useBooks } from "@/hooks/useBooks"
+import { useCategories } from "@/hooks/useCategories"
 import type { Book } from "@/interface/response/book"
 import {
   Breadcrumb,
@@ -44,24 +45,17 @@ export default function ProductsPage() {
   const scrollAnimationRef = useRef<number | null>(null)
 
   const { data: booksData, isLoading: loading } = useBooks(currentPage, itemsPerPage)
+  const { data: categoriesData } = useCategories()
 
   const products = booksData?.data || []
   const pagination = booksData?.pagination
   const totalPages = pagination?.totalPages || 1
   const total = pagination?.total || 0
 
-  // Fetch all books for categories (only once)
-  const { data: allBooksData } = useBooks()
-  const allProducts = allBooksData?.data || []
-
   const categories = useMemo(() => {
-    const uniqueCategories = Array.from(
-      new Set(
-        allProducts.map((b: Book) => (b && b.category && b.category.name ? b.category.name : "Khác"))
-      )
-    )
-    return ["Tất cả", ...uniqueCategories]
-  }, [allProducts])
+    const categoryNames = categoriesData?.data?.map((cat) => cat.name) || []
+    return ["Tất cả", ...categoryNames]
+  }, [categoriesData])
 
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Tất cả")

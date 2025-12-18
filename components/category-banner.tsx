@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { IconCategory2, IconChevronLeft, IconChevronRight, IconFlame } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { useCategories } from "@/hooks/useCategories"
 
 interface Product {
   _id: string
@@ -22,14 +23,19 @@ interface Product {
 }
 
 interface CategoryBannerProps {
-  categories: string[]
   products: Product[]
 }
 
-export default function CategoryBanner({ categories, products }: CategoryBannerProps) {
+export default function CategoryBanner({ products }: CategoryBannerProps) {
+  const { data: categoriesData } = useCategories()
   const [activeCategory, setActiveCategory] = useState(0)
   const [categoryProducts, setCategoryProducts] = useState<Product[]>([])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const categories = useMemo(() => {
+    const categoryNames = categoriesData?.data?.map((cat) => cat.name) || []
+    return ["Tất cả", ...categoryNames]
+  }, [categoriesData])
 
   // Filter products by active category
   useEffect(() => {

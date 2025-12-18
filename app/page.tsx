@@ -17,10 +17,6 @@ export default function HomePage() {
 
   const products = booksData?.data || []
   const featuredBooks = useMemo(() => products.slice(0, 10), [products])
-  const categories = useMemo(() => {
-    const uniqueCategories = Array.from(new Set(products.map((b) => b?.category?.name ?? "Khác")))
-    return ["Tất cả", ...uniqueCategories]
-  }, [products])
 
   return (
     <div className="space-y-12">
@@ -81,7 +77,7 @@ export default function HomePage() {
         </div>
       </section>
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {!loading && categories.length > 0 && <CategoryBanner categories={categories} products={products} />}
+        {!loading && <CategoryBanner products={products} />}
       </section>
 
       {/* Featured Books */}
