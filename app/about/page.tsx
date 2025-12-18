@@ -3,12 +3,12 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { IconBook, IconUserSquareRoundeds, IconAward, IconHeart, IconTarget, IconTruck, IconShield, IconClock, IconStar, IconMapPin, IconPhone, IconMail } from "@tabler/icons-react"
+import { IconBook, IconUserSquareRounded, IconAward, IconHeart, IconTarget, IconTruck, IconShield, IconClock, IconStar, IconMapPin, IconPhone, IconMail } from "@tabler/icons-react"
 import Link from "next/link"
 
 const stats = [
   { icon: IconBook, label: "Đầu sách", value: "50,000+", color: "text-blue-600" },
-  { icon: IconUserSquareRoundeds, label: "Khách hàng", value: "100,000+", color: "text-green-600" },
+  { icon: IconUserSquareRounded, label: "Khách hàng", value: "100,000+", color: "text-green-600" },
   { icon: IconAward, label: "Năm kinh nghiệm", value: "15+", color: "text-purple-600" },
   { icon: IconHeart, label: "Đánh giá 5 sao", value: "98%", color: "text-red-600" },
 ]
@@ -247,7 +247,7 @@ export default function AboutPage() {
                 asChild
               >
                 <Link href="/register">
-                  <IconUserSquareRoundeds size={20} className="mr-2" />
+                  <IconUserSquareRounded size={20} className="mr-2" />
                   Đăng ký ngay
                 </Link>
               </Button>

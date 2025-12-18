@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { IconUserSquareRounded, IconPackage, IconClock, IconCircleCheck, IconRotateCcw, IconAward, IconEye, IconLock, IconX } from "@tabler/icons-react"
+import { IconUserSquareRounded, IconPackage, IconClock, IconCircleCheck, IconRefresh, IconAward, IconEye, IconLock, IconX } from "@tabler/icons-react"
 import { useAuth } from "@/contexts/auth-context"
 import { message, Modal } from "antd"
 import { getSocket, joinOrderRoom, leaveOrderRoom } from "@/lib/socket"
@@ -87,12 +87,12 @@ export default function ProfilePage() {
       shipping: { text: "Đang giao hàng", color: "bg-orange-500", icon: IconPackage },
       delivered: { text: "Đã giao hàng", color: "bg-green-500", icon: IconCircleCheck },
       completed: { text: "Hoàn thành", color: "bg-green-600", icon: IconAward },
-      refunded: { text: "Đã hoàn trả", color: "bg-blue-600", icon: IconRotateCcw },
+      refunded: { text: "Đã hoàn trả", color: "bg-blue-600", icon: IconRefresh },
       cancelled: { text: "Đã hủy", color: "bg-red-500", icon: IconClock },
       yeu_cau_hoan_tra: { text: "Đã gửi yêu cầu trả hàng", color: "bg-red-500", icon: IconClock },
       paid: { text: "Hoàn hàng", color: "bg-yellow-500", icon: IconClock },
       tuchoi: { text: "Đơn hàng bị huỷ", color: "bg-red-500", icon: IconX },
-      huydonhang: { text: "Đã huỷ đơn", color: "bg-yellow-400", icon: IconRotateCcw },
+      huydonhang: { text: "Đã huỷ đơn", color: "bg-yellow-400", icon: IconRefresh },
     }
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending
     const IconComponent = config.icon

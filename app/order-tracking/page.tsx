@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { IconSearch, IconPackage, IconTruck, IconCircleCheck, IconClock, IconCircleX, IconRotateCcw, IconAward } from "@tabler/icons-react"
+import { IconSearch, IconPackage, IconTruck, IconCircleCheck, IconClock, IconCircleX, IconRefresh, IconAward } from "@tabler/icons-react"
 import { message } from "antd"
 import { useSearchParams } from "next/navigation"
 import { useOrderByCode } from "@/hooks/useOrders"
@@ -90,7 +90,7 @@ export default function OrderTrackingPage() {
       case "completed":
         return <IconAward size={20} className="text-green-600" />
       case "refunded":
-        return <IconRotateCcw size={20} className="text-blue-600" />
+        return <IconRefresh size={20} className="text-blue-600" />
       case "cancelled":
         return <IconCircleX size={20} className="text-red-500" />
       case "yeu_cau_hoan_tra":
@@ -334,7 +334,7 @@ export default function OrderTrackingPage() {
             <Card className="border-blue-200 mb-6">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-blue-600">
-                  <IconRotateCcw size={24} />
+                  <IconRefresh size={24} />
                   <div>
                     <h3 className="font-medium">Đơn hàng đã được hoàn trả</h3>
                     <p className="text-sm text-blue-500">
@@ -351,7 +351,7 @@ export default function OrderTrackingPage() {
             <Card className="border-orange-200 mb-6">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3 text-orange-600">
-                  <IconRotateCcw size={24} />
+                  <IconRefresh size={24} />
                   <div>
                     <h3 className="font-medium">Yêu cầu hoàn trả đã được chấp nhận</h3>
                     <p className="text-sm text-orange-500">
