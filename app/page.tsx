@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useMemo } from "react"
 import { Button } from "@/components/ui/button"
-import { IconMapPinCog } from "@tabler/icons-react"
+import { IconMapPinCog, IconBooks, IconFriends, IconBubbleText } from "@tabler/icons-react"
 import CategoryBanner from "@/components/category-banner"
 import WeeklyRanking from "@/components/weekly-ranking"
 import ImageCarousel from "@/components/image-carousel"
@@ -54,7 +54,7 @@ export default function HomePage() {
           ].map((item, index) => (
             <div
               key={index}
-              className="group relative cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group relative cursor-pointer transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
               <Image
                 draggable={false}
@@ -68,7 +68,7 @@ export default function HomePage() {
               <p className="text-base text-center font-semibold w-full text-[#E1CAAB] absolute bottom-3 transition-colors duration-300 group-hover:text-white">
                 {item.description}
               </p>
-              <div className="h-10 w-10 flex justify-center items-center z-10 bg-indigo-950 rounded-full absolute top-4 left-4 text-[#E1CAAB] shadow-md transition-all duration-300 group-hover:translate-y-0.5 group-hover:-translate-x-0.5">
+              <div className="h-10 w-10 flex justify-center items-center z-10 bg-indigo-950 rounded-full absolute top-4 left-4 text-[#E1CAAB] shadow-sm transition-all duration-300 group-hover:translate-y-0.5 group-hover:-translate-x-0.5">
                 {item.icon}
               </div>
               <div className="h-12 w-32 bg-[#F7F7F7] rounded-full absolute top-3 left-3 z-0 opacity-90 transition-all duration-300 group-hover:bg-orange-100 group-hover:opacity-100 group-hover:translate-y-0.5 group-hover:-translate-x-0.5" />
@@ -109,21 +109,84 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-indigo-600">10,000+</div>
-              <div className="text-indigo-950">Đầu sách</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-indigo-600">50,000+</div>
-              <div className="text-indigo-950">Khách hàng hài lòng</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-indigo-600">99%</div>
-              <div className="text-indigo-950">Đánh giá tích cực</div>
-            </div>
+      <section className="relative bg-gradient-to-br from-indigo-50 via-white to-indigo-50 py-20 overflow-hidden">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-600 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-400 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <p className="text-indigo-700 text-lg max-w-2xl mx-auto mb-8">
+              Những con số ấn tượng phản ánh sự tin tưởng và hài lòng của khách hàng
+            </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              {
+                icon: IconBooks,
+                value: "10,000+",
+                label: "Đầu sách",
+                description: "Sách đa dạng thể loại",
+                gradient: "from-indigo-500 to-indigo-600",
+                bgGradient: "from-indigo-100 to-indigo-50",
+              },
+              {
+                icon: IconFriends,
+                value: "50,000+",
+                label: "Khách hàng hài lòng",
+                description: "Tin tưởng và ủng hộ",
+                gradient: "from-purple-500 to-purple-600",
+                bgGradient: "from-purple-100 to-purple-50",
+              },
+              {
+                icon: IconBubbleText,
+                value: "99%",
+                label: "Đánh giá tích cực",
+                description: "Chất lượng dịch vụ",
+                gradient: "from-amber-500 to-amber-600",
+                bgGradient: "from-amber-100 to-amber-50",
+              },
+            ].map((stat, index) => {
+              const IconComponent = stat.icon;
+              return (
+                <div
+                  key={index}
+                  className="group relative bg-white rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 border border-indigo-100"
+                  tabIndex={0}
+                  role="article"
+                  aria-label={`${stat.label}: ${stat.value}`}
+                >
+                  {/* Background gradient on hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${stat.bgGradient} opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300`}></div>
+                  
+                  <div className="relative z-10">
+                    {/* Icon */}
+                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${stat.gradient} text-white mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <IconComponent size={32} stroke={2} />
+                    </div>
+                    
+                    {/* Value */}
+                    <div className={`text-5xl font-light bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-3 group-hover:scale-105 transition-transform duration-300`}>
+                      {stat.value}
+                    </div>
+                    
+                    {/* Label */}
+                    <div className="text-xl font-semibold text-indigo-950 mb-2">
+                      {stat.label}
+                    </div>
+                    
+                    {/* Description */}
+                    <div className="text-sm text-indigo-600">
+                      {stat.description}
+                    </div>
+                  </div>
+                  
+                  {/* Decorative corner element */}
+                  <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${stat.gradient} opacity-10 rounded-bl-full rounded-tr-2xl`}></div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
