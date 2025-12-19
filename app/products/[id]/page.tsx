@@ -555,10 +555,10 @@ export default function ProductDetailPage() {
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0">
-                      {review.userId.avatar ? (
+                      {review.userId?.avatar ? (
                         <Image
                           src={review.userId.avatar}
-                          alt={review.userId.name}
+                          alt={review.userId?.name || "Người dùng"}
                           width={48}
                           height={48}
                           className="rounded-full"
@@ -572,7 +572,9 @@ export default function ProductDetailPage() {
                     <div className="flex-1 space-y-2">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-semibold text-indigo-950">{review.userId.name}</p>
+                          <p className="font-semibold text-indigo-950">
+                            {review.userId?.name || "Người dùng ẩn danh"}
+                          </p>
                           <p className="text-sm text-gray-500">{formatDate(review.createdAt)}</p>
                         </div>
                         <div className="flex items-center gap-1">
