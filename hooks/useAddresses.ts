@@ -50,8 +50,15 @@ export const useDeleteAddress = () => {
     return useMutation({
         mutationFn: (data: DeleteAddressRequest) => addressesApi.deleteAddress(data),
         onSuccess: (_, variables) => {
-            // Invalidate addresses for this customer
-            queryClient.invalidateQueries({ queryKey: queryKeys.addresses(variables.customerId) })
+            // Invalidate and refetch addresses for this customer
+            queryClient.invalidateQueries({ 
+                queryKey: queryKeys.addresses(variables.customerId),
+                refetchType: 'active' // Only refetch active queries
+            })
+            // Explicitly refetch to ensure immediate update
+            queryClient.refetchQueries({ 
+                queryKey: queryKeys.addresses(variables.customerId)
+            })
         },
     })
 }

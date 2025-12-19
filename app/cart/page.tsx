@@ -9,6 +9,13 @@ import { Separator } from "@/components/ui/separator"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
@@ -79,6 +86,17 @@ export default function CartPage() {
     city: "",
   })
 
+  // Address selection states
+  const [provinces, setProvinces] = useState<any[]>([])
+  const [districts, setDistricts] = useState<any[]>([])
+  const [wards, setWards] = useState<any[]>([])
+  const [selectedProvince, setSelectedProvince] = useState<string>("")
+  const [selectedDistrict, setSelectedDistrict] = useState<string>("")
+  const [selectedWard, setSelectedWard] = useState<string>("")
+  const [loadingProvinces, setLoadingProvinces] = useState(false)
+  const [loadingDistricts, setLoadingDistricts] = useState(false)
+  const [loadingWards, setLoadingWards] = useState(false)
+
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -112,6 +130,84 @@ export default function CartPage() {
       }
     }
   }, [addressesData, setDeliveryAddresses, selectedAddressId, selectAddress])
+
+  // Fetch provinces on mount
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        setLoadingProvinces(true)
+        const response = await fetch("https://provinces.open-api.vn/api/")
+        const data = await response.json()
+        setProvinces(data)
+      } catch (error) {
+        message.error("Không thể tải danh sách tỉnh/thành")
+      } finally {
+        setLoadingProvinces(false)
+      }
+    }
+
+    fetchProvinces()
+  }, [])
+
+  // Fetch districts when province is selected
+  useEffect(() => {
+    if (selectedProvince) {
+      const fetchDistricts = async () => {
+        try {
+          setLoadingDistricts(true)
+          const response = await fetch(`https://provinces.open-api.vn/api/p/${selectedProvince}?depth=2`)
+          const data = await response.json()
+          setDistricts(data.districts || [])
+
+          // Reset district and ward when province changes
+          setSelectedDistrict("")
+          setSelectedWard("")
+          setWards([])
+          setAddress({ ...address, district: "", ward: "" })
+        } catch (error) {
+          message.error("Không thể tải danh sách quận/huyện")
+        } finally {
+          setLoadingDistricts(false)
+        }
+      }
+
+      fetchDistricts()
+    } else {
+      setDistricts([])
+      setWards([])
+      setSelectedDistrict("")
+      setSelectedWard("")
+      setAddress({ ...address, district: "", ward: "" })
+    }
+  }, [selectedProvince])
+
+  // Fetch wards when district is selected
+  useEffect(() => {
+    if (selectedDistrict) {
+      const fetchWards = async () => {
+        try {
+          setLoadingWards(true)
+          const response = await fetch(`https://provinces.open-api.vn/api/d/${selectedDistrict}?depth=2`)
+          const data = await response.json()
+          setWards(data.wards || [])
+
+          // Reset ward when district changes
+          setSelectedWard("")
+          setAddress({ ...address, ward: "" })
+        } catch (error) {
+          message.error("Không thể tải danh sách phường/xã")
+        } finally {
+          setLoadingWards(false)
+        }
+      }
+
+      fetchWards()
+    } else {
+      setWards([])
+      setSelectedWard("")
+      setAddress({ ...address, ward: "" })
+    }
+  }, [selectedDistrict])
 
   const checkStockAvailability = async (cartItems: any[]) => {
     try {
@@ -152,7 +248,7 @@ export default function CartPage() {
   }
 
   const handleSaveAddress = async () => {
-    if (!address.street || !address.ward || !address.district || !address.city) {
+    if (!address.street || !selectedWard || !selectedDistrict || !selectedProvince) {
       message.error("Vui lòng điền đầy đủ thông tin địa chỉ!")
       return
     }
@@ -162,18 +258,28 @@ export default function CartPage() {
       return
     }
 
+    // Get names from selected IDs
+    const provinceName = provinces.find((p) => p.code === selectedProvince)?.name || ""
+    const districtName = districts.find((d) => d.code === selectedDistrict)?.name || ""
+    const wardName = wards.find((w) => w.code === selectedWard)?.name || ""
+
     addAddressMutation.mutate(
       {
         customerId,
         street: address.street,
-        ward: address.ward,
-        district: address.district,
-        city: address.city,
+        ward: wardName,
+        district: districtName,
+        city: provinceName,
       },
       {
         onSuccess: () => {
           message.success("Đã lưu địa chỉ giao hàng!")
           setAddress({ street: "", ward: "", district: "", city: "" })
+          setSelectedProvince("")
+          setSelectedDistrict("")
+          setSelectedWard("")
+          setDistricts([])
+          setWards([])
           setShowAddressForm(false)
         },
         onError: (error: any) => {
@@ -346,15 +452,127 @@ export default function CartPage() {
                   onClick={() => {
                     setShowAddressForm(false)
                     setAddress({ street: "", ward: "", district: "", city: "" })
+                    setSelectedProvince("")
+                    setSelectedDistrict("")
+                    setSelectedWard("")
+                    setDistricts([])
+                    setWards([])
                   }}
                 >
                   <IconX size={16} />
                 </Button>
               </div>
               <div className="grid gap-4">
+                {/* Tỉnh/Thành phố - Chọn trước */}
+                <div>
+                  <Label htmlFor="province" className="text-sm font-medium">
+                    Tỉnh/Thành phố <span className="text-red-500">*</span>
+                  </Label>
+                  <Select
+                    value={selectedProvince}
+                    onValueChange={(value) => {
+                      setSelectedProvince(value)
+                      const province = provinces.find((p) => p.code === value)
+                      if (province) {
+                        setAddress({ ...address, city: province.name })
+                      }
+                    }}
+                    disabled={loadingProvinces}
+                  >
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder={loadingProvinces ? "Đang tải..." : "Chọn Tỉnh/Thành phố"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {provinces.map((province) => (
+                        <SelectItem key={province.code} value={province.code}>
+                          {province.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Quận/Huyện và Phường/Xã - Grid 2 cột */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Quận/Huyện - Chọn sau Tỉnh/Thành phố */}
+                  <div>
+                    <Label htmlFor="district" className="text-sm font-medium">
+                      Quận/Huyện <span className="text-red-500">*</span>
+                    </Label>
+                    <Select
+                      value={selectedDistrict}
+                      onValueChange={(value) => {
+                        setSelectedDistrict(value)
+                        const district = districts.find((d) => d.code === value)
+                        if (district) {
+                          setAddress({ ...address, district: district.name })
+                        }
+                      }}
+                      disabled={!selectedProvince || loadingDistricts}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue
+                          placeholder={
+                            !selectedProvince
+                              ? "Chọn Tỉnh/Thành phố trước"
+                              : loadingDistricts
+                                ? "Đang tải..."
+                                : "Chọn Quận/Huyện"
+                          }
+                        />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {districts.map((district) => (
+                          <SelectItem key={district.code} value={district.code}>
+                            {district.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Phường/Xã - Chọn sau Quận/Huyện */}
+                  <div>
+                    <Label htmlFor="ward" className="text-sm font-medium">
+                      Phường/Xã <span className="text-red-500">*</span>
+                    </Label>
+                    <Select
+                      value={selectedWard}
+                      onValueChange={(value) => {
+                        setSelectedWard(value)
+                        const ward = wards.find((w) => w.code === value)
+                        if (ward) {
+                          setAddress({ ...address, ward: ward.name })
+                        }
+                      }}
+                      disabled={!selectedDistrict || loadingWards}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue
+                          placeholder={
+                            !selectedDistrict
+                              ? "Chọn Quận/Huyện trước"
+                              : loadingWards
+                                ? "Đang tải..."
+                                : "Chọn Phường/Xã"
+                          }
+                        />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {wards.map((ward) => (
+                          <SelectItem key={ward.code} value={ward.code}>
+                            {ward.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Số nhà, tên đường - Nhập cuối cùng */}
                 <div>
                   <Label htmlFor="street" className="text-sm font-medium">
-                    Số nhà, tên đường
+                    Số nhà, tên đường <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     id="street"
@@ -364,50 +582,17 @@ export default function CartPage() {
                     className="mt-1"
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="ward" className="text-sm font-medium">
-                      Phường/Xã
-                    </Label>
-                    <Input
-                      id="ward"
-                      placeholder="VD: Phường 1"
-                      value={address.ward}
-                      onChange={(e) => setAddress({ ...address, ward: e.target.value })}
-                      className="mt-1"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="district" className="text-sm font-medium">
-                      Quận/Huyện
-                    </Label>
-                    <Input
-                      id="district"
-                      placeholder="VD: Gò Vấp"
-                      value={address.district}
-                      onChange={(e) => setAddress({ ...address, district: e.target.value })}
-                      className="mt-1"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <Label htmlFor="city" className="text-sm font-medium">
-                    Tỉnh/Thành phố
-                  </Label>
-                  <Input
-                    id="city"
-                    placeholder="VD: Hồ Chí Minh"
-                    value={address.city}
-                    onChange={(e) => setAddress({ ...address, city: e.target.value })}
-                    className="mt-1"
-                  />
-                </div>
                 <div className="flex justify-end space-x-2 mt-2">
                   <Button
                     variant="outline"
                     onClick={() => {
                       setShowAddressForm(false)
                       setAddress({ street: "", ward: "", district: "", city: "" })
+                      setSelectedProvince("")
+                      setSelectedDistrict("")
+                      setSelectedWard("")
+                      setDistricts([])
+                      setWards([])
                     }}
                   >
                     Hủy
@@ -457,9 +642,9 @@ export default function CartPage() {
                         e.stopPropagation()
                         handleDeleteAddress(addr.id)
                       }}
-                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                      className="text-red-500 !h-9 !w-9 border !border-red-500 hover:text-red-700 hover:bg-red-50 rounded-full !bg-red-100"
                     >
-                      <IconTrash size={16} />
+                      <IconTrash size={16} className="text-red-500"/>
                     </Button>
                   </div>
                 </div>

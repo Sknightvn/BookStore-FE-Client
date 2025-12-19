@@ -2,7 +2,6 @@ import axios from "axios";
 import { API_URL } from "@/lib/config";
 axios.defaults.withCredentials = true;
 
-// 🏠 Thêm địa chỉ mới
 export const addCustomerAddress = async (customerId, { street, ward, district, city }) => {
   try {
     const res = await axios.post(`${API_URL}/customer/add-address`, {
