@@ -103,7 +103,7 @@ export default function ProductDetailPage() {
   }
 
   const handleSubmitReview = async () => {
-    if (!isAuthenticated || !user) {
+    if (!isAuthenticated() || !user) {
       message.warning("Vui lòng đăng nhập để đánh giá sản phẩm")
       return
     }
@@ -451,7 +451,7 @@ export default function ProductDetailPage() {
             <span className="text-indigo-950 bg-indigo-800 w-1.5 h-5 rounded-full inline-block mr-2 translate-y-0.5"></span>
             <span>Đánh giá sản phẩm</span>
           </h2>
-          {isAuthenticated && (
+          {isAuthenticated() && (
             <Button
               variant="outline"
               onClick={() => setShowReviewForm(!showReviewForm)}
@@ -464,7 +464,7 @@ export default function ProductDetailPage() {
         </div>
 
         {/* Review Form */}
-        {isAuthenticated && showReviewForm && (
+        {isAuthenticated() && showReviewForm && (
           <Card className="border border-indigo-300 bg-slate-50/80">
             <CardHeader className="bg-indigo-100">
               <CardTitle className="flex items-center space-x-2">
@@ -536,7 +536,7 @@ export default function ProductDetailPage() {
           </Card>
         )}
 
-        {!isAuthenticated && (
+        {!isAuthenticated() && (
           <Card className="border border-indigo-300 bg-slate-50/80">
             <CardContent className="py-6 text-center">
               <p className="text-indigo-950 mb-4">Đăng nhập để viết đánh giá sản phẩm</p>
