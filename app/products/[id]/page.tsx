@@ -202,14 +202,8 @@ export default function ProductDetailPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Product Image */}
-        <div className="flex items-center justify-center">
-          <div className="relative w-full h-full rounded-lg overflow-hidden">
-            {product.coverImage ? (
-              <Image src={product.coverImage || "/placeholder.svg"} alt={product.title} fill className="object-contain" />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-400">Không có hình ảnh</div>
-            )}
-          </div>
+        <div className="flex items-start justify-center relative h-full">
+        <Image src={product.coverImage || "/placeholder.svg"} alt={product.title} fill className="object-contain w-full h-full" />
         </div>
 
         {/* Product Details */}
