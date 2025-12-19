@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 import {
   IconArrowLeft,
   IconShoppingCart,
@@ -25,14 +27,17 @@ import {
   IconShare3,
   IconBrandBooking,
   IconLibrary,
+  IconMessageCircle,
+  IconUser,
 } from "@tabler/icons-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useCart } from "@/contexts/cart-context"
 import { message } from "antd"
 import { useParams } from "next/navigation"
-import { useBook, useBooks } from "@/hooks/useBooks"
+import { useBook, useBooks, useAddReview } from "@/hooks/useBooks"
 import ProductCard, { FeaturedProductCard } from "@/components/product-card"
+import { useAuth } from "@/contexts/auth-context"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -47,6 +52,8 @@ export default function ProductDetailPage() {
   const productId = params.id as string
   const { data: productData, isLoading: loading } = useBook(productId)
   const product = productData?.data || null
+  const { user, isAuthenticated } = useAuth()
+  const addReviewMutation = useAddReview()
 
   const { data: booksData } = useBooks()
   const allBooks = booksData?.data || []
@@ -61,6 +68,9 @@ export default function ProductDetailPage() {
     .slice(0, 4)
 
   const [quantity, setQuantity] = useState(1)
+  const [reviewRating, setReviewRating] = useState(5)
+  const [reviewText, setReviewText] = useState("")
+  const [showReviewForm, setShowReviewForm] = useState(false)
   const { addToCart } = useCart()
 
   const handleAddToCart = () => {
@@ -90,6 +100,56 @@ export default function ProductDetailPage() {
       const newQuantity = Math.max(1, Math.min(value, product.stock))
       setQuantity(newQuantity)
     }
+  }
+
+  const handleSubmitReview = async () => {
+    if (!isAuthenticated || !user) {
+      message.warning("Vui lòng đăng nhập để đánh giá sản phẩm")
+      return
+    }
+
+    if (!reviewText.trim()) {
+      message.warning("Vui lòng nhập nội dung đánh giá")
+      return
+    }
+
+    if (reviewRating < 1 || reviewRating > 5) {
+      message.warning("Vui lòng chọn số sao từ 1 đến 5")
+      return
+    }
+
+    try {
+      await addReviewMutation.mutateAsync({
+        bookId: productId,
+        rating: reviewRating,
+        review: reviewText.trim(),
+      })
+      message.success("Đã thêm đánh giá thành công!")
+      setReviewText("")
+      setReviewRating(5)
+      setShowReviewForm(false)
+    } catch (error: any) {
+      message.error(error?.response?.data?.message || "Có lỗi xảy ra khi thêm đánh giá")
+    }
+  }
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString("vi-VN", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  }
+
+  const renderStars = (rating: number, size: number = 18) => {
+    return Array.from({ length: 5 }).map((_, index) => (
+      <IconStar
+        key={index}
+        size={size}
+        className={index < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}
+      />
+    ))
   }
 
   if (loading) {
@@ -157,10 +217,20 @@ export default function ProductDetailPage() {
           <div>
             <h1 className="text-3xl font-semibold text-indigo-950 mb-1 line-clamp-2">{product.title}</h1>
             <div className="flex flex-wrap items-center gap-3 mt-2">
-              <div className="flex items-center gap-1 text-yellow-400">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <IconStar key={index} size={18} className="fill-yellow-400 text-yellow-400" />
-                ))}
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
+                  {renderStars(Math.round(product.averageRating || 0))}
+                </div>
+                {product.averageRating && (
+                  <span className="text-sm font-medium text-indigo-950">
+                    {product.averageRating.toFixed(1)}
+                  </span>
+                )}
+                {product.totalReviews !== undefined && (
+                  <span className="text-sm text-gray-500">
+                    ({product.totalReviews} đánh giá)
+                  </span>
+                )}
               </div>
               <p className="flex items-center gap-2 text-sm font-semibold text-indigo-700 border border-indigo-500 rounded-full px-3 bg-indigo-50">
                 <IconUserSquareRounded size={16} className="text-indigo-500" />
@@ -372,6 +442,159 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Reviews Section */}
+      <div className="mt-10 space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold text-indigo-800 mb-2">
+            <span className="text-indigo-950 bg-indigo-800 w-1.5 h-5 rounded-full inline-block mr-2 translate-y-0.5"></span>
+            <span>Đánh giá sản phẩm</span>
+          </h2>
+          {isAuthenticated && (
+            <Button
+              variant="outline"
+              onClick={() => setShowReviewForm(!showReviewForm)}
+              className="flex items-center gap-2"
+            >
+              <IconMessageCircle size={18} />
+              {showReviewForm ? "Ẩn form đánh giá" : "Viết đánh giá"}
+            </Button>
+          )}
+        </div>
+
+        {/* Review Form */}
+        {isAuthenticated && showReviewForm && (
+          <Card className="border border-indigo-300 bg-slate-50/80">
+            <CardHeader className="bg-indigo-100">
+              <CardTitle className="flex items-center space-x-2">
+                <IconMessageCircle size={20} className="text-indigo-700" />
+                <span className="text-lg text-indigo-700">Viết đánh giá của bạn</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 pt-6">
+              <div className="space-y-2">
+                <Label className="text-indigo-950 font-medium">Đánh giá sao:</Label>
+                <div className="flex items-center gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setReviewRating(star)}
+                      className="focus:outline-none transition-transform hover:scale-110"
+                    >
+                      <IconStar
+                        size={32}
+                        className={
+                          star <= reviewRating
+                            ? "fill-yellow-400 text-yellow-400"
+                            : "text-gray-300"
+                        }
+                      />
+                    </button>
+                  ))}
+                  <span className="ml-2 text-sm font-medium text-indigo-950">
+                    {reviewRating} / 5 sao
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="review-text" className="text-indigo-950 font-medium">
+                  Nội dung đánh giá:
+                </Label>
+                <Textarea
+                  id="review-text"
+                  placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..."
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  rows={5}
+                  className="resize-none"
+                />
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleSubmitReview}
+                  disabled={addReviewMutation.isPending}
+                  className="flex-1"
+                >
+                  {addReviewMutation.isPending ? "Đang gửi..." : "Gửi đánh giá"}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowReviewForm(false)
+                    setReviewText("")
+                    setReviewRating(5)
+                  }}
+                >
+                  Hủy
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {!isAuthenticated && (
+          <Card className="border border-indigo-300 bg-slate-50/80">
+            <CardContent className="py-6 text-center">
+              <p className="text-indigo-950 mb-4">Đăng nhập để viết đánh giá sản phẩm</p>
+              <Button asChild>
+                <Link href="/login">Đăng nhập</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Reviews List */}
+        {product.reviews && product.reviews.length > 0 ? (
+          <div className="space-y-4">
+            {product.reviews.map((review) => (
+              <Card key={review._id} className="border border-indigo-200 bg-white">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      {review.userId.avatar ? (
+                        <Image
+                          src={review.userId.avatar}
+                          alt={review.userId.name}
+                          width={48}
+                          height={48}
+                          className="rounded-full"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
+                          <IconUser size={24} className="text-indigo-600" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-semibold text-indigo-950">{review.userId.name}</p>
+                          <p className="text-sm text-gray-500">{formatDate(review.createdAt)}</p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {renderStars(review.rating, 16)}
+                        </div>
+                      </div>
+                      <p className="text-indigo-950 leading-relaxed">{review.review}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <Card className="border border-indigo-200 bg-white">
+            <CardContent className="py-8 text-center">
+              <IconMessageCircle size={48} className="mx-auto text-gray-400 mb-4" />
+              <p className="text-indigo-950">Chưa có đánh giá nào cho sản phẩm này</p>
+              <p className="text-sm text-gray-500 mt-2">Hãy là người đầu tiên đánh giá sản phẩm này!</p>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* Similar products */}

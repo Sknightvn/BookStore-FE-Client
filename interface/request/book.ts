@@ -7,3 +7,9 @@ export interface BookFilters {
     search?: string
     sortBy?: string
 }
+
+export interface AddReviewRequest {
+    bookId: string
+    rating: number
+    review: string
+}

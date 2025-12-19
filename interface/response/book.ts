@@ -3,6 +3,20 @@ export interface Category {
     name: string
 }
 
+export interface Review {
+    _id: string
+    userId: {
+        _id: string
+        name: string
+        email: string
+        avatar?: string
+    }
+    rating: number
+    review: string
+    createdAt: string
+    updatedAt: string
+}
+
 export interface Book {
     _id: string
     title: string
@@ -16,6 +30,9 @@ export interface Book {
     coverImage: string
     description: string
     volume?: string
+    reviews?: Review[]
+    averageRating?: number
+    totalReviews?: number
 }
 
 export interface BooksResponse {
